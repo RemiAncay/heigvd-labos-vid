@@ -1,0 +1,5 @@
+"0","cor(penguins$bill_length_mm, penguins$flipper_length_mm, use = ""complete.obs"")"
+"1","[1]"
+"1"," 0.6561813"
+"1","
+"

@@ -1,0 +1,6 @@
+"0","#install.packages(""GGally"")"
+"0",""
+"0","library(GGally)"
+"0","library(ggplot2)"
+"0",""
+"0","ggpairs(anscombe.1)"

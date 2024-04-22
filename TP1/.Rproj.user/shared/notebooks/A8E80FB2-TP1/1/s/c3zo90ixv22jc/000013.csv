@@ -1,0 +1,5 @@
+"0","plasma.glm<-glm(ESR~fibrinogen+globulin, data=plasma, family=binomial)"
+"0","prob<-predict(plasma.glm, type=""response"")"
+"0","par(pty=""s"")"
+"0","plot(globulin~fibrinogen, data=plasma, xlim=c(2,6), ylim=c(25,55), pch=20, "
+"0","     xlab=""fibrinogène"", ylab=""globuline"", main="""")"

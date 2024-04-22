@@ -1,0 +1,144 @@
+"0","#install.packages(""readr"")"
+"0","library(""readr"")"
+"0",""
+"0","install.packages(""treemapify"")"
+"2","WARNING: Rtools is required to build R packages but is not currently installed. Please download and install the appropriate version of Rtools before proceeding:
+
+https://cran.rstudio.com/bin/windows/Rtools/
+"
+"2","Installation du package dans ‘C:/Users/remia/AppData/Local/R/win-library/4.3’
+(car ‘lib’ n'est pas spécifié)
+"
+"2","installation des dépendances ‘png’, ‘jpeg’, ‘shades’, ‘gridtext’, ‘ggfittext’
+
+"
+"2","essai de l'URL 'https://cran.rstudio.com/bin/windows/contrib/4.3/png_0.1-8.zip'
+"
+"2","Content type 'application/zip'"
+"2"," length 193087 bytes (188 KB)
+"
+"2","downloaded 188 KB
+
+"
+"2","essai de l'URL 'https://cran.rstudio.com/bin/windows/contrib/4.3/jpeg_0.1-10.zip'
+"
+"2","Content type 'application/zip'"
+"2"," length 157064 bytes (153 KB)
+"
+"2","downloaded 153 KB
+
+"
+"2","essai de l'URL 'https://cran.rstudio.com/bin/windows/contrib/4.3/shades_1.4.0.zip'
+"
+"2","Content type 'application/zip'"
+"2"," length 88078 bytes (86 KB)
+"
+"2","downloaded 86 KB
+
+"
+"2","essai de l'URL 'https://cran.rstudio.com/bin/windows/contrib/4.3/gridtext_0.1.5.zip'
+"
+"2","Content type 'application/zip'"
+"2"," length 691366 bytes (675 KB)
+"
+"2","downloaded 675 KB
+
+"
+"2","essai de l'URL 'https://cran.rstudio.com/bin/windows/contrib/4.3/ggfittext_0.10.2.zip'
+"
+"2","Content type 'application/zip'"
+"2"," length 883529 bytes (862 KB)
+"
+"2","downloaded 862 KB
+
+"
+"2","essai de l'URL 'https://cran.rstudio.com/bin/windows/contrib/4.3/treemapify_2.5.6.zip'
+"
+"2","Content type 'application/zip'"
+"2"," length 559349 bytes (546 KB)
+"
+"2","downloaded 546 KB
+
+"
+"1","le package ‘png’ a été décompressé et les sommes MD5 ont été vérifiées avec succés
+"
+"1","le package ‘jpeg’ a été décompressé et les sommes MD5 ont été vérifiées avec succés
+"
+"1","le package ‘shades’ a été décompressé et les sommes MD5 ont été vérifiées avec succés
+"
+"1","le package ‘gridtext’ a été décompressé et les sommes MD5 ont été vérifiées avec succés
+"
+"1","le package ‘ggfittext’ a été décompressé et les sommes MD5 ont été vérifiées avec succés
+"
+"1","le package ‘treemapify’ a été décompressé et les sommes MD5 ont été vérifiées avec succés
+"
+"1","
+"
+"1",""
+"1","Les packages binaires téléchargés sont dans
+	C:\Users\remia\AppData\Local\Temp\Rtmpw7d3gv\downloaded_packages"
+"1",""
+"1","
+"
+"0","library(""treemapify"")"
+"0",""
+"0","install.packages(""camcorder"")"
+"2","WARNING: Rtools is required to build R packages but is not currently installed. Please download and install the appropriate version of Rtools before proceeding:
+
+https://cran.rstudio.com/bin/windows/Rtools/
+"
+"2","Installation du package dans ‘C:/Users/remia/AppData/Local/R/win-library/4.3’
+(car ‘lib’ n'est pas spécifié)
+"
+"2","installation des dépendances ‘gifski’, ‘magick’, ‘rsvg’
+
+"
+"2","essai de l'URL 'https://cran.rstudio.com/bin/windows/contrib/4.3/gifski_1.12.0-2.zip'
+"
+"2","Content type 'application/zip'"
+"2"," length 1158622 bytes (1.1 MB)
+"
+"2","downloaded 1.1 MB
+
+"
+"2","essai de l'URL 'https://cran.rstudio.com/bin/windows/contrib/4.3/magick_2.8.3.zip'
+"
+"2","Content type 'application/zip'"
+"2"," length 24761056 bytes (23.6 MB)
+"
+"2","downloaded 23.6 MB
+
+"
+"2","essai de l'URL 'https://cran.rstudio.com/bin/windows/contrib/4.3/rsvg_2.6.0.zip'
+"
+"2","Content type 'application/zip'"
+"2"," length 8432000 bytes (8.0 MB)
+"
+"2","downloaded 8.0 MB
+
+"
+"2","essai de l'URL 'https://cran.rstudio.com/bin/windows/contrib/4.3/camcorder_0.1.0.zip'
+"
+"2","Content type 'application/zip'"
+"2"," length 1450812 bytes (1.4 MB)
+"
+"2","downloaded 1.4 MB
+
+"
+"1","le package ‘gifski’ a été décompressé et les sommes MD5 ont été vérifiées avec succés
+"
+"1","le package ‘magick’ a été décompressé et les sommes MD5 ont été vérifiées avec succés
+"
+"1","le package ‘rsvg’ a été décompressé et les sommes MD5 ont été vérifiées avec succés
+"
+"1","le package ‘camcorder’ a été décompressé et les sommes MD5 ont été vérifiées avec succés
+"
+"1","
+"
+"1",""
+"1","Les packages binaires téléchargés sont dans
+	C:\Users\remia\AppData\Local\Temp\Rtmpw7d3gv\downloaded_packages"
+"1",""
+"1","
+"
+"0","library(""camcorder"")"

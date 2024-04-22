@@ -1,0 +1,7 @@
+{
+    "installOptions": {
+        "installFromRepository": true,
+        "libraryPath": "C:/Users/remia/AppData/Local/R/cache/R/renv/sandbox/R-4.3/x86_64-w64-mingw32/bd3f13aa",
+        "installDependencies": true
+    }
+}

@@ -1,0 +1,2 @@
+"0","anscombe.1<-data.frame(x1=anscombe$x1, x4=anscombe$x4, y1=anscombe$y1, "
+"0","                       y2=anscombe$y2, y3=anscombe$y3, y4=anscombe$y4)"

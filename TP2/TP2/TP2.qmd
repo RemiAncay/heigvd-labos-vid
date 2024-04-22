@@ -1,0 +1,33 @@
+---
+title: "VID"
+subtitle: "Modèles de régression linéaires (TP 2)"
+author:
+  - name: Rémi Ançay & Lucas Charbonnier
+highlight-style: github
+format:
+  html:
+    theme: cosmo
+    monobackgroundcolor: rgb(255,250,240)
+    toc: true
+    toc-location: left
+    #reference-location: margin
+    reference-location: document
+    code-line-numbers: true
+date: 'last-modified'
+date-format: '[This version:] MMMM D, YYYY'
+number-sections: false
+editor: 
+  visual
+---
+
+## Introduction
+
+Dans ce deuxième TP, nous allons nous préciser sur les modèles de régression linéaire. Pour se faire, nous allons étudier plusieurs jeux de données et resortir leurs caractéristiques.
+
+### Gestion des librairies
+```{r}
+#install.packages("ggResidpanel")
+library("ggResidpanel")
+```
+
+## Exercice 1

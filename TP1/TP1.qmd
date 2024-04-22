@@ -1,0 +1,278 @@
+---
+title: "VID : Analyse exploratoire des données"
+subtitle: "De la théorie à la pratique (TP 1)"
+author:
+  - name: Rémi Ançay & Lucas Charbonnier
+highlight-style: github
+format:
+  html:
+    theme: cosmo
+    monobackgroundcolor: rgb(255,250,240)
+    toc: true
+    toc-location: left
+    #reference-location: margin
+    reference-location: document
+    code-line-numbers: true
+date: 'last-modified'
+date-format: '[This version:] MMMM D, YYYY'
+number-sections: false
+editor: 
+  visual
+---
+
+```{r}
+#install.packages("readxl")
+#install.packages("HSAUR2")
+library("readxl")
+library("HSAUR2") 
+```
+
+## Introduction
+
+Dans ce premier TP, nous allons prendre en main R ainsi que RStudio et Quarto. Pour se faire, nous allons jouer avec plusieurs jeux de données qui nous servirons de base pour faire de l'analyse.
+
+# Exercice 1
+
+**a.** Les données figurent dans le fichier Notes.xlsx qui se trouve dans la page Moodle du cours. Télécharger le fichier et enregistrer les données dans l’objet examen de R en utilisant la librairie readxl.
+
+```{r}
+examen <- read_excel("files/Notes.xlsx")
+examen
+```
+
+**b.** Reconstituer les boîtes à moustaches en parallèle figurant ci-dessous.
+
+```{r}
+boxplot(examen$Note, horizontal = TRUE)
+```
+
+Calculer les écarts-types des trois classes à l’aide des fonctions by() et sd().
+
+```{r}
+library(lattice)
+data(Titanic)
+Titanic
+
+
+
+```
+
+```{r}
+titanic.bar<-barchart(Class~Freq|Sex + Age, data=as.data.frame(Titanic), 
+                      groups=Survived, stack=TRUE, layout=c(4,1), 
+                      auto.key=list(title="Survived", columns=2))
+print(titanic.bar)
+```
+
+```{r}
+data("plasma")
+
+plasma
+cor(plasma["fibrinogen"], plasma["globulin"])
+```
+
+```{r}
+plasma.glm<-glm(ESR~fibrinogen+globulin, data=plasma, family=binomial)
+prob<-predict(plasma.glm, type="response")
+par(pty="s")
+plot(globulin~fibrinogen, data=plasma, xlim=c(2,6), ylim=c(25,55), pch=20, 
+     xlab="fibrinogène", ylab="globuline", main="")
+symbols(plasma$fibrinogen, plasma$globulin, circles=prob, add=TRUE, fg="red", 
+        bg="orange")
+```
+
+# Suite Exo4a
+
+```{r}
+anscombe.1<-data.frame(x1=anscombe$x1, x4=anscombe$x4, y1=anscombe$y1, 
+                       y2=anscombe$y2, y3=anscombe$y3, y4=anscombe$y4)
+```
+
+```{r}
+#install.packages("corrplot")
+library("corrplot")
+corMatrix <- cor(anscombe.1)
+corrplot.mixed(corMatrix)
+```
+
+```{r}
+
+#install.packages("corrr")
+
+library(corrr)
+
+correlation_matrix <- correlate(anscombe.1)
+
+network_plot(correlation_matrix)
+
+```
+
+```{r}
+#install.packages("GGally")
+
+library(GGally)
+library(ggplot2)
+
+ggpairs(anscombe.1)
+```
+
+```{r}
+ggpairs(anscombe.1, columns = c("x1", "y1"))
+ggpairs(anscombe.1, columns = c("x1", "y2"))
+ggpairs(anscombe.1, columns = c("x1", "y3"))
+ggpairs(anscombe.1, columns = c("x4", "y4"))
+```
+
+# Exo 5
+
+```{r}
+#install.packages("skimr")
+library("skimr")
+
+#install.packages("palmerpenguins")
+library("palmerpenguins")
+```
+
+```{r}
+penguins
+```
+
+**b.** Quelle variable possède le plus de valeurs manquantes ?
+
+```{r}
+skim(penguins)
+```
+
+C'est la colonne "sex" avec 11 valeurs manquantes
+
+**c.** Quelle espèce est la plus représentée ?
+
+```{r}
+table(penguins$species)
+```
+
+**d.** Nous nous proposons de tracer des graphiques de nuages de points à l’aide de la librairie `ggplot2` qu’il faut d’abord installer si nécessaire puis activer dans votre session.
+
+```{r}
+ggplot(data = penguins, aes(x = flipper_length_mm, y = bill_length_mm)) +
+  geom_point(aes(color = species, shape = species), size = 3, alpha = 0.8) +
+  scale_color_manual(values = c("darkorange","purple","cyan4")) +
+  labs(title = "Taille des manchots, Palmer Station LTER",
+       subtitle = "Longueur des nageoires et longueur du bec chez les manchots Adelie, Chinstrap et de Gentoo",
+       x = "Longueur des nageoire (mm)",
+       y = "Longueur du bec (mm)",
+       color = "Espèce de manchots",
+       shape = "Espèce de manchots") +
+  theme_bw()
+```
+
+Existe-t-il une relation entre la longueur du bec et la longueur des nageoires ? Dans l’affirmative, de quelle nature est-elle ?
+
+-   Oui il y a une correlation. plus la longueur des nagoire est grande, plus celle du bec l'est aussi
+
+**e.** Remarque-t-on des observations inhabituelles dans le graphique de nuage de points ?
+
+-   Oui, on peut noté le spécimen "Chinstrap" avec une longueur de nagoire à 180mm et une longueur de bec a 58mm
+
+**f.** Quelle valeur attribueriez-vous à la longueur des nageoires pour distinguer les manchots de Gentoo des deux autres espèces ?
+
+-   les Gentoo ont des nagoires d'une taille supérieur à 205mm
+
+**g.** Déterminer la corrélation entre la longueur du bec et la longueur des nageoires.
+
+```{r}
+cor(penguins$bill_length_mm, penguins$flipper_length_mm, use = "complete.obs")
+
+```
+
+```{r}
+ggplot(data = penguins, aes(x = flipper_length_mm, y = bill_length_mm)) +
+  geom_point(aes(color = species, shape = island), size = 3, alpha = 0.8) +
+  scale_color_manual(values = c("darkorange","purple","cyan4")) +
+  labs(title = "Taille des manchots, Palmer Station LTER",
+       subtitle = "Longueur des nageoires et longueur du bec chez les manchots Adelie, Chinstrap et de Gentoo",
+       x = "Longueur des nageoire (mm)",
+       y = "Longueur du bec (mm)",
+       color = "Espèce de manchots",
+       shape = "Espèce de manchots") +
+  theme_bw()
+
+```
+
+Sur quelle île vivent exclusivement les manchots de Gentoo ?
+
+**i.** Pour répondre à cette question, on peut également construire le graphique de points tracé ci-dessous.
+
+```{r}
+ggplot(penguins, aes(x = island, y = species, color = species)) +
+  geom_jitter(size = 3) + 
+  scale_color_manual(values = c("darkorange","purple","cyan4")) +
+  labs(x = "Iles",
+       y = "Espèce de manchots",
+       color = "Espèce de manchots")
+```
+
+Les Gentoo vivent tous sur l'ile Biscoe
+
+**j.** Tracer le nuage de points de la longueur du bec (*bill length*) versus la longueur des nageoires (*flipper length*) selon l’espèce et le sexe des manchots en utilisant le composant `facet_wrap()` de la fonction `ggplot()`.
+
+```{r}
+# Tracer le nuage de points de la longueur du bec versus la longueur des nageoires selon l'espèce et le sexe des manchots
+ggplot(penguins, aes(x = bill_length_mm, y = flipper_length_mm, color = sex)) +
+  geom_point() +
+  labs(x = "Longueur du bec (mm)", y = "Longueur des nageoires (mm)") +
+  facet_wrap(~ species, scales = "free") +
+  ggtitle("Nuage de points : Longueur du bec vs Longueur des nageoires selon l'espèce et le sexe")
+
+
+```
+
+# Exo 6
+
+```{r}
+#install.packages("readr")
+library("readr")
+
+#install.packages("treemapify")
+library("treemapify")
+
+#install.packages("camcorder")
+library("camcorder")
+```
+
+```{r}
+isc_grant <- read_csv("files/isc_grants.csv")
+```
+
+```{r}
+skim(isc_grant)
+```
+
+**b.** Nous allons construire une carte à cases (*treemap*) des candidatures à l’obtention d’une bourse du Consortium en utilisant la librairie `treemapify` de ***R***.
+
+```{r}
+gg_record(dir="ISCgrant", device="png", width=9, height=8, units="in", dpi=320)
+pal<-c("#002870","#005A87","#078788","#A5A63C","#DE9704","#C45D27","#AD3518","#990C00")
+```
+
+Tracer la carte à cases ci-dessous en complétant les commandes données au-dessous du graphique.
+
+```{r}
+ggplot(isc_grant, aes(area=funded, fill=factor(year), subgroup=year)) +
+  geom_treemap(radius=unit(0.2, "line"), color="white", size=2) +
+  geom_treemap_text(aes(label=paste0(title, "\n", proposed_by, "\n\n", scales::dollar(funded))), reflow=TRUE, grow=TRUE, color="white") +
+  geom_treemap_subgroup_text(aes(label=year), color="white", grow=TRUE, alpha=0.25) +
+  scale_fill_manual(values=pal) +
+  labs(
+    title="Bourses accordées selon les années",
+    caption="Source: Comité de pilotage du consortium R",
+    fill="year") +
+  theme_void()+
+  theme(
+    legend.position="none",
+    plot.background=element_rect(fill="grey99", color=NA),
+    plot.title=element_text(size=30, face="bold", color="#0D2765", margin=margin(0, 0, 5, 0)),
+    plot.caption=element_text(color="#0D2765"),
+    plot.margin=margin(10, 10, 10, 10)
+  )
+```

@@ -1,0 +1,6 @@
+"0","# Tracer le nuage de points de la longueur du bec versus la longueur des nageoires selon l'espèce et le sexe des manchots"
+"0","ggplot(penguins, aes(x = bill_length_mm, y = flipper_length_mm, color = sex)) +"
+"0","  geom_point() +"
+"0","  labs(x = ""Longueur du bec (mm)"", y = ""Longueur des nageoires (mm)"") +"
+"0","  facet_wrap(~ species, scales = ""free"") +"
+"0","  ggtitle(""Nuage de points : Longueur du bec vs Longueur des nageoires selon l'espèce et le sexe"")"
