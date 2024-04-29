@@ -18,6 +18,11 @@ date-format: '[This version:] MMMM D, YYYY'
 number-sections: false
 editor: 
   visual
+execute:
+  echo: true
+  message: true
+  warning: true
+  output: true
 ---
 
 ## Introduction
@@ -26,12 +31,84 @@ Dans ce deuxième TP, nous allons nous préciser sur les modèles de régression
 
 ### Gestion des librairies
 ```{r}
-#install.packages("ggResidpanel")
+r = getOption("repos")
+r["CRAN"] = "http://cran.us.r-project.org"
+options(repos = r)
+
+install.packages("ggResidpanel")
 library("ggResidpanel")
 ```
 
 ## Exercice 1
-```{r}
-kala <- read.table("data/kalama.txt", header = TRUE)
 
+### Chargement des données
+```{r}
+# Chargement des données
+kalama <- read.table("data/kalama.txt", header=TRUE)
 ```
+
+### Coefficient de correlation
+
+```{r}
+# Coefficient de corelation entre la taille et l'âge (0.994)
+cor(kalama)
+```
+
+### Nuage de points
+
+```{r}
+# Nuage de points du dataset
+plot(kalama)
+```
+
+### Régression linéaire
+
+```{r}
+# Regression linéaire
+kalama.lm <- lm(taille~age, data=kalama)
+summary(kalama.lm)
+coef(kalama.lm)
+# Pente (beta 0) : 0.635
+# Ordonnée à l'origine (beta 1) : 64.9283
+```
+
+### Ajustement du graphique
+
+```{r}
+plot(kalama)
+abline(kalama.lm)
+```
+
+### Variance des résidus et coefficient $R^2$
+
+```{r}
+# On peut obtenir la variance des résidus avec la fonction deviance() -> 0.655
+deviance(kalama.lm)
+
+# Le coefficient de détermination R^2 est égal au carré du coefficient de correlation et est affiché dans le summary() de la régression.
+# R^2 = 0.9888
+```
+
+### Diagnostic du modèle
+
+```{r}
+resid_panel(kalama.lm, plots="all")
+```
+
+Grâce au Q-Q Plot et à la Cook's Distance, on peut voir qu'il y a deux valeurs en début de série qui sorte du lot. Le reste des valeurs suivent une corrélation assez nette.
+
+### Évaluation de l'ajustement du modèle
+La droite de régression est très pertinente et décrit bien la corrélation entre les données. De plus, le coefficient de détermination $R^2$ est très proche de 1 (0.9888) donc on peut dire que le modèle est bien ajusté.
+
+### Test avec un niveau de signification 5%
+On peut extraire le niveau de signification du summary de la manière suivante :
+
+```{r}
+significance_level = summary(kalama.lm)$coefficients[2,4]
+print(significance_level)
+```
+
+Comme on peut le voir, ce niveau est bien inférieur à 0.05 donc on peut dire que la pente de la droite de régression est significativement différente de 0.
+
+## Exercice 2
+
