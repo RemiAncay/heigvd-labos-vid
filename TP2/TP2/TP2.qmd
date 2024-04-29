@@ -31,3 +31,7 @@ library("ggResidpanel")
 ```
 
 ## Exercice 1
+```{r}
+kala <- read.table("data/kalama.txt", header = TRUE)
+
+```
