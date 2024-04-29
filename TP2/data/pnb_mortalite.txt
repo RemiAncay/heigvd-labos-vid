@@ -1,0 +1,15 @@
+pays PNB mortalite
+Allemagne-RFA 190 24
+Autriche 128 28
+Belgique 180 24
+Danemark 212 19
+Espagne 56 37
+France 192 22
+Grèce 68 34
+Irlande 98 25
+Italie 110 36
+Luxembourg 197 24
+Pays-Bas 155 14
+Portugal 40 65
+Royaume-Uni 181 20
+Suisse 233 18
