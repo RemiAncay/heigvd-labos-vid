@@ -48,6 +48,15 @@ library("ggrepel")
 
 install.packages("GGally")
 library("GGally")
+
+install.packages("rgl")
+library("rgl")
+
+install.packages("scatterplot3d")
+library("scatterplot3d")
+
+install.packages("readxl")
+library("readxl")
 ```
 
 ## Exercice 1
@@ -193,9 +202,101 @@ Nous pensons qu'un modèle logarithmique serait effectivement mieux adapté à l
 
 ## Exercice 3
 
+### Graphique des corrélations
 
 ```{r}
 litters = readRDS("data/litters.rds")
 
 ggpairs(litters)
 ```
+
+### Relation entre $lsize$ et $bodywt$
+Nous pouvons constater qu'il existe une relation très forte entre les 2 variables (coef de corr : -0.95). Ce qui est plutot logique car elles représente la taille et le poids des individus.
+
+### Relation avec $brainwt$
+On observe une relation linéaire entre les différentes variable d'entrée et la variable de réponse.
+elles sont de coef. de corr. -0.62 pour lsize et de 0.75 pour bodywt.
+
+### Utilisation de $rgl$
+```{r}
+plotids <- with(litters, plot3d(lsize, bodywt, brainwt, type="s", col="blue"))
+
+rglwidget(elementId = "plot3drgl")
+```
+
+Grâce à la 3d, nous pouvons encore mieux constater les relations linéaires
+
+### Distinction des variables explicatives
+Non, car les variables explicatives sont fortements corrélées. A cause de cela la distinction entre les deux sera difficile.
+
+###  Modèle de régression linéaire multiple
+```{r}
+litters.lm = lm(brainwt~lsize+bodywt, data=litters)
+coef(litters.lm)
+```
+
+yi = 0.178 + 0.0067 * lsize + 0.024 * bodywt
+
+### Résumé et significativité des variables explicatives
+```{r}
+summary(litters.lm)
+```
+
+Comme on peut le voir, les niveaux sont bien inférieur à 0.05 donc on peut dire que la pente de la droite de régression est significativement différente de 0.
+
+De plus nous pouvons constater une différence entre les deux variables explicative.
+En effet, lsize obtient un résultat de 0.0475 alors que bodywt obtient 0.00228 se qui est meilleur.
+
+### Graphique de nuage de points
+```{r}
+s3d <- scatterplot3d(litters$lsize, litters$bodywt, litters$brainwt, main = "",
+  color="midnightblue", xlab="litter size", ylab="body weight",
+  zlab="brain weight", angle = -60, pch=21, bg="orange")
+  s3d$plane3d(litters.lm, draw_polygon=TRUE, lty.box="solid")
+```
+
+### Coefficient $R^2$ $R^2_{adj}$
+Summary nous donne les résultats suivants : 
+
+Multiple R-squared:  0.6505,    Adjusted R-squared:  0.6094
+
+Nous pouvons en conclure que le modèle explique une proportion assez importante de la variabilité des données.
+
+### Vérification des hypothèses
+```{r}
+resid_panel(litters.lm, plots="all")
+```
+
+Grâces aux plots, nous pouvons constater qu'il y a effectivement une correlation, mais qui est entachée par plusieurs valeurs atypiques (que l'on peut observer facilement sur le Cook'd D Plot)
+
+Pour améliorer la qualité du model nous ponvons donc retirer ces valeurs atypiques.
+
+## Exercice 4
+
+### Graphique des corrélations
+
+```{r}
+wines = read_excel("data/Wine.xlsx")
+
+ggpairs(wines)
+```
+
+Nous voyons 3 variable qui resortent pour expliquer la réponse :
+- Aroma
+- Body
+- Flavor
+
+### Modèle de régression linéaire multiple
+```{r}
+wines.lm = lm(Quality~Clarity+Aroma+Body+Flavor+Oakiness, data=wines)
+coef(wines.lm)
+```
+
+yi = 3.99 + 2.34 * Clarity + 0.48 * Aroma + 0.27 * Body + 1.17 * Flavor - 0.68 * Oakiness
+
+### Résumé et significativité des variables explicatives
+```{r}
+summary(wines.lm)
+```
+
+le résumé ne resort que les 

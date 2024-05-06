@@ -68,6 +68,28 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="TP2_files/libs/bootstrap/bootstrap.min.js"></script>
 <link href="TP2_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
 <link href="TP2_files/libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script src="TP2_files/libs/htmlwidgets-1.6.4/htmlwidgets.js"></script>
+<script src="TP2_files/libs/rglWebGL-binding-1.3.1/rglWebGL.js"></script>
+<link href="TP2_files/libs/rglwidgetClass-1.3.1/rgl.css" rel="stylesheet">
+<script src="TP2_files/libs/rglwidgetClass-1.3.1/rglClass.src.js"></script>
+<script src="TP2_files/libs/rglwidgetClass-1.3.1/utils.src.js"></script>
+<script src="TP2_files/libs/rglwidgetClass-1.3.1/buffer.src.js"></script>
+<script src="TP2_files/libs/rglwidgetClass-1.3.1/subscenes.src.js"></script>
+<script src="TP2_files/libs/rglwidgetClass-1.3.1/shaders.src.js"></script>
+<script src="TP2_files/libs/rglwidgetClass-1.3.1/shadersrc.src.js"></script>
+<script src="TP2_files/libs/rglwidgetClass-1.3.1/textures.src.js"></script>
+<script src="TP2_files/libs/rglwidgetClass-1.3.1/projection.src.js"></script>
+<script src="TP2_files/libs/rglwidgetClass-1.3.1/mouse.src.js"></script>
+<script src="TP2_files/libs/rglwidgetClass-1.3.1/init.src.js"></script>
+<script src="TP2_files/libs/rglwidgetClass-1.3.1/pieces.src.js"></script>
+<script src="TP2_files/libs/rglwidgetClass-1.3.1/draw.src.js"></script>
+<script src="TP2_files/libs/rglwidgetClass-1.3.1/controls.src.js"></script>
+<script src="TP2_files/libs/rglwidgetClass-1.3.1/selection.src.js"></script>
+<script src="TP2_files/libs/rglwidgetClass-1.3.1/rglTimer.src.js"></script>
+<script src="TP2_files/libs/rglwidgetClass-1.3.1/pretty.src.js"></script>
+<script src="TP2_files/libs/rglwidgetClass-1.3.1/axes.src.js"></script>
+<script src="TP2_files/libs/rglwidgetClass-1.3.1/animation.src.js"></script>
+<script src="TP2_files/libs/CanvasMatrix4-1.3.1/CanvasMatrix.src.js"></script>
 
   <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
   <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
@@ -136,7 +158,23 @@ window.Quarto = {
   <li><a href="#prédiction" id="toc-prédiction" class="nav-link" data-scroll-target="#prédiction">Prédiction</a></li>
   <li><a href="#analyse-supplémentaire" id="toc-analyse-supplémentaire" class="nav-link" data-scroll-target="#analyse-supplémentaire">Analyse supplémentaire</a></li>
   </ul></li>
-  <li><a href="#exercice-3" id="toc-exercice-3" class="nav-link" data-scroll-target="#exercice-3">Exercice 3</a></li>
+  <li><a href="#exercice-3" id="toc-exercice-3" class="nav-link" data-scroll-target="#exercice-3">Exercice 3</a>
+  <ul class="collapse">
+  <li><a href="#graphique-des-corrélations" id="toc-graphique-des-corrélations" class="nav-link" data-scroll-target="#graphique-des-corrélations">Graphique des corrélations</a></li>
+  <li><a href="#relation-entre-lsize-et-bodywt" id="toc-relation-entre-lsize-et-bodywt" class="nav-link" data-scroll-target="#relation-entre-lsize-et-bodywt">Relation entre <span class="math inline">\(lsize\)</span> et <span class="math inline">\(bodywt\)</span></a></li>
+  <li><a href="#relation-avec-brainwt" id="toc-relation-avec-brainwt" class="nav-link" data-scroll-target="#relation-avec-brainwt">Relation avec <span class="math inline">\(brainwt\)</span></a></li>
+  <li><a href="#utilisation-de-rgl" id="toc-utilisation-de-rgl" class="nav-link" data-scroll-target="#utilisation-de-rgl">Utilisation de <span class="math inline">\(rgl\)</span></a></li>
+  <li><a href="#distinction-des-variables-explicatives" id="toc-distinction-des-variables-explicatives" class="nav-link" data-scroll-target="#distinction-des-variables-explicatives">Distinction des variables explicatives</a></li>
+  <li><a href="#modèle-de-régression-linéaire-multiple" id="toc-modèle-de-régression-linéaire-multiple" class="nav-link" data-scroll-target="#modèle-de-régression-linéaire-multiple">Modèle de régression linéaire multiple</a></li>
+  <li><a href="#résumé-et-significativité-des-variables-explicatives" id="toc-résumé-et-significativité-des-variables-explicatives" class="nav-link" data-scroll-target="#résumé-et-significativité-des-variables-explicatives">Résumé et significativité des variables explicatives</a></li>
+  <li><a href="#graphique-de-nuage-de-points" id="toc-graphique-de-nuage-de-points" class="nav-link" data-scroll-target="#graphique-de-nuage-de-points">Graphique de nuage de points</a></li>
+  <li><a href="#coefficient-r2-r2_adj" id="toc-coefficient-r2-r2_adj" class="nav-link" data-scroll-target="#coefficient-r2-r2_adj">Coefficient <span class="math inline">\(R^2\)</span> <span class="math inline">\(R^2_{adj}\)</span></a></li>
+  <li><a href="#vérification-des-hypothèses-1" id="toc-vérification-des-hypothèses-1" class="nav-link" data-scroll-target="#vérification-des-hypothèses-1">Vérification des hypothèses</a></li>
+  </ul></li>
+  <li><a href="#exercice-4" id="toc-exercice-4" class="nav-link" data-scroll-target="#exercice-4">Exercice 4</a>
+  <ul class="collapse">
+  <li><a href="#graphique-des-corrélations-1" id="toc-graphique-des-corrélations-1" class="nav-link" data-scroll-target="#graphique-des-corrélations-1">Graphique des corrélations</a></li>
+  </ul></li>
   </ul>
 </nav>
 </div>
@@ -196,7 +234,16 @@ window.Quarto = {
 <span id="cb1-12"><a href="#cb1-12"></a><span class="fu">library</span>(<span class="st">"ggrepel"</span>)</span>
 <span id="cb1-13"><a href="#cb1-13"></a></span>
 <span id="cb1-14"><a href="#cb1-14"></a><span class="fu">install.packages</span>(<span class="st">"GGally"</span>)</span>
-<span id="cb1-15"><a href="#cb1-15"></a><span class="fu">library</span>(<span class="st">"GGally"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-15"><a href="#cb1-15"></a><span class="fu">library</span>(<span class="st">"GGally"</span>)</span>
+<span id="cb1-16"><a href="#cb1-16"></a></span>
+<span id="cb1-17"><a href="#cb1-17"></a><span class="fu">install.packages</span>(<span class="st">"rgl"</span>)</span>
+<span id="cb1-18"><a href="#cb1-18"></a><span class="fu">library</span>(<span class="st">"rgl"</span>)</span>
+<span id="cb1-19"><a href="#cb1-19"></a></span>
+<span id="cb1-20"><a href="#cb1-20"></a><span class="fu">install.packages</span>(<span class="st">"scatterplot3d"</span>)</span>
+<span id="cb1-21"><a href="#cb1-21"></a><span class="fu">library</span>(<span class="st">"scatterplot3d"</span>)</span>
+<span id="cb1-22"><a href="#cb1-22"></a></span>
+<span id="cb1-23"><a href="#cb1-23"></a><span class="fu">install.packages</span>(<span class="st">"readxl"</span>)</span>
+<span id="cb1-24"><a href="#cb1-24"></a><span class="fu">library</span>(<span class="st">"readxl"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 </section>
@@ -467,6 +514,8 @@ F-statistic: 18.82 on 1 and 12 DF,  p-value: 0.000965</code></pre>
 </section>
 <section id="exercice-3" class="level2">
 <h2 class="anchored" data-anchor-id="exercice-3">Exercice 3</h2>
+<section id="graphique-des-corrélations" class="level3">
+<h3 class="anchored" data-anchor-id="graphique-des-corrélations">Graphique des corrélations</h3>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb32"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1"></a>litters <span class="ot">=</span> <span class="fu">readRDS</span>(<span class="st">"data/litters.rds"</span>)</span>
 <span id="cb32-2"><a href="#cb32-2"></a></span>
@@ -479,6 +528,128 @@ F-statistic: 18.82 on 1 and 12 DF,  p-value: 0.000965</code></pre>
 </div>
 </div>
 </div>
+</section>
+<section id="relation-entre-lsize-et-bodywt" class="level3">
+<h3 class="anchored" data-anchor-id="relation-entre-lsize-et-bodywt">Relation entre <span class="math inline">\(lsize\)</span> et <span class="math inline">\(bodywt\)</span></h3>
+<p>Nous pouvons constater qu’il existe une relation très forte entre les 2 variables (coef de corr : -0.95). Ce qui est plutot logique car elles représente la taille et le poids des individus.</p>
+</section>
+<section id="relation-avec-brainwt" class="level3">
+<h3 class="anchored" data-anchor-id="relation-avec-brainwt">Relation avec <span class="math inline">\(brainwt\)</span></h3>
+<p>On observe une relation linéaire entre les différentes variable d’entrée et la variable de réponse. elles sont de coef. de corr. -0.62 pour lsize et de 0.75 pour bodywt.</p>
+</section>
+<section id="utilisation-de-rgl" class="level3">
+<h3 class="anchored" data-anchor-id="utilisation-de-rgl">Utilisation de <span class="math inline">\(rgl\)</span></h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1"></a>plotids <span class="ot">&lt;-</span> <span class="fu">with</span>(litters, <span class="fu">plot3d</span>(lsize, bodywt, brainwt, <span class="at">type=</span><span class="st">"s"</span>, <span class="at">col=</span><span class="st">"blue"</span>))</span>
+<span id="cb33-2"><a href="#cb33-2"></a></span>
+<span id="cb33-3"><a href="#cb33-3"></a><span class="fu">rglwidget</span>(<span class="at">elementId =</span> <span class="st">"plot3drgl"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display no-overflow-x">
+<div id="plot3drgl" style="width:100%;height:464px;" class="rglWebGL html-widget" role="img" aria-labelledby="plot3drgl-aria"></div>
+<script type="application/json" data-for="plot3drgl">{"x":{"material":{"color":"#000000","alpha":1,"lit":true,"ambient":"#000000","specular":"#FFFFFF","emission":"#000000","shininess":50,"smooth":true,"front":"filled","back":"filled","size":3,"lwd":1,"fog":true,"point_antialias":false,"line_antialias":false,"texture":null,"textype":"rgb","texmode":"modulate","texmipmap":false,"texminfilter":"linear","texmagfilter":"linear","texenvmap":false,"depth_mask":true,"depth_test":"less","isTransparent":false,"polygon_offset":[0,0],"margin":"","floating":false,"tag":"","blend":["src_alpha","one_minus_src_alpha"]},"rootSubscene":7,"objects":{"13":{"id":13,"type":"spheres","material":{},"vertices":"0","colors":"1","radii":[[0.2883208096027374]],"centers":"2","ignoreExtent":false,"fastTransparency":true,"flags":32771},"15":{"id":15,"type":"text","material":{"lit":false,"margin":0,"floating":true,"edge":[0,1,1]},"vertices":"3","colors":"4","texts":[["lsize"]],"cex":[[1]],"adj":[[0.5,0.5,0.5]],"centers":"5","family":[["sans"]],"font":[[1]],"ignoreExtent":true,"flags":33808},"16":{"id":16,"type":"text","material":{"lit":false,"margin":1,"floating":true,"edge":[1,1,1]},"vertices":"6","colors":"7","texts":[["bodywt"]],"cex":[[1]],"adj":[[0.5,0.5,0.5]],"centers":"8","family":[["sans"]],"font":[[1]],"ignoreExtent":true,"flags":33808},"17":{"id":17,"type":"text","material":{"lit":false,"margin":2,"floating":true,"edge":[1,1,1]},"vertices":"9","colors":"10","texts":[["brainwt"]],"cex":[[1]],"adj":[[0.5,0.5,0.5]],"centers":"11","family":[["sans"]],"font":[[1]],"ignoreExtent":true,"flags":33808},"11":{"id":11,"type":"light","vertices":[[0,0,1]],"colors":[[1,1,1,1],[1,1,1,1],[1,1,1,1]],"viewpoint":true,"finite":false},"10":{"id":10,"type":"background","material":{},"colors":"12","centers":"13","sphere":false,"fogtype":"none","fogscale":1,"flags":32768},"12":{"id":12,"type":"background","material":{"lit":false,"back":"lines"},"colors":"14","centers":"15","sphere":false,"fogtype":"none","fogscale":1,"flags":32768},"14":{"id":14,"type":"bboxdeco","material":{"front":"lines","back":"lines"},"vertices":"16","colors":"17","axes":{"mode":["pretty","pretty","pretty"],"step":[2,1,0.01999999955296516],"nticks":[5,5,5],"marklen":[15,15,15],"expand":[1.029999971389771,1.029999971389771,1.029999971389771]},"draw_front":true,"flags":32769},"7":{"id":7,"type":"subscene","par3d":{"antialias":8,"FOV":30,"ignoreExtent":false,"listeners":7,"mouseMode":{"none":"none","left":"trackball","right":"zoom","middle":"fov","wheel":"pull"},"observer":[0,0,26.88020324707031],"modelMatrix":[[0.6407134532928467,0,0,-4.805350780487061],[0,0.4554789364337921,71.26428985595703,-32.40177536010742],[0,-1.251418113708496,25.93808174133301,-27.88151550292969],[0,0,0,1]],"projMatrix":[[3.732050657272339,0,0,0],[0,3.732050657272339,0,0],[0,0,-3.863703966140747,-96.90003967285156],[0,0,-1,0]],"skipRedraw":false,"userMatrix":[[1,0,0,0],[0,0.3420201433256682,0.9396926207859085,0],[0,-0.9396926207859085,0.3420201433256682,0],[0,0,0,1]],"userProjection":[[1,0,0,0],[0,1,0,0],[0,0,1,0],[0,0,0,1]],"scale":[0.6407134532928467,1.33173131942749,75.83787536621094],"viewport":{"x":0,"y":0,"width":1,"height":1},"zoom":1,"bbox":[2.550000429153442,12.44999980926514,5.233499050140381,9.996500015258789,0.3641982078552246,0.447801798582077],"windowRect":[60,83,316,339],"family":"sans","font":1,"cex":1,"useFreeType":false,"fontname":"TT Arial","maxClipPlanes":8,"glVersion":4.6,"activeSubscene":0},"embeddings":{"viewport":"replace","projection":"replace","model":"replace","mouse":"replace"},"objects":[12,14,13,15,16,17,11],"subscenes":[],"flags":34067}},"crosstalk":{"key":[],"group":[],"id":[],"options":[]},"width":672,"height":480,"buffer":{"accessors":[{"bufferView":0,"componentType":5126,"count":20,"type":"VEC3"},{"bufferView":1,"componentType":5121,"count":1,"type":"VEC4"},{"bufferView":2,"componentType":5126,"count":20,"type":"VEC3"},{"bufferView":3,"componentType":5126,"count":1,"type":"VEC3"},{"bufferView":4,"componentType":5121,"count":1,"type":"VEC4"},{"bufferView":5,"componentType":5126,"count":1,"type":"VEC3"},{"bufferView":6,"componentType":5126,"count":1,"type":"VEC3"},{"bufferView":7,"componentType":5121,"count":1,"type":"VEC4"},{"bufferView":8,"componentType":5126,"count":1,"type":"VEC3"},{"bufferView":9,"componentType":5126,"count":1,"type":"VEC3"},{"bufferView":10,"componentType":5121,"count":1,"type":"VEC4"},{"bufferView":11,"componentType":5126,"count":1,"type":"VEC3"},{"bufferView":12,"componentType":5126,"count":1,"type":"VEC4"},{"bufferView":13,"componentType":5121,"count":1,"type":"VEC3"},{"bufferView":14,"componentType":5121,"count":1,"type":"VEC4"},{"bufferView":15,"componentType":5121,"count":1,"type":"VEC3"},{"bufferView":16,"componentType":5126,"count":13,"type":"VEC3"},{"bufferView":17,"componentType":5121,"count":1,"type":"VEC4"}],"bufferViews":[{"buffer":0,"byteLength":240,"byteOffset":0},{"buffer":0,"byteLength":4,"byteOffset":240},{"buffer":0,"byteLength":240,"byteOffset":244},{"buffer":0,"byteLength":12,"byteOffset":484},{"buffer":0,"byteLength":4,"byteOffset":496},{"buffer":0,"byteLength":12,"byteOffset":500},{"buffer":0,"byteLength":12,"byteOffset":512},{"buffer":0,"byteLength":4,"byteOffset":524},{"buffer":0,"byteLength":12,"byteOffset":528},{"buffer":0,"byteLength":12,"byteOffset":540},{"buffer":0,"byteLength":4,"byteOffset":552},{"buffer":0,"byteLength":12,"byteOffset":556},{"buffer":0,"byteLength":16,"byteOffset":568},{"buffer":0,"byteLength":3,"byteOffset":584},{"buffer":0,"byteLength":4,"byteOffset":587},{"buffer":0,"byteLength":3,"byteOffset":591},{"buffer":0,"byteLength":156,"byteOffset":596},{"buffer":0,"byteLength":4,"byteOffset":752}],"buffers":[{"byteLength":756,"bytes":"AABAQOkmF0H4U+M+AABAQOF6HEFkO98+AACAQOF6EkEGgdU+AACAQNnOGUHjpds+AACgQJqZ\nDUGamdk+AACgQI/CGUE/Nd4+AADAQJzEBEEX2c4+AADAQCGwCEGcxOA+AADgQM3M7EBzaNE+\nAADgQClcBUHjpds+AAAAQa5H4UDP99M+AAAAQZMY6EBzaNE+AAAQQTMz00DdJMY+AAAQQexR\n6EAtst0+AAAgQY/CyUCF69E+AAAgQcP11EApXM8+AAAwQSPb5UBSuN4+AAAwQYlBxEBOYtA+\nAABAQWZmrkB/arw+AABAQZqZwUDfT80+AAABAQAAQEDpJhdB+FPjPgAAQEDhehxBZDvfPgAA\ngEDhehJBBoHVPgAAgEDZzhlB46XbPgAAoECamQ1BmpnZPgAAoECPwhlBPzXePgAAwECcxARB\nF9nOPgAAwEAhsAhBnMTgPgAA4EDNzOxAc2jRPgAA4EApXAVB46XbPgAAAEGuR+FAz/fTPgAA\nAEGTGOhAc2jRPgAAEEEzM9NA3STGPgAAEEHsUehALbLdPgAAIEGPwslAhevRPgAAIEHD9dRA\nKVzPPgAAMEEj2+VAUrjePgAAMEGJQcRATmLQPgAAQEFmZq5Af2q8PgAAQEGamcFA30/NPgAA\nwH8AAIBAAACAPwAAAAEAAMB/AACAQAAAgD8AAMB/AACAQAAAgD8AAAABAADAfwAAgEAAAIA/\nAADAfwAAgEAAAIA/AAAAAQAAwH8AAIBAAACAP5mYmD6ZmJg+mZiYPgAAgD8AAAABAQEBAAAA\nAAAAAIBAAADAfwAAwH8AAMBAAADAfwAAwH8AAABBAADAfwAAwH8AACBBAADAfwAAwH8AAEBB\nAADAfwAAwH8AAMB/AADAQAAAwH8AAMB/AADgQAAAwH8AAMB/AAAAQQAAwH8AAMB/AAAQQQAA\nwH8AAMB/AADAf1yPwj4AAMB/AADAf8zMzD4AAMB/AADAfz0K1z4AAMB/AADAf65H4T4AAAAB\n"}]},"context":{"shiny":false,"rmarkdown":null},"vertexShader":"#line 2 1\n// File 1 is the vertex shader\n#ifdef GL_ES\n#ifdef GL_FRAGMENT_PRECISION_HIGH\nprecision highp float;\n#else\nprecision mediump float;\n#endif\n#endif\n\nattribute vec3 aPos;\nattribute vec4 aCol;\nuniform mat4 mvMatrix;\nuniform mat4 prMatrix;\nvarying vec4 vCol;\nvarying vec4 vPosition;\n\n#ifdef NEEDS_VNORMAL\nattribute vec3 aNorm;\nuniform mat4 normMatrix;\nvarying vec4 vNormal;\n#endif\n\n#if defined(HAS_TEXTURE) || defined (IS_TEXT)\nattribute vec2 aTexcoord;\nvarying vec2 vTexcoord;\n#endif\n\n#ifdef FIXED_SIZE\nuniform vec3 textScale;\n#endif\n\n#ifdef FIXED_QUADS\nattribute vec3 aOfs;\n#endif\n\n#ifdef IS_TWOSIDED\n#ifdef HAS_NORMALS\nvarying float normz;\nuniform mat4 invPrMatrix;\n#else\nattribute vec3 aPos1;\nattribute vec3 aPos2;\nvarying float normz;\n#endif\n#endif // IS_TWOSIDED\n\n#ifdef FAT_LINES\nattribute vec3 aNext;\nattribute vec2 aPoint;\nvarying vec2 vPoint;\nvarying float vLength;\nuniform float uAspect;\nuniform float uLwd;\n#endif\n\n#ifdef USE_ENVMAP\nvarying vec3 vReflection;\n#endif\n\nvoid main(void) {\n  \n#ifndef IS_BRUSH\n#if defined(NCLIPPLANES) || !defined(FIXED_QUADS) || defined(HAS_FOG) || defined(USE_ENVMAP)\n  vPosition = mvMatrix * vec4(aPos, 1.);\n#endif\n  \n#ifndef FIXED_QUADS\n  gl_Position = prMatrix * vPosition;\n#endif\n#endif // !IS_BRUSH\n  \n#ifdef IS_POINTS\n  gl_PointSize = POINTSIZE;\n#endif\n  \n  vCol = aCol;\n  \n// USE_ENVMAP implies NEEDS_VNORMAL\n\n#ifdef NEEDS_VNORMAL\n  vNormal = normMatrix * vec4(-aNorm, dot(aNorm, aPos));\n#endif\n\n#ifdef USE_ENVMAP\n  vReflection = normalize(reflect(vPosition.xyz/vPosition.w, \n                        normalize(vNormal.xyz/vNormal.w)));\n#endif\n  \n#ifdef IS_TWOSIDED\n#ifdef HAS_NORMALS\n  /* normz should be calculated *after* projection */\n  normz = (invPrMatrix*vNormal).z;\n#else\n  vec4 pos1 = prMatrix*(mvMatrix*vec4(aPos1, 1.));\n  pos1 = pos1/pos1.w - gl_Position/gl_Position.w;\n  vec4 pos2 = prMatrix*(mvMatrix*vec4(aPos2, 1.));\n  pos2 = pos2/pos2.w - gl_Position/gl_Position.w;\n  normz = pos1.x*pos2.y - pos1.y*pos2.x;\n#endif\n#endif // IS_TWOSIDED\n  \n#ifdef NEEDS_VNORMAL\n  vNormal = vec4(normalize(vNormal.xyz), 1);\n#endif\n  \n#if defined(HAS_TEXTURE) || defined(IS_TEXT)\n  vTexcoord = aTexcoord;\n#endif\n  \n#if defined(FIXED_SIZE) && !defined(ROTATING)\n  vec4 pos = prMatrix * mvMatrix * vec4(aPos, 1.);\n  pos = pos/pos.w;\n  gl_Position = pos + vec4(aOfs*textScale, 0.);\n#endif\n  \n#if defined(IS_SPRITES) && !defined(FIXED_SIZE)\n  vec4 pos = mvMatrix * vec4(aPos, 1.);\n  pos = pos/pos.w + vec4(aOfs,  0.);\n  gl_Position = prMatrix*pos;\n#endif\n  \n#ifdef FAT_LINES\n  /* This code was inspired by Matt Deslauriers' code in \n   https://mattdesl.svbtle.com/drawing-lines-is-hard */\n  vec2 aspectVec = vec2(uAspect, 1.0);\n  mat4 projViewModel = prMatrix * mvMatrix;\n  vec4 currentProjected = projViewModel * vec4(aPos, 1.0);\n  currentProjected = currentProjected/currentProjected.w;\n  vec4 nextProjected = projViewModel * vec4(aNext, 1.0);\n  vec2 currentScreen = currentProjected.xy * aspectVec;\n  vec2 nextScreen = (nextProjected.xy / nextProjected.w) * aspectVec;\n  float len = uLwd;\n  vec2 dir = vec2(1.0, 0.0);\n  vPoint = aPoint;\n  vLength = length(nextScreen - currentScreen)/2.0;\n  vLength = vLength/(vLength + len);\n  if (vLength > 0.0) {\n    dir = normalize(nextScreen - currentScreen);\n  }\n  vec2 normal = vec2(-dir.y, dir.x);\n  dir.x /= uAspect;\n  normal.x /= uAspect;\n  vec4 offset = vec4(len*(normal*aPoint.x*aPoint.y - dir), 0.0, 0.0);\n  gl_Position = currentProjected + offset;\n#endif\n  \n#ifdef IS_BRUSH\n  gl_Position = vec4(aPos, 1.);\n#endif\n}","fragmentShader":"#line 2 2\n// File 2 is the fragment shader\n#ifdef GL_ES\n#ifdef GL_FRAGMENT_PRECISION_HIGH\nprecision highp float;\n#else\nprecision mediump float;\n#endif\n#endif\nvarying vec4 vCol; // carries alpha\nvarying vec4 vPosition;\n#if defined(HAS_TEXTURE) || defined (IS_TEXT)\nvarying vec2 vTexcoord;\nuniform sampler2D uSampler;\n#endif\n\n#ifdef HAS_FOG\nuniform int uFogMode;\nuniform vec3 uFogColor;\nuniform vec4 uFogParms;\n#endif\n\n#if defined(IS_LIT) && !defined(FIXED_QUADS)\nvarying vec4 vNormal;\n#endif\n\n#if NCLIPPLANES > 0\nuniform vec4 vClipplane[NCLIPPLANES];\n#endif\n\n#if NLIGHTS > 0\nuniform mat4 mvMatrix;\n#endif\n\n#ifdef IS_LIT\nuniform vec3 emission;\nuniform float shininess;\n#if NLIGHTS > 0\nuniform vec3 ambient[NLIGHTS];\nuniform vec3 specular[NLIGHTS]; // light*material\nuniform vec3 diffuse[NLIGHTS];\nuniform vec3 lightDir[NLIGHTS];\nuniform bool viewpoint[NLIGHTS];\nuniform bool finite[NLIGHTS];\n#endif\n#endif // IS_LIT\n\n#ifdef IS_TWOSIDED\nuniform bool front;\nvarying float normz;\n#endif\n\n#ifdef FAT_LINES\nvarying vec2 vPoint;\nvarying float vLength;\n#endif\n\n#ifdef USE_ENVMAP\nvarying vec3 vReflection;\n#endif\n\nvoid main(void) {\n  vec4 fragColor;\n#ifdef FAT_LINES\n  vec2 point = vPoint;\n  bool neg = point.y < 0.0;\n  point.y = neg ? (point.y + vLength)/(1.0 - vLength) :\n                 -(point.y - vLength)/(1.0 - vLength);\n#if defined(IS_TRANSPARENT) && defined(IS_LINESTRIP)\n  if (neg && length(point) <= 1.0) discard;\n#endif\n  point.y = min(point.y, 0.0);\n  if (length(point) > 1.0) discard;\n#endif // FAT_LINES\n  \n#ifdef ROUND_POINTS\n  vec2 coord = gl_PointCoord - vec2(0.5);\n  if (length(coord) > 0.5) discard;\n#endif\n  \n#if NCLIPPLANES > 0\n  for (int i = 0; i < NCLIPPLANES; i++)\n    if (dot(vPosition, vClipplane[i]) < 0.0) discard;\n#endif\n    \n#ifdef FIXED_QUADS\n    vec3 n = vec3(0., 0., 1.);\n#elif defined(IS_LIT)\n    vec3 n = normalize(vNormal.xyz);\n#endif\n    \n#ifdef IS_TWOSIDED\n    if ((normz <= 0.) != front) discard;\n#endif\n\n#ifdef IS_LIT\n    vec3 eye = normalize(-vPosition.xyz/vPosition.w);\n    vec3 lightdir;\n    vec4 colDiff;\n    vec3 halfVec;\n    vec4 lighteffect = vec4(emission, 0.);\n    vec3 col;\n    float nDotL;\n#ifdef FIXED_QUADS\n    n = -faceforward(n, n, eye);\n#endif\n    \n#if NLIGHTS > 0\n    // Simulate two-sided lighting\n    if (n.z < 0.0)\n      n = -n;\n    for (int i=0;i<NLIGHTS;i++) {\n      colDiff = vec4(vCol.rgb * diffuse[i], vCol.a);\n      lightdir = lightDir[i];\n      if (!viewpoint[i]) {\n        if (finite[i]) {\n          lightdir = (mvMatrix * vec4(lightdir, 1.)).xyz;\n        } else {\n          lightdir = (mvMatrix * vec4(lightdir, 0.)).xyz;\n        }\n      }\n      if (!finite[i]) {\n        halfVec = normalize(lightdir + eye);\n      } else {\n        lightdir = normalize(lightdir - vPosition.xyz/vPosition.w);\n        halfVec = normalize(lightdir + eye);\n      }\n      col = ambient[i];\n      nDotL = dot(n, lightdir);\n      col = col + max(nDotL, 0.) * colDiff.rgb;\n      col = col + pow(max(dot(halfVec, n), 0.), shininess) * specular[i];\n      lighteffect = lighteffect + vec4(col, colDiff.a);\n    }\n#endif\n    \n#else // not IS_LIT\n    vec4 colDiff = vCol;\n    vec4 lighteffect = colDiff;\n#endif\n    \n#ifdef IS_TEXT\n    vec4 textureColor = lighteffect*texture2D(uSampler, vTexcoord);\n#endif\n    \n#ifdef HAS_TEXTURE\n\n// These calculations use the definitions from \n// https://docs.gl/gl3/glTexEnv\n\n#ifdef USE_ENVMAP\n    float m = 2.0 * sqrt(dot(vReflection, vReflection) + 2.0*vReflection.z + 1.0);\n    vec4 textureColor = texture2D(uSampler, vReflection.xy / m + vec2(0.5, 0.5));\n#else\n    vec4 textureColor = texture2D(uSampler, vTexcoord);\n#endif\n\n#ifdef TEXTURE_rgb\n\n#if defined(TEXMODE_replace) || defined(TEXMODE_decal)\n    textureColor = vec4(textureColor.rgb, lighteffect.a);\n#endif \n\n#ifdef TEXMODE_modulate\n    textureColor = lighteffect*vec4(textureColor.rgb, 1.);\n#endif\n\n#ifdef TEXMODE_blend\n    textureColor = vec4((1. - textureColor.rgb) * lighteffect.rgb, lighteffect.a);\n#endif\n\n#ifdef TEXMODE_add\n    textureColor = vec4(lighteffect.rgb + textureColor.rgb, lighteffect.a);\n#endif\n\n#endif //TEXTURE_rgb\n        \n#ifdef TEXTURE_rgba\n\n#ifdef TEXMODE_replace\n// already done\n#endif \n\n#ifdef TEXMODE_modulate\n    textureColor = lighteffect*textureColor;\n#endif\n\n#ifdef TEXMODE_decal\n    textureColor = vec4((1. - textureColor.a)*lighteffect.rgb) +\n                     textureColor.a*textureColor.rgb, \n                     lighteffect.a);\n#endif\n\n#ifdef TEXMODE_blend\n    textureColor = vec4((1. - textureColor.rgb) * lighteffect.rgb,\n                    lighteffect.a*textureColor.a);\n#endif\n\n#ifdef TEXMODE_add\n    textureColor = vec4(lighteffect.rgb + textureColor.rgb,\n                    lighteffect.a*textureColor.a);\n#endif\n    \n#endif //TEXTURE_rgba\n    \n#ifdef TEXTURE_alpha\n    float luminance = dot(vec3(1.,1.,1.),textureColor.rgb)/3.;\n\n#if defined(TEXMODE_replace) || defined(TEXMODE_decal)\n    textureColor = vec4(lighteffect.rgb, luminance);\n#endif \n\n#if defined(TEXMODE_modulate) || defined(TEXMODE_blend) || defined(TEXMODE_add)\n    textureColor = vec4(lighteffect.rgb, lighteffect.a*luminance);\n#endif\n \n#endif // TEXTURE_alpha\n    \n// The TEXTURE_luminance values are not from that reference    \n#ifdef TEXTURE_luminance\n    float luminance = dot(vec3(1.,1.,1.),textureColor.rgb)/3.;\n\n#if defined(TEXMODE_replace) || defined(TEXMODE_decal)\n    textureColor = vec4(luminance, luminance, luminance, lighteffect.a);\n#endif \n\n#ifdef TEXMODE_modulate\n    textureColor = vec4(luminance*lighteffect.rgb, lighteffect.a);\n#endif\n\n#ifdef TEXMODE_blend\n    textureColor = vec4((1. - luminance)*lighteffect.rgb,\n                        lighteffect.a);\n#endif\n\n#ifdef TEXMODE_add\n    textureColor = vec4(luminance + lighteffect.rgb, lighteffect.a);\n#endif\n\n#endif // TEXTURE_luminance\n \n    \n#ifdef TEXTURE_luminance_alpha\n    float luminance = dot(vec3(1.,1.,1.),textureColor.rgb)/3.;\n\n#if defined(TEXMODE_replace) || defined(TEXMODE_decal)\n    textureColor = vec4(luminance, luminance, luminance, textureColor.a);\n#endif \n\n#ifdef TEXMODE_modulate\n    textureColor = vec4(luminance*lighteffect.rgb, \n                        textureColor.a*lighteffect.a);\n#endif\n\n#ifdef TEXMODE_blend\n    textureColor = vec4((1. - luminance)*lighteffect.rgb,\n                        textureColor.a*lighteffect.a);\n#endif\n\n#ifdef TEXMODE_add\n    textureColor = vec4(luminance + lighteffect.rgb, \n                        textureColor.a*lighteffect.a);\n\n#endif\n\n#endif // TEXTURE_luminance_alpha\n    \n    fragColor = textureColor;\n\n#elif defined(IS_TEXT)\n    if (textureColor.a < 0.1)\n      discard;\n    else\n      fragColor = textureColor;\n#else\n    fragColor = lighteffect;\n#endif // HAS_TEXTURE\n    \n#ifdef HAS_FOG\n    // uFogParms elements: x = near, y = far, z = fogscale, w = (1-sin(FOV/2))/(1+sin(FOV/2))\n    // In Exp and Exp2: use density = density/far\n    // fogF will be the proportion of fog\n    // Initialize it to the linear value\n    float fogF;\n    if (uFogMode > 0) {\n      fogF = (uFogParms.y - vPosition.z/vPosition.w)/(uFogParms.y - uFogParms.x);\n      if (uFogMode > 1)\n        fogF = mix(uFogParms.w, 1.0, fogF);\n      fogF = fogF*uFogParms.z;\n      if (uFogMode == 2)\n        fogF = 1.0 - exp(-fogF);\n      // Docs are wrong: use (density*c)^2, not density*c^2\n      // https://gitlab.freedesktop.org/mesa/mesa/-/blob/master/src/mesa/swrast/s_fog.c#L58\n      else if (uFogMode == 3)\n        fogF = 1.0 - exp(-fogF*fogF);\n      fogF = clamp(fogF, 0.0, 1.0);\n      gl_FragColor = vec4(mix(fragColor.rgb, uFogColor, fogF), fragColor.a);\n    } else gl_FragColor = fragColor;\n#else\n    gl_FragColor = fragColor;\n#endif // HAS_FOG\n    \n}","players":[],"webGLoptions":{"preserveDrawingBuffer":true}},"evals":[],"jsHooks":[]}</script>
+</div>
+</div>
+<p>Grâce à la 3d, nous pouvons encore mieux constater les relations linéaires</p>
+</section>
+<section id="distinction-des-variables-explicatives" class="level3">
+<h3 class="anchored" data-anchor-id="distinction-des-variables-explicatives">Distinction des variables explicatives</h3>
+<p>Non, car les variables explicatives sont fortements corrélées. A cause de cela la distinction entre les deux sera difficile.</p>
+</section>
+<section id="modèle-de-régression-linéaire-multiple" class="level3">
+<h3 class="anchored" data-anchor-id="modèle-de-régression-linéaire-multiple">Modèle de régression linéaire multiple</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1"></a>litters.lm <span class="ot">=</span> <span class="fu">lm</span>(brainwt<span class="sc">~</span>lsize<span class="sc">+</span>bodywt, <span class="at">data=</span>litters)</span>
+<span id="cb34-2"><a href="#cb34-2"></a><span class="fu">coef</span>(litters.lm)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>(Intercept)       lsize      bodywt 
+0.178246962 0.006690331 0.024306344 </code></pre>
+</div>
+</div>
+<p>yi = 0.178 + 0.0067 * lsize + 0.024 * bodywt</p>
+</section>
+<section id="résumé-et-significativité-des-variables-explicatives" class="level3">
+<h3 class="anchored" data-anchor-id="résumé-et-significativité-des-variables-explicatives">Résumé et significativité des variables explicatives</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1"></a><span class="fu">summary</span>(litters.lm)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+lm(formula = brainwt ~ lsize + bodywt, data = litters)
+
+Residuals:
+       Min         1Q     Median         3Q        Max 
+-0.0230005 -0.0098821  0.0004512  0.0092036  0.0180760 
+
+Coefficients:
+            Estimate Std. Error t value Pr(&gt;|t|)   
+(Intercept) 0.178247   0.075323   2.366  0.03010 * 
+lsize       0.006690   0.003132   2.136  0.04751 * 
+bodywt      0.024306   0.006779   3.586  0.00228 **
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 0.01195 on 17 degrees of freedom
+Multiple R-squared:  0.6505,    Adjusted R-squared:  0.6094 
+F-statistic: 15.82 on 2 and 17 DF,  p-value: 0.0001315</code></pre>
+</div>
+</div>
+<p>Comme on peut le voir, les niveaux sont bien inférieur à 0.05 donc on peut dire que la pente de la droite de régression est significativement différente de 0.</p>
+<p>De plus nous pouvons constater une différence entre les deux variables explicative. En effet, lsize obtient un résultat de 0.0475 alors que bodywt obtient 0.00228 se qui est meilleur.</p>
+</section>
+<section id="graphique-de-nuage-de-points" class="level3">
+<h3 class="anchored" data-anchor-id="graphique-de-nuage-de-points">Graphique de nuage de points</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1"></a>s3d <span class="ot">&lt;-</span> <span class="fu">scatterplot3d</span>(litters<span class="sc">$</span>lsize, litters<span class="sc">$</span>bodywt, litters<span class="sc">$</span>brainwt, <span class="at">main =</span> <span class="st">""</span>,</span>
+<span id="cb38-2"><a href="#cb38-2"></a>  <span class="at">color=</span><span class="st">"midnightblue"</span>, <span class="at">xlab=</span><span class="st">"litter size"</span>, <span class="at">ylab=</span><span class="st">"body weight"</span>,</span>
+<span id="cb38-3"><a href="#cb38-3"></a>  <span class="at">zlab=</span><span class="st">"brain weight"</span>, <span class="at">angle =</span> <span class="sc">-</span><span class="dv">60</span>, <span class="at">pch=</span><span class="dv">21</span>, <span class="at">bg=</span><span class="st">"orange"</span>)</span>
+<span id="cb38-4"><a href="#cb38-4"></a>  s3d<span class="sc">$</span><span class="fu">plane3d</span>(litters.lm, <span class="at">draw_polygon=</span><span class="cn">TRUE</span>, <span class="at">lty.box=</span><span class="st">"solid"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="TP2_files/figure-html/unnamed-chunk-21-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="coefficient-r2-r2_adj" class="level3">
+<h3 class="anchored" data-anchor-id="coefficient-r2-r2_adj">Coefficient <span class="math inline">\(R^2\)</span> <span class="math inline">\(R^2_{adj}\)</span></h3>
+<p>Summary nous donne les résultats suivants :</p>
+<p>Multiple R-squared: 0.6505, Adjusted R-squared: 0.6094</p>
+<p>Nous pouvons en conclure que le modèle explique une proportion assez importante de la variabilité des données.</p>
+</section>
+<section id="vérification-des-hypothèses-1" class="level3">
+<h3 class="anchored" data-anchor-id="vérification-des-hypothèses-1">Vérification des hypothèses</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1"></a><span class="fu">resid_panel</span>(litters.lm, <span class="at">plots=</span><span class="st">"all"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="TP2_files/figure-html/unnamed-chunk-22-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Grâces aux plots, nous pouvons constater qu’il y a effectivement une correlation, mais qui est entachée par plusieurs valeurs atypiques (que l’on peut observer facilement sur le Cook’d D Plot)</p>
+<p>Pour améliorer la qualité du model nous ponvons donc retirer ces valeurs atypiques.</p>
+</section>
+</section>
+<section id="exercice-4" class="level2">
+<h2 class="anchored" data-anchor-id="exercice-4">Exercice 4</h2>
+<section id="graphique-des-corrélations-1" class="level3">
+<h3 class="anchored" data-anchor-id="graphique-des-corrélations-1">Graphique des corrélations</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1"></a>wines <span class="ot">=</span> <span class="fu">read_excel</span>(<span class="st">"data/Wine.xlsx"</span>)</span>
+<span id="cb40-2"><a href="#cb40-2"></a></span>
+<span id="cb40-3"><a href="#cb40-3"></a><span class="fu">ggpairs</span>(wines)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="TP2_files/figure-html/unnamed-chunk-23-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
 </section>
 
 </main>
