@@ -127,14 +127,14 @@ window.Quarto = {
   </ul></li>
   <li><a href="#exercice-2" id="toc-exercice-2" class="nav-link" data-scroll-target="#exercice-2">Exercice 2</a>
   <ul class="collapse">
-  <li><a href="#a" id="toc-a" class="nav-link" data-scroll-target="#a">a)</a></li>
-  <li><a href="#b" id="toc-b" class="nav-link" data-scroll-target="#b">b)</a></li>
-  <li><a href="#c" id="toc-c" class="nav-link" data-scroll-target="#c">c)</a></li>
-  <li><a href="#d" id="toc-d" class="nav-link" data-scroll-target="#d">d)</a></li>
-  <li><a href="#e-et-f" id="toc-e-et-f" class="nav-link" data-scroll-target="#e-et-f">e) et f)</a></li>
-  <li><a href="#g" id="toc-g" class="nav-link" data-scroll-target="#g">g)</a></li>
-  <li><a href="#h" id="toc-h" class="nav-link" data-scroll-target="#h">h)</a></li>
-  <li><a href="#i" id="toc-i" class="nav-link" data-scroll-target="#i">i)</a></li>
+  <li><a href="#chargement-des-données-1" id="toc-chargement-des-données-1" class="nav-link" data-scroll-target="#chargement-des-données-1">Chargement des données</a></li>
+  <li><a href="#résumé" id="toc-résumé" class="nav-link" data-scroll-target="#résumé">Résumé</a></li>
+  <li><a href="#grapgique-de-nuage-de-points" id="toc-grapgique-de-nuage-de-points" class="nav-link" data-scroll-target="#grapgique-de-nuage-de-points">Grapgique de nuage de points</a></li>
+  <li><a href="#droite-de-régression-linaire" id="toc-droite-de-régression-linaire" class="nav-link" data-scroll-target="#droite-de-régression-linaire">Droite de régression linaire</a></li>
+  <li><a href="#coefficient-r-et-r2" id="toc-coefficient-r-et-r2" class="nav-link" data-scroll-target="#coefficient-r-et-r2">Coefficient <span class="math inline">\(r\)</span> et <span class="math inline">\(R^2\)</span></a></li>
+  <li><a href="#vérification-des-hypothèses" id="toc-vérification-des-hypothèses" class="nav-link" data-scroll-target="#vérification-des-hypothèses">Vérification des hypothèses</a></li>
+  <li><a href="#prédiction" id="toc-prédiction" class="nav-link" data-scroll-target="#prédiction">Prédiction</a></li>
+  <li><a href="#analyse-supplémentaire" id="toc-analyse-supplémentaire" class="nav-link" data-scroll-target="#analyse-supplémentaire">Analyse supplémentaire</a></li>
   </ul></li>
   <li><a href="#exercice-3" id="toc-exercice-3" class="nav-link" data-scroll-target="#exercice-3">Exercice 3</a></li>
   </ul>
@@ -164,7 +164,7 @@ window.Quarto = {
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">This version: April 29, 2024</p>
+      <p class="date">This version: May 6, 2024</p>
     </div>
   </div>
   
@@ -186,14 +186,17 @@ window.Quarto = {
 <span id="cb1-2"><a href="#cb1-2"></a>r[<span class="st">"CRAN"</span>] <span class="ot">=</span> <span class="st">"http://cran.us.r-project.org"</span></span>
 <span id="cb1-3"><a href="#cb1-3"></a><span class="fu">options</span>(<span class="at">repos =</span> r)</span>
 <span id="cb1-4"><a href="#cb1-4"></a></span>
-<span id="cb1-5"><a href="#cb1-5"></a><span class="fu">install.packages</span>(<span class="st">"ggResidpanel"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>package 'ggResidpanel' successfully unpacked and MD5 sums checked
-
-The downloaded binary packages are in
-    C:\Users\lcsch\AppData\Local\Temp\RtmpARMFqi\downloaded_packages</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a><span class="fu">library</span>(<span class="st">"ggResidpanel"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-5"><a href="#cb1-5"></a><span class="fu">install.packages</span>(<span class="st">"ggResidpanel"</span>)</span>
+<span id="cb1-6"><a href="#cb1-6"></a><span class="fu">library</span>(<span class="st">"ggResidpanel"</span>)</span>
+<span id="cb1-7"><a href="#cb1-7"></a></span>
+<span id="cb1-8"><a href="#cb1-8"></a><span class="fu">install.packages</span>(<span class="st">"tidyverse"</span>)</span>
+<span id="cb1-9"><a href="#cb1-9"></a><span class="fu">library</span>(<span class="st">"tidyverse"</span>)</span>
+<span id="cb1-10"><a href="#cb1-10"></a></span>
+<span id="cb1-11"><a href="#cb1-11"></a><span class="fu">install.packages</span>(<span class="st">"ggrepel"</span>)</span>
+<span id="cb1-12"><a href="#cb1-12"></a><span class="fu">library</span>(<span class="st">"ggrepel"</span>)</span>
+<span id="cb1-13"><a href="#cb1-13"></a></span>
+<span id="cb1-14"><a href="#cb1-14"></a><span class="fu">install.packages</span>(<span class="st">"GGally"</span>)</span>
+<span id="cb1-15"><a href="#cb1-15"></a><span class="fu">library</span>(<span class="st">"GGally"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 </section>
@@ -202,15 +205,15 @@ The downloaded binary packages are in
 <section id="chargement-des-données" class="level3">
 <h3 class="anchored" data-anchor-id="chargement-des-données">Chargement des données</h3>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a><span class="co"># Chargement des données</span></span>
-<span id="cb4-2"><a href="#cb4-2"></a>kalama <span class="ot">&lt;-</span> <span class="fu">read.table</span>(<span class="st">"data/kalama.txt"</span>, <span class="at">header=</span><span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a><span class="co"># Chargement des données</span></span>
+<span id="cb2-2"><a href="#cb2-2"></a>kalama <span class="ot">&lt;-</span> <span class="fu">read.table</span>(<span class="st">"data/kalama.txt"</span>, <span class="at">header=</span><span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="coefficient-de-correlation" class="level3">
 <h3 class="anchored" data-anchor-id="coefficient-de-correlation">Coefficient de correlation</h3>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a><span class="co"># Coefficient de corelation entre la taille et l'âge (0.994)</span></span>
-<span id="cb5-2"><a href="#cb5-2"></a><span class="fu">cor</span>(kalama)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a><span class="co"># Coefficient de corelation entre la taille et l'âge (0.994)</span></span>
+<span id="cb3-2"><a href="#cb3-2"></a><span class="fu">cor</span>(kalama)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>             age    taille
 age    1.0000000 0.9943661
@@ -221,8 +224,8 @@ taille 0.9943661 1.0000000</code></pre>
 <section id="nuage-de-points" class="level3">
 <h3 class="anchored" data-anchor-id="nuage-de-points">Nuage de points</h3>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1"></a><span class="co"># Nuage de points du dataset</span></span>
-<span id="cb7-2"><a href="#cb7-2"></a><span class="fu">plot</span>(kalama)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a><span class="co"># Nuage de points du dataset</span></span>
+<span id="cb5-2"><a href="#cb5-2"></a><span class="fu">plot</span>(kalama)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -235,9 +238,9 @@ taille 0.9943661 1.0000000</code></pre>
 <section id="régression-linéaire" class="level3">
 <h3 class="anchored" data-anchor-id="régression-linéaire">Régression linéaire</h3>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1"></a><span class="co"># Regression linéaire</span></span>
-<span id="cb8-2"><a href="#cb8-2"></a>kalama.lm <span class="ot">&lt;-</span> <span class="fu">lm</span>(taille<span class="sc">~</span>age, <span class="at">data=</span>kalama)</span>
-<span id="cb8-3"><a href="#cb8-3"></a><span class="fu">summary</span>(kalama.lm)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1"></a><span class="co"># Regression linéaire</span></span>
+<span id="cb6-2"><a href="#cb6-2"></a>kalama.lm <span class="ot">&lt;-</span> <span class="fu">lm</span>(taille<span class="sc">~</span>age, <span class="at">data=</span>kalama)</span>
+<span id="cb6-3"><a href="#cb6-3"></a><span class="fu">summary</span>(kalama.lm)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
 Call:
@@ -258,20 +261,20 @@ Residual standard error: 0.256 on 10 degrees of freedom
 Multiple R-squared:  0.9888,    Adjusted R-squared:  0.9876 
 F-statistic:   880 on 1 and 10 DF,  p-value: 4.428e-11</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1"></a><span class="fu">coef</span>(kalama.lm)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1"></a><span class="fu">coef</span>(kalama.lm)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>(Intercept)         age 
   64.928322    0.634965 </code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1"></a><span class="co"># Pente (beta 0) : 0.635</span></span>
-<span id="cb12-2"><a href="#cb12-2"></a><span class="co"># Ordonnée à l'origine (beta 1) : 64.9283</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1"></a><span class="co"># Pente (beta 0) : 0.635</span></span>
+<span id="cb10-2"><a href="#cb10-2"></a><span class="co"># Ordonnée à l'origine (beta 1) : 64.9283</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="ajustement-du-graphique" class="level3">
 <h3 class="anchored" data-anchor-id="ajustement-du-graphique">Ajustement du graphique</h3>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1"></a><span class="fu">plot</span>(kalama)</span>
-<span id="cb13-2"><a href="#cb13-2"></a><span class="fu">abline</span>(kalama.lm)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1"></a><span class="fu">plot</span>(kalama)</span>
+<span id="cb11-2"><a href="#cb11-2"></a><span class="fu">abline</span>(kalama.lm)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -284,19 +287,19 @@ F-statistic:   880 on 1 and 10 DF,  p-value: 4.428e-11</code></pre>
 <section id="variance-des-résidus-et-coefficient-r2" class="level3">
 <h3 class="anchored" data-anchor-id="variance-des-résidus-et-coefficient-r2">Variance des résidus et coefficient <span class="math inline">\(R^2\)</span></h3>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1"></a><span class="co"># On peut obtenir la variance des résidus avec la fonction deviance() -&gt; 0.655</span></span>
-<span id="cb14-2"><a href="#cb14-2"></a><span class="fu">deviance</span>(kalama.lm)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1"></a><span class="co"># On peut obtenir la variance des résidus avec la fonction deviance() -&gt; 0.655</span></span>
+<span id="cb12-2"><a href="#cb12-2"></a><span class="fu">deviance</span>(kalama.lm)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 0.6551748</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1"></a><span class="co"># Le coefficient de détermination R^2 est égal au carré du coefficient de correlation et est affiché dans le summary() de la régression.</span></span>
-<span id="cb16-2"><a href="#cb16-2"></a><span class="co"># R^2 = 0.9888</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1"></a><span class="co"># Le coefficient de détermination R^2 est égal au carré du coefficient de correlation et est affiché dans le summary() de la régression.</span></span>
+<span id="cb14-2"><a href="#cb14-2"></a><span class="co"># R^2 = 0.9888</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="diagnostic-du-modèle" class="level3">
 <h3 class="anchored" data-anchor-id="diagnostic-du-modèle">Diagnostic du modèle</h3>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1"></a><span class="fu">resid_panel</span>(kalama.lm, <span class="at">plots=</span><span class="st">"all"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1"></a><span class="fu">resid_panel</span>(kalama.lm, <span class="at">plots=</span><span class="st">"all"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -315,8 +318,8 @@ F-statistic:   880 on 1 and 10 DF,  p-value: 4.428e-11</code></pre>
 <h3 class="anchored" data-anchor-id="test-avec-un-niveau-de-signification-5">Test avec un niveau de signification 5%</h3>
 <p>On peut extraire le niveau de signification du summary de la manière suivante :</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1"></a>significance_level <span class="ot">=</span> <span class="fu">summary</span>(kalama.lm)<span class="sc">$</span>coefficients[<span class="dv">2</span>,<span class="dv">4</span>]</span>
-<span id="cb18-2"><a href="#cb18-2"></a><span class="fu">print</span>(significance_level)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1"></a>significance_level <span class="ot">=</span> <span class="fu">summary</span>(kalama.lm)<span class="sc">$</span>coefficients[<span class="dv">2</span>,<span class="dv">4</span>]</span>
+<span id="cb16-2"><a href="#cb16-2"></a><span class="fu">print</span>(significance_level)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 4.428071e-11</code></pre>
 </div>
@@ -326,12 +329,12 @@ F-statistic:   880 on 1 and 10 DF,  p-value: 4.428e-11</code></pre>
 </section>
 <section id="exercice-2" class="level2">
 <h2 class="anchored" data-anchor-id="exercice-2">Exercice 2</h2>
-<section id="a" class="level3">
-<h3 class="anchored" data-anchor-id="a">a)</h3>
+<section id="chargement-des-données-1" class="level3">
+<h3 class="anchored" data-anchor-id="chargement-des-données-1">Chargement des données</h3>
 <p>Nous avons créé un fichier <code>pnb_mortalite.txt</code> dans lequel nous avons copié-collé le contenu des données à importer. Cela nous a paru plus simple que de tout réécrire à la main dans une commande.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1"></a>pnb_data <span class="ot">=</span> <span class="fu">read.table</span>(<span class="st">"data/pnb_mortalite.txt"</span>, <span class="at">header=</span><span class="cn">TRUE</span>)</span>
-<span id="cb20-2"><a href="#cb20-2"></a>pnb_data</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1"></a>pnb_data <span class="ot">=</span> <span class="fu">read.table</span>(<span class="st">"data/pnb_mortalite.txt"</span>, <span class="at">header=</span><span class="cn">TRUE</span>)</span>
+<span id="cb18-2"><a href="#cb18-2"></a>pnb_data</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>            pays PNB mortalite
 1  Allemagne-RFA 190        24
@@ -351,10 +354,10 @@ F-statistic:   880 on 1 and 10 DF,  p-value: 4.428e-11</code></pre>
 </div>
 </div>
 </section>
-<section id="b" class="level3">
-<h3 class="anchored" data-anchor-id="b">b)</h3>
+<section id="résumé" class="level3">
+<h3 class="anchored" data-anchor-id="résumé">Résumé</h3>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1"></a><span class="fu">summary</span>(pnb_data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1"></a><span class="fu">summary</span>(pnb_data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>     pays                PNB          mortalite    
  Length:14          Min.   : 40.0   Min.   :14.00  
@@ -366,53 +369,34 @@ F-statistic:   880 on 1 and 10 DF,  p-value: 4.428e-11</code></pre>
 </div>
 </div>
 </section>
-<section id="c" class="level3">
-<h3 class="anchored" data-anchor-id="c">c)</h3>
+<section id="grapgique-de-nuage-de-points" class="level3">
+<h3 class="anchored" data-anchor-id="grapgique-de-nuage-de-points">Grapgique de nuage de points</h3>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1"></a><span class="fu">install.packages</span>(<span class="st">"tidyverse"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>package 'tidyverse' successfully unpacked and MD5 sums checked
-
-The downloaded binary packages are in
-    C:\Users\lcsch\AppData\Local\Temp\RtmpARMFqi\downloaded_packages</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1"></a><span class="fu">install.packages</span>(<span class="st">"ggrepel"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>package 'ggrepel' successfully unpacked and MD5 sums checked
-
-The downloaded binary packages are in
-    C:\Users\lcsch\AppData\Local\Temp\RtmpARMFqi\downloaded_packages</code></pre>
-</div>
-</div>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1"></a><span class="fu">library</span>(tidyverse)</span>
-<span id="cb28-2"><a href="#cb28-2"></a><span class="fu">library</span>(ggrepel)</span>
-<span id="cb28-3"><a href="#cb28-3"></a></span>
-<span id="cb28-4"><a href="#cb28-4"></a><span class="fu">ggplot</span>(pnb_data, <span class="fu">aes</span>(<span class="at">x =</span> PNB, <span class="at">y =</span> mortalite)) <span class="sc">+</span></span>
-<span id="cb28-5"><a href="#cb28-5"></a><span class="fu">geom_point</span>() <span class="sc">+</span></span>
-<span id="cb28-6"><a href="#cb28-6"></a><span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">"lm"</span>, <span class="at">se =</span> <span class="cn">FALSE</span>) <span class="sc">+</span> <span class="co"># Ajouter la droite de régression linéaire</span></span>
-<span id="cb28-7"><a href="#cb28-7"></a><span class="fu">geom_text_repel</span>(<span class="fu">aes</span>(<span class="at">label =</span> pays), <span class="at">size =</span> <span class="dv">3</span>, <span class="at">box.padding =</span> <span class="fl">0.5</span>) <span class="sc">+</span> <span class="co"># Ajouter les noms des pays avec ggrepel</span></span>
-<span id="cb28-8"><a href="#cb28-8"></a><span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Produit national brut"</span>, <span class="at">y =</span> <span class="st">"Mortalité infantile"</span>, <span class="at">title =</span> <span class="st">"Nuage de points : Mortalité infantile en fonction du PNB"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1"></a><span class="fu">ggplot</span>(pnb_data, <span class="fu">aes</span>(<span class="at">x =</span> PNB, <span class="at">y =</span> mortalite)) <span class="sc">+</span></span>
+<span id="cb22-2"><a href="#cb22-2"></a><span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb22-3"><a href="#cb22-3"></a><span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">"lm"</span>, <span class="at">se =</span> <span class="cn">FALSE</span>) <span class="sc">+</span> <span class="co"># Ajouter la droite de régression linéaire</span></span>
+<span id="cb22-4"><a href="#cb22-4"></a><span class="fu">geom_text_repel</span>(<span class="fu">aes</span>(<span class="at">label =</span> pays), <span class="at">size =</span> <span class="dv">3</span>, <span class="at">box.padding =</span> <span class="fl">0.5</span>) <span class="sc">+</span> <span class="co"># Ajouter les noms des pays avec ggrepel</span></span>
+<span id="cb22-5"><a href="#cb22-5"></a><span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Produit national brut"</span>, <span class="at">y =</span> <span class="st">"Mortalité infantile"</span>, <span class="at">title =</span> <span class="st">"Nuage de points : Mortalité infantile en fonction du PNB"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="TP2_files/figure-html/unnamed-chunk-13-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="TP2_files/figure-html/unnamed-chunk-12-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
 </div>
 <p>Comme on peut le voir sur le nuage de points ci-dessus, la plupart des pays suive la tendance sauf le Portugal qui sort très clairement du lot.</p>
 </section>
-<section id="d" class="level3">
-<h3 class="anchored" data-anchor-id="d">d)</h3>
+<section id="droite-de-régression-linaire" class="level3">
+<h3 class="anchored" data-anchor-id="droite-de-régression-linaire">Droite de régression linaire</h3>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1"></a>pnb_data.lm <span class="ot">=</span> <span class="fu">lm</span>(mortalite<span class="sc">~</span>PNB, <span class="at">data=</span>pnb_data)</span>
-<span id="cb29-2"><a href="#cb29-2"></a><span class="fu">coef</span>(pnb_data.lm)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1"></a>pnb_data.lm <span class="ot">=</span> <span class="fu">lm</span>(mortalite<span class="sc">~</span>PNB, <span class="at">data=</span>pnb_data)</span>
+<span id="cb23-2"><a href="#cb23-2"></a><span class="fu">coef</span>(pnb_data.lm)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>(Intercept)         PNB 
  51.0132698  -0.1589146 </code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1"></a><span class="fu">summary</span>(pnb_data.lm)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1"></a><span class="fu">summary</span>(pnb_data.lm)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
 Call:
@@ -436,10 +420,10 @@ F-statistic: 18.82 on 1 and 12 DF,  p-value: 0.000965</code></pre>
 </div>
 <p>La pente est de <strong>-0.16</strong> et l’ordonnée à l’origine est de <strong>51</strong>.</p>
 </section>
-<section id="e-et-f" class="level3">
-<h3 class="anchored" data-anchor-id="e-et-f">e) et f)</h3>
+<section id="coefficient-r-et-r2" class="level3">
+<h3 class="anchored" data-anchor-id="coefficient-r-et-r2">Coefficient <span class="math inline">\(r\)</span> et <span class="math inline">\(R^2\)</span></h3>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1"></a><span class="fu">cor</span>(pnb_data<span class="sc">$</span>PNB, pnb_data<span class="sc">$</span>mortalite)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1"></a><span class="fu">cor</span>(pnb_data<span class="sc">$</span>PNB, pnb_data<span class="sc">$</span>mortalite)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] -0.7814228</code></pre>
 </div>
@@ -447,27 +431,27 @@ F-statistic: 18.82 on 1 and 12 DF,  p-value: 0.000965</code></pre>
 <p>Le coefficient de corrélation <code>r</code> est de : <strong>-0.78</strong>.</p>
 <p>Le coefficient de <em>détermination</em>, indiqué dans le summary() ci-dessus, vaut 0.6106 et correspond effectivement au carré du coefficient de corrélation.</p>
 </section>
-<section id="g" class="level3">
-<h3 class="anchored" data-anchor-id="g">g)</h3>
+<section id="vérification-des-hypothèses" class="level3">
+<h3 class="anchored" data-anchor-id="vérification-des-hypothèses">Vérification des hypothèses</h3>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1"></a><span class="fu">resid_panel</span>(pnb_data.lm, <span class="at">plots=</span><span class="st">"all"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1"></a><span class="fu">resid_panel</span>(pnb_data.lm, <span class="at">plots=</span><span class="st">"all"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="TP2_files/figure-html/unnamed-chunk-16-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="TP2_files/figure-html/unnamed-chunk-15-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
 </div>
 <p>L’hypothèse que nous avions faite, soit que le Portugal est atypique, est confirmée par les graphiques ci-dessus. Que ce soit dans le Q-Q plot, le boxplot ou la distance de Cook, on voit qu’il y a une valeur atypique.</p>
 </section>
-<section id="h" class="level3">
-<h3 class="anchored" data-anchor-id="h">h)</h3>
+<section id="prédiction" class="level3">
+<h3 class="anchored" data-anchor-id="prédiction">Prédiction</h3>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1"></a>xnew <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="fu">c</span>(<span class="dv">100</span>), <span class="at">nrow=</span><span class="dv">1</span>)</span>
-<span id="cb36-2"><a href="#cb36-2"></a><span class="fu">colnames</span>(xnew) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"PNB"</span>)</span>
-<span id="cb36-3"><a href="#cb36-3"></a>xnew <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(xnew)</span>
-<span id="cb36-4"><a href="#cb36-4"></a><span class="fu">predict</span>(pnb_data.lm, xnew, <span class="at">interval=</span><span class="st">"pred"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1"></a>xnew <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="fu">c</span>(<span class="dv">100</span>), <span class="at">nrow=</span><span class="dv">1</span>)</span>
+<span id="cb30-2"><a href="#cb30-2"></a><span class="fu">colnames</span>(xnew) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"PNB"</span>)</span>
+<span id="cb30-3"><a href="#cb30-3"></a>xnew <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(xnew)</span>
+<span id="cb30-4"><a href="#cb30-4"></a><span class="fu">predict</span>(pnb_data.lm, xnew, <span class="at">interval=</span><span class="st">"pred"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>       fit      lwr      upr
 1 35.12181 16.22173 54.02189</code></pre>
@@ -475,8 +459,8 @@ F-statistic: 18.82 on 1 and 12 DF,  p-value: 0.000965</code></pre>
 </div>
 <p>La prédiction est de 35.12, soit exactement sur la ligne de la régression linéaire.</p>
 </section>
-<section id="i" class="level3">
-<h3 class="anchored" data-anchor-id="i">i)</h3>
+<section id="analyse-supplémentaire" class="level3">
+<h3 class="anchored" data-anchor-id="analyse-supplémentaire">Analyse supplémentaire</h3>
 <p>Ce nouveau modèle donne un meilleur coefficient de détermination (0.61 avec une régression linéaire, 0.78 avec un log).</p>
 <p>Nous pensons qu’un modèle logarithmique serait effectivement mieux adapté à la prédiction de la mortalité infantile car un modèle linéaire implique qu’avec un certain PNB, le taux de mortalité infantile pourrait atteindre 0. En pratique, on pourra s’en approcher mais jamais atteindre le 0%.</p>
 </section>
@@ -484,24 +468,13 @@ F-statistic: 18.82 on 1 and 12 DF,  p-value: 0.000965</code></pre>
 <section id="exercice-3" class="level2">
 <h2 class="anchored" data-anchor-id="exercice-3">Exercice 3</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1"></a><span class="fu">install.packages</span>(<span class="st">"GGally"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>package 'GGally' successfully unpacked and MD5 sums checked
-
-The downloaded binary packages are in
-    C:\Users\lcsch\AppData\Local\Temp\RtmpARMFqi\downloaded_packages</code></pre>
-</div>
-</div>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1"></a><span class="fu">library</span>(<span class="st">"GGally"</span>)</span>
-<span id="cb40-2"><a href="#cb40-2"></a></span>
-<span id="cb40-3"><a href="#cb40-3"></a>litters <span class="ot">=</span> <span class="fu">readRDS</span>(<span class="st">"data/litters.rds"</span>)</span>
-<span id="cb40-4"><a href="#cb40-4"></a></span>
-<span id="cb40-5"><a href="#cb40-5"></a><span class="fu">ggpairs</span>(litters)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1"></a>litters <span class="ot">=</span> <span class="fu">readRDS</span>(<span class="st">"data/litters.rds"</span>)</span>
+<span id="cb32-2"><a href="#cb32-2"></a></span>
+<span id="cb32-3"><a href="#cb32-3"></a><span class="fu">ggpairs</span>(litters)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="TP2_files/figure-html/unnamed-chunk-19-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="TP2_files/figure-html/unnamed-chunk-17-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>

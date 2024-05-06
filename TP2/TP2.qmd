@@ -31,12 +31,23 @@ Dans ce deuxième TP, nous allons nous préciser sur les modèles de régression
 
 ### Gestion des librairies
 ```{r}
+#| output: false
+
 r = getOption("repos")
 r["CRAN"] = "http://cran.us.r-project.org"
 options(repos = r)
 
 install.packages("ggResidpanel")
 library("ggResidpanel")
+
+install.packages("tidyverse")
+library("tidyverse")
+
+install.packages("ggrepel")
+library("ggrepel")
+
+install.packages("GGally")
+library("GGally")
 ```
 
 ## Exercice 1
@@ -112,7 +123,7 @@ Comme on peut le voir, ce niveau est bien inférieur à 0.05 donc on peut dire q
 
 ## Exercice 2
 
-### a)
+### Chargement des données
 Nous avons créé un fichier `pnb_mortalite.txt` dans lequel nous avons copié-collé le contenu des données à importer. Cela nous a paru plus simple que de tout réécrire à la main dans une commande.
 
 ```{r}
@@ -120,32 +131,24 @@ pnb_data = read.table("data/pnb_mortalite.txt", header=TRUE)
 pnb_data
 ```
 
-### b)
+### Résumé
 ```{r}
 summary(pnb_data)
 ```
 
-### c)
-```{r}
-install.packages("tidyverse")
-install.packages("ggrepel")
-```
+### Grapgique de nuage de points
 
 ```{r}
-library(tidyverse)
-library(ggrepel)
-
 ggplot(pnb_data, aes(x = PNB, y = mortalite)) +
 geom_point() +
 geom_smooth(method = "lm", se = FALSE) + # Ajouter la droite de régression linéaire
 geom_text_repel(aes(label = pays), size = 3, box.padding = 0.5) + # Ajouter les noms des pays avec ggrepel
 labs(x = "Produit national brut", y = "Mortalité infantile", title = "Nuage de points : Mortalité infantile en fonction du PNB")
-
 ```
 
 Comme on peut le voir sur le nuage de points ci-dessus, la plupart des pays suive la tendance sauf le Portugal qui sort très clairement du lot.
 
-### d)
+### Droite de régression linaire
 ```{r}
 pnb_data.lm = lm(mortalite~PNB, data=pnb_data)
 coef(pnb_data.lm)
@@ -154,7 +157,7 @@ summary(pnb_data.lm)
 
 La pente est de **-0.16** et l'ordonnée à l'origine est de **51**.
 
-### e) et f)
+### Coefficient $r$ et $R^2$
 
 ```{r}
 cor(pnb_data$PNB, pnb_data$mortalite)
@@ -164,7 +167,7 @@ Le coefficient de corrélation `r` est de : **-0.78**.
 
 Le coefficient de *détermination*, indiqué dans le summary() ci-dessus, vaut 0.6106 et correspond effectivement au carré du coefficient de corrélation.
 
-### g)
+### Vérification des hypothèses
 
 ```{r}
 resid_panel(pnb_data.lm, plots="all")
@@ -172,7 +175,7 @@ resid_panel(pnb_data.lm, plots="all")
 
 L'hypothèse que nous avions faite, soit que le Portugal est atypique, est confirmée par les graphiques ci-dessus. Que ce soit dans le Q-Q plot, le boxplot ou la distance de Cook, on voit qu'il y a une valeur atypique.
 
-### h)
+### Prédiction
 ```{r}
 xnew <- matrix(c(100), nrow=1)
 colnames(xnew) <- c("PNB")
@@ -182,7 +185,7 @@ predict(pnb_data.lm, xnew, interval="pred")
 
 La prédiction est de 35.12, soit exactement sur la ligne de la régression linéaire.
 
-### i)
+### Analyse supplémentaire
 
 Ce nouveau modèle donne un meilleur coefficient de détermination (0.61 avec une régression linéaire, 0.78 avec un log).
 
@@ -190,13 +193,8 @@ Nous pensons qu'un modèle logarithmique serait effectivement mieux adapté à l
 
 ## Exercice 3
 
-```{r}
-install.packages("GGally")
-```
 
 ```{r}
-library("GGally")
-
 litters = readRDS("data/litters.rds")
 
 ggpairs(litters)
