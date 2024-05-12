@@ -33,30 +33,32 @@ Dans ce deuxième TP, nous allons nous préciser sur les modèles de régression
 ```{r}
 #| output: false
 
+download = FALSE
+
 r = getOption("repos")
 r["CRAN"] = "http://cran.us.r-project.org"
 options(repos = r)
 
-install.packages("ggResidpanel")
+if(download) {
+  install.packages("ggResidpanel")
+  install.packages("tidyverse")
+  install.packages("ggrepel")
+  install.packages("GGally")
+  install.packages("rgl")
+  install.packages("scatterplot3d")
+  install.packages("readxl")
+  install.packages('leaps')
+}
+
 library("ggResidpanel")
-
-install.packages("tidyverse")
 library("tidyverse")
-
-install.packages("ggrepel")
 library("ggrepel")
-
-install.packages("GGally")
 library("GGally")
-
-install.packages("rgl")
 library("rgl")
-
-install.packages("scatterplot3d")
 library("scatterplot3d")
-
-install.packages("readxl")
 library("readxl")
+library(leaps)
+
 ```
 
 ## Exercice 1
@@ -299,4 +301,57 @@ yi = 3.99 + 2.34 * Clarity + 0.48 * Aroma + 0.27 * Body + 1.17 * Flavor - 0.68 *
 summary(wines.lm)
 ```
 
-le résumé ne resort que les 
+Les 3 variables avec un taux de signification supérieur à 5% sont Clarity, Aroma et Body avec respectivement 18%, 8% et 41%.
+
+Si on rapporte ces résultats au graphique du point a), on constate qu'il s'agit également des variables ayant une corrélatio élevée avec la variable de réponse "Quality".
+
+### Coefficient de détermination R^2
+
+$R^2 = 0.7206$ 
+$R^2_{adj} = 0.6769$
+
+### e) Critères de comparaison des modèles
+
+#### Critère d’Akaike (AIC)
+Le critère d'information d'Akaika est un outil permettant d'équilibrer la complexité d'un modèle et sa capacité à bien représenter la réalité.
+Il se calcule de la manière suivante :
+
+$AIC = 2k - 2log(L)$
+
+Plus ce critère est petit, plus le nombre de paramètres ($k$) actuel du modèle correspond à un bon compromis entre la qualité des prédictions ("vraisemblance", $L$ ci-dessus) et la complexité du modèle.
+
+#### Critère d’Information Bayésien (BIC)
+Le critère d'information Bayésien est très similaire à l'AIC sauf qu'il prend un autre paramètre en compte, la taille de l'échantillon de données.
+
+Il se calcule de la manière suivante :
+$BIC = k \cdot log(n) - 2log(L)$
+
+Comme pour l'AIC, plus ce critère est petit, mieux c'est.
+
+#### Critère $C_p$ de Mallows
+
+Tout comme AIC ou BIC, le critère de Mallows permet de trouver un modèle qui ajuste bien les données tout en évitant une complexité excessive.
+
+Il est calculé de la manière suivante :
+
+$C_p = \frac{SSE_p}{\hat{\sigma}^2} - n + 2p$
+
+Où
+- $SSE_p$ est la somme des carrés des résidus
+- $\hat{\sigma}^2$ est une estimation de la variance de l'erreur
+- $n$ est la taille de l'échantillon
+- $p$ est le nombre de paramètres du modèle
+
+#### f)
+
+```{r}
+choix <- regsubsets(Quality~., data=wines, nbest=1, nvmax=11)
+
+plot(choix, scale="adjr2", col="midnightblue")
+plot(choix, scale="bic", col="midnightblue")
+plot(choix, scale="Cp", col="midnightblue")
+
+
+leaps <- regsubsets(Quality~., data=wines, nbest=10)
+summary(leaps)
+```
