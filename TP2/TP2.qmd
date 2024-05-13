@@ -33,7 +33,7 @@ Dans ce deuxième TP, nous allons nous préciser sur les modèles de régression
 ```{r}
 #| output: false
 
-download = FALSE
+download = TRUE
 
 r = getOption("repos")
 r["CRAN"] = "http://cran.us.r-project.org"
@@ -47,7 +47,8 @@ if(download) {
   install.packages("rgl")
   install.packages("scatterplot3d")
   install.packages("readxl")
-  install.packages('leaps')
+  install.packages("leaps")
+  install.packages("performance")
 }
 
 library("ggResidpanel")
@@ -57,7 +58,9 @@ library("GGally")
 library("rgl")
 library("scatterplot3d")
 library("readxl")
-library(leaps)
+library("leaps")
+library("performance")
+
 
 ```
 
@@ -342,7 +345,7 @@ Où
 - $n$ est la taille de l'échantillon
 - $p$ est le nombre de paramètres du modèle
 
-#### f)
+### f)
 
 ```{r}
 choix <- regsubsets(Quality~., data=wines, nbest=1, nvmax=11)
@@ -354,4 +357,36 @@ plot(choix, scale="Cp", col="midnightblue")
 
 leaps <- regsubsets(Quality~., data=wines, nbest=10)
 summary(leaps)
+```
+
+Selon $R^2_{adj}$, il faut garder juste le paramètre flavor.
+
+Selon BIC, il faut garder tous les paramètres.
+
+Selon le critère de Mallows, il faut garder Aroma, Flavor et Oakiness.
+
+On peut classer les critères en fonction du nombre de fois où ils ont été retenu par un des critères ci-dessus :
+1. Flavor (3 fois)
+2. Aroma et Oakiness (2 fois)
+3. Clarity et Body (1 fois)
+
+Nous avons donc décidé de garder les 3 paramètres Flavor, Aroma et Oakiness.
+
+#### Création du modèle
+
+```{r}
+wines.new_lm = lm(Quality~Flavor+Aroma+Oakiness, data=wines)
+coef(wines.new_lm)
+summary(wines.new_lm)
+resid_panel(wines.new_lm, plots="all")
+```
+
+On peut voir que la relation est linéaire (graphique Response vs Predicted), que la moyenne des erreurs semble nulle et a une variance assez constante (Residual Plot) et que les résidus sont répartis selon une distribution normale (Histogram).
+
+#### Comparaison des modèles
+
+```{r}
+compare_performance()
+
+# TODOOOOOOOOO
 ```
