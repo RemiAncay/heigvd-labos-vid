@@ -178,6 +178,17 @@ window.Quarto = {
   <li><a href="#résumé-et-significativité-des-variables-explicatives-1" id="toc-résumé-et-significativité-des-variables-explicatives-1" class="nav-link" data-scroll-target="#résumé-et-significativité-des-variables-explicatives-1">Résumé et significativité des variables explicatives</a></li>
   <li><a href="#coefficient-de-détermination-r2" id="toc-coefficient-de-détermination-r2" class="nav-link" data-scroll-target="#coefficient-de-détermination-r2">Coefficient de détermination R^2</a></li>
   <li><a href="#e-critères-de-comparaison-des-modèles" id="toc-e-critères-de-comparaison-des-modèles" class="nav-link" data-scroll-target="#e-critères-de-comparaison-des-modèles">e) Critères de comparaison des modèles</a></li>
+  <li><a href="#f" id="toc-f" class="nav-link" data-scroll-target="#f">f)</a></li>
+  <li><a href="#g" id="toc-g" class="nav-link" data-scroll-target="#g">g)</a></li>
+  </ul></li>
+  <li><a href="#exercice-5" id="toc-exercice-5" class="nav-link" data-scroll-target="#exercice-5">Exercice 5</a></li>
+  <li><a href="#exercice-6" id="toc-exercice-6" class="nav-link" data-scroll-target="#exercice-6">Exercice 6</a>
+  <ul class="collapse">
+  <li><a href="#a" id="toc-a" class="nav-link" data-scroll-target="#a">a)</a></li>
+  <li><a href="#c" id="toc-c" class="nav-link" data-scroll-target="#c">c)</a></li>
+  <li><a href="#d" id="toc-d" class="nav-link" data-scroll-target="#d">d)</a></li>
+  <li><a href="#e" id="toc-e" class="nav-link" data-scroll-target="#e">e)</a></li>
+  <li><a href="#f-1" id="toc-f-1" class="nav-link" data-scroll-target="#f-1">f)</a></li>
   </ul></li>
   </ul>
 </nav>
@@ -206,7 +217,7 @@ window.Quarto = {
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">This version: May 13, 2024</p>
+      <p class="date">This version: May 14, 2024</p>
     </div>
   </div>
   
@@ -238,17 +249,37 @@ window.Quarto = {
 <span id="cb1-12"><a href="#cb1-12"></a>  <span class="fu">install.packages</span>(<span class="st">"rgl"</span>)</span>
 <span id="cb1-13"><a href="#cb1-13"></a>  <span class="fu">install.packages</span>(<span class="st">"scatterplot3d"</span>)</span>
 <span id="cb1-14"><a href="#cb1-14"></a>  <span class="fu">install.packages</span>(<span class="st">"readxl"</span>)</span>
-<span id="cb1-15"><a href="#cb1-15"></a>  <span class="fu">install.packages</span>(<span class="st">'leaps'</span>)</span>
-<span id="cb1-16"><a href="#cb1-16"></a>}</span>
-<span id="cb1-17"><a href="#cb1-17"></a></span>
-<span id="cb1-18"><a href="#cb1-18"></a><span class="fu">library</span>(<span class="st">"ggResidpanel"</span>)</span>
-<span id="cb1-19"><a href="#cb1-19"></a><span class="fu">library</span>(<span class="st">"tidyverse"</span>)</span>
-<span id="cb1-20"><a href="#cb1-20"></a><span class="fu">library</span>(<span class="st">"ggrepel"</span>)</span>
-<span id="cb1-21"><a href="#cb1-21"></a><span class="fu">library</span>(<span class="st">"GGally"</span>)</span>
-<span id="cb1-22"><a href="#cb1-22"></a><span class="fu">library</span>(<span class="st">"rgl"</span>)</span>
-<span id="cb1-23"><a href="#cb1-23"></a><span class="fu">library</span>(<span class="st">"scatterplot3d"</span>)</span>
-<span id="cb1-24"><a href="#cb1-24"></a><span class="fu">library</span>(<span class="st">"readxl"</span>)</span>
-<span id="cb1-25"><a href="#cb1-25"></a><span class="fu">library</span>(leaps)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-15"><a href="#cb1-15"></a>  <span class="fu">install.packages</span>(<span class="st">"leaps"</span>)</span>
+<span id="cb1-16"><a href="#cb1-16"></a>  <span class="fu">install.packages</span>(<span class="st">"performance"</span>)</span>
+<span id="cb1-17"><a href="#cb1-17"></a>  <span class="fu">install.packages</span>(<span class="st">"palmerpenguins"</span>)</span>
+<span id="cb1-18"><a href="#cb1-18"></a>  <span class="fu">install.packages</span>(<span class="st">"palettes"</span>)</span>
+<span id="cb1-19"><a href="#cb1-19"></a></span>
+<span id="cb1-20"><a href="#cb1-20"></a>  <span class="fu">install.packages</span>(<span class="st">"MetBrewer"</span>)</span>
+<span id="cb1-21"><a href="#cb1-21"></a>  <span class="fu">install.packages</span>(<span class="st">"PrettyCols"</span>)</span>
+<span id="cb1-22"><a href="#cb1-22"></a>  <span class="fu">install.packages</span>(<span class="st">"harrypotter"</span>)</span>
+<span id="cb1-23"><a href="#cb1-23"></a>  <span class="fu">install.packages</span>(<span class="st">"paletteer"</span>)</span>
+<span id="cb1-24"><a href="#cb1-24"></a>  <span class="fu">install.packages</span>(<span class="st">"showtext"</span>)</span>
+<span id="cb1-25"><a href="#cb1-25"></a>  <span class="fu">install.packages</span>(<span class="st">"nord"</span>)</span>
+<span id="cb1-26"><a href="#cb1-26"></a>}</span>
+<span id="cb1-27"><a href="#cb1-27"></a></span>
+<span id="cb1-28"><a href="#cb1-28"></a><span class="fu">library</span>(<span class="st">"ggResidpanel"</span>)</span>
+<span id="cb1-29"><a href="#cb1-29"></a><span class="fu">library</span>(<span class="st">"tidyverse"</span>)</span>
+<span id="cb1-30"><a href="#cb1-30"></a><span class="fu">library</span>(<span class="st">"ggrepel"</span>)</span>
+<span id="cb1-31"><a href="#cb1-31"></a><span class="fu">library</span>(<span class="st">"GGally"</span>)</span>
+<span id="cb1-32"><a href="#cb1-32"></a><span class="fu">library</span>(<span class="st">"rgl"</span>)</span>
+<span id="cb1-33"><a href="#cb1-33"></a><span class="fu">library</span>(<span class="st">"scatterplot3d"</span>)</span>
+<span id="cb1-34"><a href="#cb1-34"></a><span class="fu">library</span>(<span class="st">"readxl"</span>)</span>
+<span id="cb1-35"><a href="#cb1-35"></a><span class="fu">library</span>(<span class="st">"leaps"</span>)</span>
+<span id="cb1-36"><a href="#cb1-36"></a><span class="fu">library</span>(<span class="st">"performance"</span>)</span>
+<span id="cb1-37"><a href="#cb1-37"></a><span class="fu">library</span>(<span class="st">"palmerpenguins"</span>)</span>
+<span id="cb1-38"><a href="#cb1-38"></a><span class="fu">library</span>(<span class="st">"palettes"</span>)</span>
+<span id="cb1-39"><a href="#cb1-39"></a></span>
+<span id="cb1-40"><a href="#cb1-40"></a><span class="fu">library</span>(<span class="st">"MetBrewer"</span>)</span>
+<span id="cb1-41"><a href="#cb1-41"></a><span class="fu">library</span>(<span class="st">"PrettyCols"</span>)</span>
+<span id="cb1-42"><a href="#cb1-42"></a><span class="fu">library</span>(<span class="st">"harrypotter"</span>)</span>
+<span id="cb1-43"><a href="#cb1-43"></a><span class="fu">library</span>(<span class="st">"paletteer"</span>)</span>
+<span id="cb1-44"><a href="#cb1-44"></a><span class="fu">library</span>(<span class="st">"showtext"</span>)</span>
+<span id="cb1-45"><a href="#cb1-45"></a><span class="fu">library</span>(<span class="st">"nord"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 </section>
@@ -550,7 +581,7 @@ F-statistic: 18.82 on 1 and 12 DF,  p-value: 0.000965</code></pre>
 <span id="cb33-3"><a href="#cb33-3"></a><span class="fu">rglwidget</span>(<span class="at">elementId =</span> <span class="st">"plot3drgl"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display no-overflow-x">
 <div id="plot3drgl" style="width:100%;height:464px;" class="rglWebGL html-widget" role="img" aria-labelledby="plot3drgl-aria"></div>
-<script type="application/json" data-for="plot3drgl">{"x":{"material":{"color":"#000000","alpha":1,"lit":true,"ambient":"#000000","specular":"#FFFFFF","emission":"#000000","shininess":50,"smooth":true,"front":"filled","back":"filled","size":3,"lwd":1,"fog":true,"point_antialias":false,"line_antialias":false,"texture":null,"textype":"rgb","texmode":"modulate","texmipmap":false,"texminfilter":"linear","texmagfilter":"linear","texenvmap":false,"depth_mask":true,"depth_test":"less","isTransparent":false,"polygon_offset":[0,0],"margin":"","floating":false,"tag":"","blend":["src_alpha","one_minus_src_alpha"]},"rootSubscene":7,"objects":{"13":{"id":13,"type":"spheres","material":{},"vertices":"0","colors":"1","radii":[[0.2883208096027374]],"centers":"2","ignoreExtent":false,"fastTransparency":true,"flags":32771},"15":{"id":15,"type":"text","material":{"lit":false,"margin":0,"floating":true,"edge":[0,1,1]},"vertices":"3","colors":"4","texts":[["lsize"]],"cex":[[1]],"adj":[[0.5,0.5,0.5]],"centers":"5","family":[["sans"]],"font":[[1]],"ignoreExtent":true,"flags":33808},"16":{"id":16,"type":"text","material":{"lit":false,"margin":1,"floating":true,"edge":[1,1,1]},"vertices":"6","colors":"7","texts":[["bodywt"]],"cex":[[1]],"adj":[[0.5,0.5,0.5]],"centers":"8","family":[["sans"]],"font":[[1]],"ignoreExtent":true,"flags":33808},"17":{"id":17,"type":"text","material":{"lit":false,"margin":2,"floating":true,"edge":[1,1,1]},"vertices":"9","colors":"10","texts":[["brainwt"]],"cex":[[1]],"adj":[[0.5,0.5,0.5]],"centers":"11","family":[["sans"]],"font":[[1]],"ignoreExtent":true,"flags":33808},"11":{"id":11,"type":"light","vertices":[[0,0,1]],"colors":[[1,1,1,1],[1,1,1,1],[1,1,1,1]],"viewpoint":true,"finite":false},"10":{"id":10,"type":"background","material":{},"colors":"12","centers":"13","sphere":false,"fogtype":"none","fogscale":1,"flags":32768},"12":{"id":12,"type":"background","material":{"lit":false,"back":"lines"},"colors":"14","centers":"15","sphere":false,"fogtype":"none","fogscale":1,"flags":32768},"14":{"id":14,"type":"bboxdeco","material":{"front":"lines","back":"lines"},"vertices":"16","colors":"17","axes":{"mode":["pretty","pretty","pretty"],"step":[2,1,0.01999999955296516],"nticks":[5,5,5],"marklen":[15,15,15],"expand":[1.029999971389771,1.029999971389771,1.029999971389771]},"draw_front":true,"flags":32769},"7":{"id":7,"type":"subscene","par3d":{"antialias":8,"FOV":30,"ignoreExtent":false,"listeners":7,"mouseMode":{"none":"none","left":"trackball","right":"zoom","middle":"fov","wheel":"pull"},"observer":[0,0,26.88020324707031],"modelMatrix":[[0.6407134532928467,0,0,-4.805350780487061],[0,0.4554789364337921,71.26428985595703,-32.40177536010742],[0,-1.251418113708496,25.93808174133301,-27.88151550292969],[0,0,0,1]],"projMatrix":[[3.732050657272339,0,0,0],[0,3.732050657272339,0,0],[0,0,-3.863703966140747,-96.90003967285156],[0,0,-1,0]],"skipRedraw":false,"userMatrix":[[1,0,0,0],[0,0.3420201433256682,0.9396926207859085,0],[0,-0.9396926207859085,0.3420201433256682,0],[0,0,0,1]],"userProjection":[[1,0,0,0],[0,1,0,0],[0,0,1,0],[0,0,0,1]],"scale":[0.6407134532928467,1.33173131942749,75.83787536621094],"viewport":{"x":0,"y":0,"width":1,"height":1},"zoom":1,"bbox":[2.550000429153442,12.44999980926514,5.233499050140381,9.996500015258789,0.3641982078552246,0.447801798582077],"windowRect":[112,135,368,391],"family":"sans","font":1,"cex":1,"useFreeType":false,"fontname":"TT Arial","maxClipPlanes":8,"glVersion":4.6,"activeSubscene":0},"embeddings":{"viewport":"replace","projection":"replace","model":"replace","mouse":"replace"},"objects":[12,14,13,15,16,17,11],"subscenes":[],"flags":34067}},"crosstalk":{"key":[],"group":[],"id":[],"options":[]},"width":672,"height":480,"buffer":{"accessors":[{"bufferView":0,"componentType":5126,"count":20,"type":"VEC3"},{"bufferView":1,"componentType":5121,"count":1,"type":"VEC4"},{"bufferView":2,"componentType":5126,"count":20,"type":"VEC3"},{"bufferView":3,"componentType":5126,"count":1,"type":"VEC3"},{"bufferView":4,"componentType":5121,"count":1,"type":"VEC4"},{"bufferView":5,"componentType":5126,"count":1,"type":"VEC3"},{"bufferView":6,"componentType":5126,"count":1,"type":"VEC3"},{"bufferView":7,"componentType":5121,"count":1,"type":"VEC4"},{"bufferView":8,"componentType":5126,"count":1,"type":"VEC3"},{"bufferView":9,"componentType":5126,"count":1,"type":"VEC3"},{"bufferView":10,"componentType":5121,"count":1,"type":"VEC4"},{"bufferView":11,"componentType":5126,"count":1,"type":"VEC3"},{"bufferView":12,"componentType":5126,"count":1,"type":"VEC4"},{"bufferView":13,"componentType":5121,"count":1,"type":"VEC3"},{"bufferView":14,"componentType":5121,"count":1,"type":"VEC4"},{"bufferView":15,"componentType":5121,"count":1,"type":"VEC3"},{"bufferView":16,"componentType":5126,"count":13,"type":"VEC3"},{"bufferView":17,"componentType":5121,"count":1,"type":"VEC4"}],"bufferViews":[{"buffer":0,"byteLength":240,"byteOffset":0},{"buffer":0,"byteLength":4,"byteOffset":240},{"buffer":0,"byteLength":240,"byteOffset":244},{"buffer":0,"byteLength":12,"byteOffset":484},{"buffer":0,"byteLength":4,"byteOffset":496},{"buffer":0,"byteLength":12,"byteOffset":500},{"buffer":0,"byteLength":12,"byteOffset":512},{"buffer":0,"byteLength":4,"byteOffset":524},{"buffer":0,"byteLength":12,"byteOffset":528},{"buffer":0,"byteLength":12,"byteOffset":540},{"buffer":0,"byteLength":4,"byteOffset":552},{"buffer":0,"byteLength":12,"byteOffset":556},{"buffer":0,"byteLength":16,"byteOffset":568},{"buffer":0,"byteLength":3,"byteOffset":584},{"buffer":0,"byteLength":4,"byteOffset":587},{"buffer":0,"byteLength":3,"byteOffset":591},{"buffer":0,"byteLength":156,"byteOffset":596},{"buffer":0,"byteLength":4,"byteOffset":752}],"buffers":[{"byteLength":756,"bytes":"AABAQOkmF0H4U+M+AABAQOF6HEFkO98+AACAQOF6EkEGgdU+AACAQNnOGUHjpds+AACgQJqZ\nDUGamdk+AACgQI/CGUE/Nd4+AADAQJzEBEEX2c4+AADAQCGwCEGcxOA+AADgQM3M7EBzaNE+\nAADgQClcBUHjpds+AAAAQa5H4UDP99M+AAAAQZMY6EBzaNE+AAAQQTMz00DdJMY+AAAQQexR\n6EAtst0+AAAgQY/CyUCF69E+AAAgQcP11EApXM8+AAAwQSPb5UBSuN4+AAAwQYlBxEBOYtA+\nAABAQWZmrkB/arw+AABAQZqZwUDfT80+AAABAQAAQEDpJhdB+FPjPgAAQEDhehxBZDvfPgAA\ngEDhehJBBoHVPgAAgEDZzhlB46XbPgAAoECamQ1BmpnZPgAAoECPwhlBPzXePgAAwECcxARB\nF9nOPgAAwEAhsAhBnMTgPgAA4EDNzOxAc2jRPgAA4EApXAVB46XbPgAAAEGuR+FAz/fTPgAA\nAEGTGOhAc2jRPgAAEEEzM9NA3STGPgAAEEHsUehALbLdPgAAIEGPwslAhevRPgAAIEHD9dRA\nKVzPPgAAMEEj2+VAUrjePgAAMEGJQcRATmLQPgAAQEFmZq5Af2q8PgAAQEGamcFA30/NPgAA\nwH8AAIBAAACAPwAAAAEAAMB/AACAQAAAgD8AAMB/AACAQAAAgD8AAAABAADAfwAAgEAAAIA/\nAADAfwAAgEAAAIA/AAAAAQAAwH8AAIBAAACAP5mYmD6ZmJg+mZiYPgAAgD8AAAABAQEBAAAA\nAAAAAIBAAADAfwAAwH8AAMBAAADAfwAAwH8AAABBAADAfwAAwH8AACBBAADAfwAAwH8AAEBB\nAADAfwAAwH8AAMB/AADAQAAAwH8AAMB/AADgQAAAwH8AAMB/AAAAQQAAwH8AAMB/AAAQQQAA\nwH8AAMB/AADAf1yPwj4AAMB/AADAf8zMzD4AAMB/AADAfz0K1z4AAMB/AADAf65H4T4AAAAB\n"}]},"context":{"shiny":false,"rmarkdown":null},"vertexShader":"#line 2 1\n// File 1 is the vertex shader\n#ifdef GL_ES\n#ifdef GL_FRAGMENT_PRECISION_HIGH\nprecision highp float;\n#else\nprecision mediump float;\n#endif\n#endif\n\nattribute vec3 aPos;\nattribute vec4 aCol;\nuniform mat4 mvMatrix;\nuniform mat4 prMatrix;\nvarying vec4 vCol;\nvarying vec4 vPosition;\n\n#ifdef NEEDS_VNORMAL\nattribute vec3 aNorm;\nuniform mat4 normMatrix;\nvarying vec4 vNormal;\n#endif\n\n#if defined(HAS_TEXTURE) || defined (IS_TEXT)\nattribute vec2 aTexcoord;\nvarying vec2 vTexcoord;\n#endif\n\n#ifdef FIXED_SIZE\nuniform vec3 textScale;\n#endif\n\n#ifdef FIXED_QUADS\nattribute vec3 aOfs;\n#endif\n\n#ifdef IS_TWOSIDED\n#ifdef HAS_NORMALS\nvarying float normz;\nuniform mat4 invPrMatrix;\n#else\nattribute vec3 aPos1;\nattribute vec3 aPos2;\nvarying float normz;\n#endif\n#endif // IS_TWOSIDED\n\n#ifdef FAT_LINES\nattribute vec3 aNext;\nattribute vec2 aPoint;\nvarying vec2 vPoint;\nvarying float vLength;\nuniform float uAspect;\nuniform float uLwd;\n#endif\n\n#ifdef USE_ENVMAP\nvarying vec3 vReflection;\n#endif\n\nvoid main(void) {\n  \n#ifndef IS_BRUSH\n#if defined(NCLIPPLANES) || !defined(FIXED_QUADS) || defined(HAS_FOG) || defined(USE_ENVMAP)\n  vPosition = mvMatrix * vec4(aPos, 1.);\n#endif\n  \n#ifndef FIXED_QUADS\n  gl_Position = prMatrix * vPosition;\n#endif\n#endif // !IS_BRUSH\n  \n#ifdef IS_POINTS\n  gl_PointSize = POINTSIZE;\n#endif\n  \n  vCol = aCol;\n  \n// USE_ENVMAP implies NEEDS_VNORMAL\n\n#ifdef NEEDS_VNORMAL\n  vNormal = normMatrix * vec4(-aNorm, dot(aNorm, aPos));\n#endif\n\n#ifdef USE_ENVMAP\n  vReflection = normalize(reflect(vPosition.xyz/vPosition.w, \n                        normalize(vNormal.xyz/vNormal.w)));\n#endif\n  \n#ifdef IS_TWOSIDED\n#ifdef HAS_NORMALS\n  /* normz should be calculated *after* projection */\n  normz = (invPrMatrix*vNormal).z;\n#else\n  vec4 pos1 = prMatrix*(mvMatrix*vec4(aPos1, 1.));\n  pos1 = pos1/pos1.w - gl_Position/gl_Position.w;\n  vec4 pos2 = prMatrix*(mvMatrix*vec4(aPos2, 1.));\n  pos2 = pos2/pos2.w - gl_Position/gl_Position.w;\n  normz = pos1.x*pos2.y - pos1.y*pos2.x;\n#endif\n#endif // IS_TWOSIDED\n  \n#ifdef NEEDS_VNORMAL\n  vNormal = vec4(normalize(vNormal.xyz), 1);\n#endif\n  \n#if defined(HAS_TEXTURE) || defined(IS_TEXT)\n  vTexcoord = aTexcoord;\n#endif\n  \n#if defined(FIXED_SIZE) && !defined(ROTATING)\n  vec4 pos = prMatrix * mvMatrix * vec4(aPos, 1.);\n  pos = pos/pos.w;\n  gl_Position = pos + vec4(aOfs*textScale, 0.);\n#endif\n  \n#if defined(IS_SPRITES) && !defined(FIXED_SIZE)\n  vec4 pos = mvMatrix * vec4(aPos, 1.);\n  pos = pos/pos.w + vec4(aOfs,  0.);\n  gl_Position = prMatrix*pos;\n#endif\n  \n#ifdef FAT_LINES\n  /* This code was inspired by Matt Deslauriers' code in \n   https://mattdesl.svbtle.com/drawing-lines-is-hard */\n  vec2 aspectVec = vec2(uAspect, 1.0);\n  mat4 projViewModel = prMatrix * mvMatrix;\n  vec4 currentProjected = projViewModel * vec4(aPos, 1.0);\n  currentProjected = currentProjected/currentProjected.w;\n  vec4 nextProjected = projViewModel * vec4(aNext, 1.0);\n  vec2 currentScreen = currentProjected.xy * aspectVec;\n  vec2 nextScreen = (nextProjected.xy / nextProjected.w) * aspectVec;\n  float len = uLwd;\n  vec2 dir = vec2(1.0, 0.0);\n  vPoint = aPoint;\n  vLength = length(nextScreen - currentScreen)/2.0;\n  vLength = vLength/(vLength + len);\n  if (vLength > 0.0) {\n    dir = normalize(nextScreen - currentScreen);\n  }\n  vec2 normal = vec2(-dir.y, dir.x);\n  dir.x /= uAspect;\n  normal.x /= uAspect;\n  vec4 offset = vec4(len*(normal*aPoint.x*aPoint.y - dir), 0.0, 0.0);\n  gl_Position = currentProjected + offset;\n#endif\n  \n#ifdef IS_BRUSH\n  gl_Position = vec4(aPos, 1.);\n#endif\n}","fragmentShader":"#line 2 2\n// File 2 is the fragment shader\n#ifdef GL_ES\n#ifdef GL_FRAGMENT_PRECISION_HIGH\nprecision highp float;\n#else\nprecision mediump float;\n#endif\n#endif\nvarying vec4 vCol; // carries alpha\nvarying vec4 vPosition;\n#if defined(HAS_TEXTURE) || defined (IS_TEXT)\nvarying vec2 vTexcoord;\nuniform sampler2D uSampler;\n#endif\n\n#ifdef HAS_FOG\nuniform int uFogMode;\nuniform vec3 uFogColor;\nuniform vec4 uFogParms;\n#endif\n\n#if defined(IS_LIT) && !defined(FIXED_QUADS)\nvarying vec4 vNormal;\n#endif\n\n#if NCLIPPLANES > 0\nuniform vec4 vClipplane[NCLIPPLANES];\n#endif\n\n#if NLIGHTS > 0\nuniform mat4 mvMatrix;\n#endif\n\n#ifdef IS_LIT\nuniform vec3 emission;\nuniform float shininess;\n#if NLIGHTS > 0\nuniform vec3 ambient[NLIGHTS];\nuniform vec3 specular[NLIGHTS]; // light*material\nuniform vec3 diffuse[NLIGHTS];\nuniform vec3 lightDir[NLIGHTS];\nuniform bool viewpoint[NLIGHTS];\nuniform bool finite[NLIGHTS];\n#endif\n#endif // IS_LIT\n\n#ifdef IS_TWOSIDED\nuniform bool front;\nvarying float normz;\n#endif\n\n#ifdef FAT_LINES\nvarying vec2 vPoint;\nvarying float vLength;\n#endif\n\n#ifdef USE_ENVMAP\nvarying vec3 vReflection;\n#endif\n\nvoid main(void) {\n  vec4 fragColor;\n#ifdef FAT_LINES\n  vec2 point = vPoint;\n  bool neg = point.y < 0.0;\n  point.y = neg ? (point.y + vLength)/(1.0 - vLength) :\n                 -(point.y - vLength)/(1.0 - vLength);\n#if defined(IS_TRANSPARENT) && defined(IS_LINESTRIP)\n  if (neg && length(point) <= 1.0) discard;\n#endif\n  point.y = min(point.y, 0.0);\n  if (length(point) > 1.0) discard;\n#endif // FAT_LINES\n  \n#ifdef ROUND_POINTS\n  vec2 coord = gl_PointCoord - vec2(0.5);\n  if (length(coord) > 0.5) discard;\n#endif\n  \n#if NCLIPPLANES > 0\n  for (int i = 0; i < NCLIPPLANES; i++)\n    if (dot(vPosition, vClipplane[i]) < 0.0) discard;\n#endif\n    \n#ifdef FIXED_QUADS\n    vec3 n = vec3(0., 0., 1.);\n#elif defined(IS_LIT)\n    vec3 n = normalize(vNormal.xyz);\n#endif\n    \n#ifdef IS_TWOSIDED\n    if ((normz <= 0.) != front) discard;\n#endif\n\n#ifdef IS_LIT\n    vec3 eye = normalize(-vPosition.xyz/vPosition.w);\n    vec3 lightdir;\n    vec4 colDiff;\n    vec3 halfVec;\n    vec4 lighteffect = vec4(emission, 0.);\n    vec3 col;\n    float nDotL;\n#ifdef FIXED_QUADS\n    n = -faceforward(n, n, eye);\n#endif\n    \n#if NLIGHTS > 0\n    // Simulate two-sided lighting\n    if (n.z < 0.0)\n      n = -n;\n    for (int i=0;i<NLIGHTS;i++) {\n      colDiff = vec4(vCol.rgb * diffuse[i], vCol.a);\n      lightdir = lightDir[i];\n      if (!viewpoint[i]) {\n        if (finite[i]) {\n          lightdir = (mvMatrix * vec4(lightdir, 1.)).xyz;\n        } else {\n          lightdir = (mvMatrix * vec4(lightdir, 0.)).xyz;\n        }\n      }\n      if (!finite[i]) {\n        halfVec = normalize(lightdir + eye);\n      } else {\n        lightdir = normalize(lightdir - vPosition.xyz/vPosition.w);\n        halfVec = normalize(lightdir + eye);\n      }\n      col = ambient[i];\n      nDotL = dot(n, lightdir);\n      col = col + max(nDotL, 0.) * colDiff.rgb;\n      col = col + pow(max(dot(halfVec, n), 0.), shininess) * specular[i];\n      lighteffect = lighteffect + vec4(col, colDiff.a);\n    }\n#endif\n    \n#else // not IS_LIT\n    vec4 colDiff = vCol;\n    vec4 lighteffect = colDiff;\n#endif\n    \n#ifdef IS_TEXT\n    vec4 textureColor = lighteffect*texture2D(uSampler, vTexcoord);\n#endif\n    \n#ifdef HAS_TEXTURE\n\n// These calculations use the definitions from \n// https://docs.gl/gl3/glTexEnv\n\n#ifdef USE_ENVMAP\n    float m = 2.0 * sqrt(dot(vReflection, vReflection) + 2.0*vReflection.z + 1.0);\n    vec4 textureColor = texture2D(uSampler, vReflection.xy / m + vec2(0.5, 0.5));\n#else\n    vec4 textureColor = texture2D(uSampler, vTexcoord);\n#endif\n\n#ifdef TEXTURE_rgb\n\n#if defined(TEXMODE_replace) || defined(TEXMODE_decal)\n    textureColor = vec4(textureColor.rgb, lighteffect.a);\n#endif \n\n#ifdef TEXMODE_modulate\n    textureColor = lighteffect*vec4(textureColor.rgb, 1.);\n#endif\n\n#ifdef TEXMODE_blend\n    textureColor = vec4((1. - textureColor.rgb) * lighteffect.rgb, lighteffect.a);\n#endif\n\n#ifdef TEXMODE_add\n    textureColor = vec4(lighteffect.rgb + textureColor.rgb, lighteffect.a);\n#endif\n\n#endif //TEXTURE_rgb\n        \n#ifdef TEXTURE_rgba\n\n#ifdef TEXMODE_replace\n// already done\n#endif \n\n#ifdef TEXMODE_modulate\n    textureColor = lighteffect*textureColor;\n#endif\n\n#ifdef TEXMODE_decal\n    textureColor = vec4((1. - textureColor.a)*lighteffect.rgb) +\n                     textureColor.a*textureColor.rgb, \n                     lighteffect.a);\n#endif\n\n#ifdef TEXMODE_blend\n    textureColor = vec4((1. - textureColor.rgb) * lighteffect.rgb,\n                    lighteffect.a*textureColor.a);\n#endif\n\n#ifdef TEXMODE_add\n    textureColor = vec4(lighteffect.rgb + textureColor.rgb,\n                    lighteffect.a*textureColor.a);\n#endif\n    \n#endif //TEXTURE_rgba\n    \n#ifdef TEXTURE_alpha\n    float luminance = dot(vec3(1.,1.,1.),textureColor.rgb)/3.;\n\n#if defined(TEXMODE_replace) || defined(TEXMODE_decal)\n    textureColor = vec4(lighteffect.rgb, luminance);\n#endif \n\n#if defined(TEXMODE_modulate) || defined(TEXMODE_blend) || defined(TEXMODE_add)\n    textureColor = vec4(lighteffect.rgb, lighteffect.a*luminance);\n#endif\n \n#endif // TEXTURE_alpha\n    \n// The TEXTURE_luminance values are not from that reference    \n#ifdef TEXTURE_luminance\n    float luminance = dot(vec3(1.,1.,1.),textureColor.rgb)/3.;\n\n#if defined(TEXMODE_replace) || defined(TEXMODE_decal)\n    textureColor = vec4(luminance, luminance, luminance, lighteffect.a);\n#endif \n\n#ifdef TEXMODE_modulate\n    textureColor = vec4(luminance*lighteffect.rgb, lighteffect.a);\n#endif\n\n#ifdef TEXMODE_blend\n    textureColor = vec4((1. - luminance)*lighteffect.rgb,\n                        lighteffect.a);\n#endif\n\n#ifdef TEXMODE_add\n    textureColor = vec4(luminance + lighteffect.rgb, lighteffect.a);\n#endif\n\n#endif // TEXTURE_luminance\n \n    \n#ifdef TEXTURE_luminance_alpha\n    float luminance = dot(vec3(1.,1.,1.),textureColor.rgb)/3.;\n\n#if defined(TEXMODE_replace) || defined(TEXMODE_decal)\n    textureColor = vec4(luminance, luminance, luminance, textureColor.a);\n#endif \n\n#ifdef TEXMODE_modulate\n    textureColor = vec4(luminance*lighteffect.rgb, \n                        textureColor.a*lighteffect.a);\n#endif\n\n#ifdef TEXMODE_blend\n    textureColor = vec4((1. - luminance)*lighteffect.rgb,\n                        textureColor.a*lighteffect.a);\n#endif\n\n#ifdef TEXMODE_add\n    textureColor = vec4(luminance + lighteffect.rgb, \n                        textureColor.a*lighteffect.a);\n\n#endif\n\n#endif // TEXTURE_luminance_alpha\n    \n    fragColor = textureColor;\n\n#elif defined(IS_TEXT)\n    if (textureColor.a < 0.1)\n      discard;\n    else\n      fragColor = textureColor;\n#else\n    fragColor = lighteffect;\n#endif // HAS_TEXTURE\n    \n#ifdef HAS_FOG\n    // uFogParms elements: x = near, y = far, z = fogscale, w = (1-sin(FOV/2))/(1+sin(FOV/2))\n    // In Exp and Exp2: use density = density/far\n    // fogF will be the proportion of fog\n    // Initialize it to the linear value\n    float fogF;\n    if (uFogMode > 0) {\n      fogF = (uFogParms.y - vPosition.z/vPosition.w)/(uFogParms.y - uFogParms.x);\n      if (uFogMode > 1)\n        fogF = mix(uFogParms.w, 1.0, fogF);\n      fogF = fogF*uFogParms.z;\n      if (uFogMode == 2)\n        fogF = 1.0 - exp(-fogF);\n      // Docs are wrong: use (density*c)^2, not density*c^2\n      // https://gitlab.freedesktop.org/mesa/mesa/-/blob/master/src/mesa/swrast/s_fog.c#L58\n      else if (uFogMode == 3)\n        fogF = 1.0 - exp(-fogF*fogF);\n      fogF = clamp(fogF, 0.0, 1.0);\n      gl_FragColor = vec4(mix(fragColor.rgb, uFogColor, fogF), fragColor.a);\n    } else gl_FragColor = fragColor;\n#else\n    gl_FragColor = fragColor;\n#endif // HAS_FOG\n    \n}","players":[],"webGLoptions":{"preserveDrawingBuffer":true}},"evals":[],"jsHooks":[]}</script>
+<script type="application/json" data-for="plot3drgl">{"x":{"material":{"color":"#000000","alpha":1,"lit":true,"ambient":"#000000","specular":"#FFFFFF","emission":"#000000","shininess":50,"smooth":true,"front":"filled","back":"filled","size":3,"lwd":1,"fog":true,"point_antialias":false,"line_antialias":false,"texture":null,"textype":"rgb","texmode":"modulate","texmipmap":false,"texminfilter":"linear","texmagfilter":"linear","texenvmap":false,"depth_mask":true,"depth_test":"less","isTransparent":false,"polygon_offset":[0,0],"margin":"","floating":false,"tag":"","blend":["src_alpha","one_minus_src_alpha"]},"rootSubscene":7,"objects":{"13":{"id":13,"type":"spheres","material":{},"vertices":"0","colors":"1","radii":[[0.2883208096027374]],"centers":"2","ignoreExtent":false,"fastTransparency":true,"flags":32771},"15":{"id":15,"type":"text","material":{"lit":false,"margin":0,"floating":true,"edge":[0,1,1]},"vertices":"3","colors":"4","texts":[["lsize"]],"cex":[[1]],"adj":[[0.5,0.5,0.5]],"centers":"5","family":[["sans"]],"font":[[1]],"ignoreExtent":true,"flags":33808},"16":{"id":16,"type":"text","material":{"lit":false,"margin":1,"floating":true,"edge":[1,1,1]},"vertices":"6","colors":"7","texts":[["bodywt"]],"cex":[[1]],"adj":[[0.5,0.5,0.5]],"centers":"8","family":[["sans"]],"font":[[1]],"ignoreExtent":true,"flags":33808},"17":{"id":17,"type":"text","material":{"lit":false,"margin":2,"floating":true,"edge":[1,1,1]},"vertices":"9","colors":"10","texts":[["brainwt"]],"cex":[[1]],"adj":[[0.5,0.5,0.5]],"centers":"11","family":[["sans"]],"font":[[1]],"ignoreExtent":true,"flags":33808},"11":{"id":11,"type":"light","vertices":[[0,0,1]],"colors":[[1,1,1,1],[1,1,1,1],[1,1,1,1]],"viewpoint":true,"finite":false},"10":{"id":10,"type":"background","material":{},"colors":"12","centers":"13","sphere":false,"fogtype":"none","fogscale":1,"flags":32768},"12":{"id":12,"type":"background","material":{"lit":false,"back":"lines"},"colors":"14","centers":"15","sphere":false,"fogtype":"none","fogscale":1,"flags":32768},"14":{"id":14,"type":"bboxdeco","material":{"front":"lines","back":"lines"},"vertices":"16","colors":"17","axes":{"mode":["pretty","pretty","pretty"],"step":[2,1,0.01999999955296516],"nticks":[5,5,5],"marklen":[15,15,15],"expand":[1.029999971389771,1.029999971389771,1.029999971389771]},"draw_front":true,"flags":32769},"7":{"id":7,"type":"subscene","par3d":{"antialias":8,"FOV":30,"ignoreExtent":false,"listeners":7,"mouseMode":{"none":"none","left":"trackball","right":"zoom","middle":"fov","wheel":"pull"},"observer":[0,0,26.88020324707031],"modelMatrix":[[0.6407134532928467,0,0,-4.805350780487061],[0,0.4554789364337921,71.26428985595703,-32.40177536010742],[0,-1.251418113708496,25.93808174133301,-27.88151550292969],[0,0,0,1]],"projMatrix":[[3.732050657272339,0,0,0],[0,3.732050657272339,0,0],[0,0,-3.863703966140747,-96.90003967285156],[0,0,-1,0]],"skipRedraw":false,"userMatrix":[[1,0,0,0],[0,0.3420201433256682,0.9396926207859085,0],[0,-0.9396926207859085,0.3420201433256682,0],[0,0,0,1]],"userProjection":[[1,0,0,0],[0,1,0,0],[0,0,1,0],[0,0,0,1]],"scale":[0.6407134532928467,1.33173131942749,75.83787536621094],"viewport":{"x":0,"y":0,"width":1,"height":1},"zoom":1,"bbox":[2.550000429153442,12.44999980926514,5.233499050140381,9.996500015258789,0.3641982078552246,0.447801798582077],"windowRect":[86,109,342,365],"family":"sans","font":1,"cex":1,"useFreeType":false,"fontname":"TT Arial","maxClipPlanes":8,"glVersion":4.6,"activeSubscene":0},"embeddings":{"viewport":"replace","projection":"replace","model":"replace","mouse":"replace"},"objects":[12,14,13,15,16,17,11],"subscenes":[],"flags":34067}},"crosstalk":{"key":[],"group":[],"id":[],"options":[]},"width":672,"height":480,"buffer":{"accessors":[{"bufferView":0,"componentType":5126,"count":20,"type":"VEC3"},{"bufferView":1,"componentType":5121,"count":1,"type":"VEC4"},{"bufferView":2,"componentType":5126,"count":20,"type":"VEC3"},{"bufferView":3,"componentType":5126,"count":1,"type":"VEC3"},{"bufferView":4,"componentType":5121,"count":1,"type":"VEC4"},{"bufferView":5,"componentType":5126,"count":1,"type":"VEC3"},{"bufferView":6,"componentType":5126,"count":1,"type":"VEC3"},{"bufferView":7,"componentType":5121,"count":1,"type":"VEC4"},{"bufferView":8,"componentType":5126,"count":1,"type":"VEC3"},{"bufferView":9,"componentType":5126,"count":1,"type":"VEC3"},{"bufferView":10,"componentType":5121,"count":1,"type":"VEC4"},{"bufferView":11,"componentType":5126,"count":1,"type":"VEC3"},{"bufferView":12,"componentType":5126,"count":1,"type":"VEC4"},{"bufferView":13,"componentType":5121,"count":1,"type":"VEC3"},{"bufferView":14,"componentType":5121,"count":1,"type":"VEC4"},{"bufferView":15,"componentType":5121,"count":1,"type":"VEC3"},{"bufferView":16,"componentType":5126,"count":13,"type":"VEC3"},{"bufferView":17,"componentType":5121,"count":1,"type":"VEC4"}],"bufferViews":[{"buffer":0,"byteLength":240,"byteOffset":0},{"buffer":0,"byteLength":4,"byteOffset":240},{"buffer":0,"byteLength":240,"byteOffset":244},{"buffer":0,"byteLength":12,"byteOffset":484},{"buffer":0,"byteLength":4,"byteOffset":496},{"buffer":0,"byteLength":12,"byteOffset":500},{"buffer":0,"byteLength":12,"byteOffset":512},{"buffer":0,"byteLength":4,"byteOffset":524},{"buffer":0,"byteLength":12,"byteOffset":528},{"buffer":0,"byteLength":12,"byteOffset":540},{"buffer":0,"byteLength":4,"byteOffset":552},{"buffer":0,"byteLength":12,"byteOffset":556},{"buffer":0,"byteLength":16,"byteOffset":568},{"buffer":0,"byteLength":3,"byteOffset":584},{"buffer":0,"byteLength":4,"byteOffset":587},{"buffer":0,"byteLength":3,"byteOffset":591},{"buffer":0,"byteLength":156,"byteOffset":596},{"buffer":0,"byteLength":4,"byteOffset":752}],"buffers":[{"byteLength":756,"bytes":"AABAQOkmF0H4U+M+AABAQOF6HEFkO98+AACAQOF6EkEGgdU+AACAQNnOGUHjpds+AACgQJqZ\nDUGamdk+AACgQI/CGUE/Nd4+AADAQJzEBEEX2c4+AADAQCGwCEGcxOA+AADgQM3M7EBzaNE+\nAADgQClcBUHjpds+AAAAQa5H4UDP99M+AAAAQZMY6EBzaNE+AAAQQTMz00DdJMY+AAAQQexR\n6EAtst0+AAAgQY/CyUCF69E+AAAgQcP11EApXM8+AAAwQSPb5UBSuN4+AAAwQYlBxEBOYtA+\nAABAQWZmrkB/arw+AABAQZqZwUDfT80+AAABAQAAQEDpJhdB+FPjPgAAQEDhehxBZDvfPgAA\ngEDhehJBBoHVPgAAgEDZzhlB46XbPgAAoECamQ1BmpnZPgAAoECPwhlBPzXePgAAwECcxARB\nF9nOPgAAwEAhsAhBnMTgPgAA4EDNzOxAc2jRPgAA4EApXAVB46XbPgAAAEGuR+FAz/fTPgAA\nAEGTGOhAc2jRPgAAEEEzM9NA3STGPgAAEEHsUehALbLdPgAAIEGPwslAhevRPgAAIEHD9dRA\nKVzPPgAAMEEj2+VAUrjePgAAMEGJQcRATmLQPgAAQEFmZq5Af2q8PgAAQEGamcFA30/NPgAA\nwH8AAIBAAACAPwAAAAEAAMB/AACAQAAAgD8AAMB/AACAQAAAgD8AAAABAADAfwAAgEAAAIA/\nAADAfwAAgEAAAIA/AAAAAQAAwH8AAIBAAACAP5mYmD6ZmJg+mZiYPgAAgD8AAAABAQEBAAAA\nAAAAAIBAAADAfwAAwH8AAMBAAADAfwAAwH8AAABBAADAfwAAwH8AACBBAADAfwAAwH8AAEBB\nAADAfwAAwH8AAMB/AADAQAAAwH8AAMB/AADgQAAAwH8AAMB/AAAAQQAAwH8AAMB/AAAQQQAA\nwH8AAMB/AADAf1yPwj4AAMB/AADAf8zMzD4AAMB/AADAfz0K1z4AAMB/AADAf65H4T4AAAAB\n"}]},"context":{"shiny":false,"rmarkdown":null},"vertexShader":"#line 2 1\n// File 1 is the vertex shader\n#ifdef GL_ES\n#ifdef GL_FRAGMENT_PRECISION_HIGH\nprecision highp float;\n#else\nprecision mediump float;\n#endif\n#endif\n\nattribute vec3 aPos;\nattribute vec4 aCol;\nuniform mat4 mvMatrix;\nuniform mat4 prMatrix;\nvarying vec4 vCol;\nvarying vec4 vPosition;\n\n#ifdef NEEDS_VNORMAL\nattribute vec3 aNorm;\nuniform mat4 normMatrix;\nvarying vec4 vNormal;\n#endif\n\n#if defined(HAS_TEXTURE) || defined (IS_TEXT)\nattribute vec2 aTexcoord;\nvarying vec2 vTexcoord;\n#endif\n\n#ifdef FIXED_SIZE\nuniform vec3 textScale;\n#endif\n\n#ifdef FIXED_QUADS\nattribute vec3 aOfs;\n#endif\n\n#ifdef IS_TWOSIDED\n#ifdef HAS_NORMALS\nvarying float normz;\nuniform mat4 invPrMatrix;\n#else\nattribute vec3 aPos1;\nattribute vec3 aPos2;\nvarying float normz;\n#endif\n#endif // IS_TWOSIDED\n\n#ifdef FAT_LINES\nattribute vec3 aNext;\nattribute vec2 aPoint;\nvarying vec2 vPoint;\nvarying float vLength;\nuniform float uAspect;\nuniform float uLwd;\n#endif\n\n#ifdef USE_ENVMAP\nvarying vec3 vReflection;\n#endif\n\nvoid main(void) {\n  \n#ifndef IS_BRUSH\n#if defined(NCLIPPLANES) || !defined(FIXED_QUADS) || defined(HAS_FOG) || defined(USE_ENVMAP)\n  vPosition = mvMatrix * vec4(aPos, 1.);\n#endif\n  \n#ifndef FIXED_QUADS\n  gl_Position = prMatrix * vPosition;\n#endif\n#endif // !IS_BRUSH\n  \n#ifdef IS_POINTS\n  gl_PointSize = POINTSIZE;\n#endif\n  \n  vCol = aCol;\n  \n// USE_ENVMAP implies NEEDS_VNORMAL\n\n#ifdef NEEDS_VNORMAL\n  vNormal = normMatrix * vec4(-aNorm, dot(aNorm, aPos));\n#endif\n\n#ifdef USE_ENVMAP\n  vReflection = normalize(reflect(vPosition.xyz/vPosition.w, \n                        normalize(vNormal.xyz/vNormal.w)));\n#endif\n  \n#ifdef IS_TWOSIDED\n#ifdef HAS_NORMALS\n  /* normz should be calculated *after* projection */\n  normz = (invPrMatrix*vNormal).z;\n#else\n  vec4 pos1 = prMatrix*(mvMatrix*vec4(aPos1, 1.));\n  pos1 = pos1/pos1.w - gl_Position/gl_Position.w;\n  vec4 pos2 = prMatrix*(mvMatrix*vec4(aPos2, 1.));\n  pos2 = pos2/pos2.w - gl_Position/gl_Position.w;\n  normz = pos1.x*pos2.y - pos1.y*pos2.x;\n#endif\n#endif // IS_TWOSIDED\n  \n#ifdef NEEDS_VNORMAL\n  vNormal = vec4(normalize(vNormal.xyz), 1);\n#endif\n  \n#if defined(HAS_TEXTURE) || defined(IS_TEXT)\n  vTexcoord = aTexcoord;\n#endif\n  \n#if defined(FIXED_SIZE) && !defined(ROTATING)\n  vec4 pos = prMatrix * mvMatrix * vec4(aPos, 1.);\n  pos = pos/pos.w;\n  gl_Position = pos + vec4(aOfs*textScale, 0.);\n#endif\n  \n#if defined(IS_SPRITES) && !defined(FIXED_SIZE)\n  vec4 pos = mvMatrix * vec4(aPos, 1.);\n  pos = pos/pos.w + vec4(aOfs,  0.);\n  gl_Position = prMatrix*pos;\n#endif\n  \n#ifdef FAT_LINES\n  /* This code was inspired by Matt Deslauriers' code in \n   https://mattdesl.svbtle.com/drawing-lines-is-hard */\n  vec2 aspectVec = vec2(uAspect, 1.0);\n  mat4 projViewModel = prMatrix * mvMatrix;\n  vec4 currentProjected = projViewModel * vec4(aPos, 1.0);\n  currentProjected = currentProjected/currentProjected.w;\n  vec4 nextProjected = projViewModel * vec4(aNext, 1.0);\n  vec2 currentScreen = currentProjected.xy * aspectVec;\n  vec2 nextScreen = (nextProjected.xy / nextProjected.w) * aspectVec;\n  float len = uLwd;\n  vec2 dir = vec2(1.0, 0.0);\n  vPoint = aPoint;\n  vLength = length(nextScreen - currentScreen)/2.0;\n  vLength = vLength/(vLength + len);\n  if (vLength > 0.0) {\n    dir = normalize(nextScreen - currentScreen);\n  }\n  vec2 normal = vec2(-dir.y, dir.x);\n  dir.x /= uAspect;\n  normal.x /= uAspect;\n  vec4 offset = vec4(len*(normal*aPoint.x*aPoint.y - dir), 0.0, 0.0);\n  gl_Position = currentProjected + offset;\n#endif\n  \n#ifdef IS_BRUSH\n  gl_Position = vec4(aPos, 1.);\n#endif\n}","fragmentShader":"#line 2 2\n// File 2 is the fragment shader\n#ifdef GL_ES\n#ifdef GL_FRAGMENT_PRECISION_HIGH\nprecision highp float;\n#else\nprecision mediump float;\n#endif\n#endif\nvarying vec4 vCol; // carries alpha\nvarying vec4 vPosition;\n#if defined(HAS_TEXTURE) || defined (IS_TEXT)\nvarying vec2 vTexcoord;\nuniform sampler2D uSampler;\n#endif\n\n#ifdef HAS_FOG\nuniform int uFogMode;\nuniform vec3 uFogColor;\nuniform vec4 uFogParms;\n#endif\n\n#if defined(IS_LIT) && !defined(FIXED_QUADS)\nvarying vec4 vNormal;\n#endif\n\n#if NCLIPPLANES > 0\nuniform vec4 vClipplane[NCLIPPLANES];\n#endif\n\n#if NLIGHTS > 0\nuniform mat4 mvMatrix;\n#endif\n\n#ifdef IS_LIT\nuniform vec3 emission;\nuniform float shininess;\n#if NLIGHTS > 0\nuniform vec3 ambient[NLIGHTS];\nuniform vec3 specular[NLIGHTS]; // light*material\nuniform vec3 diffuse[NLIGHTS];\nuniform vec3 lightDir[NLIGHTS];\nuniform bool viewpoint[NLIGHTS];\nuniform bool finite[NLIGHTS];\n#endif\n#endif // IS_LIT\n\n#ifdef IS_TWOSIDED\nuniform bool front;\nvarying float normz;\n#endif\n\n#ifdef FAT_LINES\nvarying vec2 vPoint;\nvarying float vLength;\n#endif\n\n#ifdef USE_ENVMAP\nvarying vec3 vReflection;\n#endif\n\nvoid main(void) {\n  vec4 fragColor;\n#ifdef FAT_LINES\n  vec2 point = vPoint;\n  bool neg = point.y < 0.0;\n  point.y = neg ? (point.y + vLength)/(1.0 - vLength) :\n                 -(point.y - vLength)/(1.0 - vLength);\n#if defined(IS_TRANSPARENT) && defined(IS_LINESTRIP)\n  if (neg && length(point) <= 1.0) discard;\n#endif\n  point.y = min(point.y, 0.0);\n  if (length(point) > 1.0) discard;\n#endif // FAT_LINES\n  \n#ifdef ROUND_POINTS\n  vec2 coord = gl_PointCoord - vec2(0.5);\n  if (length(coord) > 0.5) discard;\n#endif\n  \n#if NCLIPPLANES > 0\n  for (int i = 0; i < NCLIPPLANES; i++)\n    if (dot(vPosition, vClipplane[i]) < 0.0) discard;\n#endif\n    \n#ifdef FIXED_QUADS\n    vec3 n = vec3(0., 0., 1.);\n#elif defined(IS_LIT)\n    vec3 n = normalize(vNormal.xyz);\n#endif\n    \n#ifdef IS_TWOSIDED\n    if ((normz <= 0.) != front) discard;\n#endif\n\n#ifdef IS_LIT\n    vec3 eye = normalize(-vPosition.xyz/vPosition.w);\n    vec3 lightdir;\n    vec4 colDiff;\n    vec3 halfVec;\n    vec4 lighteffect = vec4(emission, 0.);\n    vec3 col;\n    float nDotL;\n#ifdef FIXED_QUADS\n    n = -faceforward(n, n, eye);\n#endif\n    \n#if NLIGHTS > 0\n    // Simulate two-sided lighting\n    if (n.z < 0.0)\n      n = -n;\n    for (int i=0;i<NLIGHTS;i++) {\n      colDiff = vec4(vCol.rgb * diffuse[i], vCol.a);\n      lightdir = lightDir[i];\n      if (!viewpoint[i]) {\n        if (finite[i]) {\n          lightdir = (mvMatrix * vec4(lightdir, 1.)).xyz;\n        } else {\n          lightdir = (mvMatrix * vec4(lightdir, 0.)).xyz;\n        }\n      }\n      if (!finite[i]) {\n        halfVec = normalize(lightdir + eye);\n      } else {\n        lightdir = normalize(lightdir - vPosition.xyz/vPosition.w);\n        halfVec = normalize(lightdir + eye);\n      }\n      col = ambient[i];\n      nDotL = dot(n, lightdir);\n      col = col + max(nDotL, 0.) * colDiff.rgb;\n      col = col + pow(max(dot(halfVec, n), 0.), shininess) * specular[i];\n      lighteffect = lighteffect + vec4(col, colDiff.a);\n    }\n#endif\n    \n#else // not IS_LIT\n    vec4 colDiff = vCol;\n    vec4 lighteffect = colDiff;\n#endif\n    \n#ifdef IS_TEXT\n    vec4 textureColor = lighteffect*texture2D(uSampler, vTexcoord);\n#endif\n    \n#ifdef HAS_TEXTURE\n\n// These calculations use the definitions from \n// https://docs.gl/gl3/glTexEnv\n\n#ifdef USE_ENVMAP\n    float m = 2.0 * sqrt(dot(vReflection, vReflection) + 2.0*vReflection.z + 1.0);\n    vec4 textureColor = texture2D(uSampler, vReflection.xy / m + vec2(0.5, 0.5));\n#else\n    vec4 textureColor = texture2D(uSampler, vTexcoord);\n#endif\n\n#ifdef TEXTURE_rgb\n\n#if defined(TEXMODE_replace) || defined(TEXMODE_decal)\n    textureColor = vec4(textureColor.rgb, lighteffect.a);\n#endif \n\n#ifdef TEXMODE_modulate\n    textureColor = lighteffect*vec4(textureColor.rgb, 1.);\n#endif\n\n#ifdef TEXMODE_blend\n    textureColor = vec4((1. - textureColor.rgb) * lighteffect.rgb, lighteffect.a);\n#endif\n\n#ifdef TEXMODE_add\n    textureColor = vec4(lighteffect.rgb + textureColor.rgb, lighteffect.a);\n#endif\n\n#endif //TEXTURE_rgb\n        \n#ifdef TEXTURE_rgba\n\n#ifdef TEXMODE_replace\n// already done\n#endif \n\n#ifdef TEXMODE_modulate\n    textureColor = lighteffect*textureColor;\n#endif\n\n#ifdef TEXMODE_decal\n    textureColor = vec4((1. - textureColor.a)*lighteffect.rgb) +\n                     textureColor.a*textureColor.rgb, \n                     lighteffect.a);\n#endif\n\n#ifdef TEXMODE_blend\n    textureColor = vec4((1. - textureColor.rgb) * lighteffect.rgb,\n                    lighteffect.a*textureColor.a);\n#endif\n\n#ifdef TEXMODE_add\n    textureColor = vec4(lighteffect.rgb + textureColor.rgb,\n                    lighteffect.a*textureColor.a);\n#endif\n    \n#endif //TEXTURE_rgba\n    \n#ifdef TEXTURE_alpha\n    float luminance = dot(vec3(1.,1.,1.),textureColor.rgb)/3.;\n\n#if defined(TEXMODE_replace) || defined(TEXMODE_decal)\n    textureColor = vec4(lighteffect.rgb, luminance);\n#endif \n\n#if defined(TEXMODE_modulate) || defined(TEXMODE_blend) || defined(TEXMODE_add)\n    textureColor = vec4(lighteffect.rgb, lighteffect.a*luminance);\n#endif\n \n#endif // TEXTURE_alpha\n    \n// The TEXTURE_luminance values are not from that reference    \n#ifdef TEXTURE_luminance\n    float luminance = dot(vec3(1.,1.,1.),textureColor.rgb)/3.;\n\n#if defined(TEXMODE_replace) || defined(TEXMODE_decal)\n    textureColor = vec4(luminance, luminance, luminance, lighteffect.a);\n#endif \n\n#ifdef TEXMODE_modulate\n    textureColor = vec4(luminance*lighteffect.rgb, lighteffect.a);\n#endif\n\n#ifdef TEXMODE_blend\n    textureColor = vec4((1. - luminance)*lighteffect.rgb,\n                        lighteffect.a);\n#endif\n\n#ifdef TEXMODE_add\n    textureColor = vec4(luminance + lighteffect.rgb, lighteffect.a);\n#endif\n\n#endif // TEXTURE_luminance\n \n    \n#ifdef TEXTURE_luminance_alpha\n    float luminance = dot(vec3(1.,1.,1.),textureColor.rgb)/3.;\n\n#if defined(TEXMODE_replace) || defined(TEXMODE_decal)\n    textureColor = vec4(luminance, luminance, luminance, textureColor.a);\n#endif \n\n#ifdef TEXMODE_modulate\n    textureColor = vec4(luminance*lighteffect.rgb, \n                        textureColor.a*lighteffect.a);\n#endif\n\n#ifdef TEXMODE_blend\n    textureColor = vec4((1. - luminance)*lighteffect.rgb,\n                        textureColor.a*lighteffect.a);\n#endif\n\n#ifdef TEXMODE_add\n    textureColor = vec4(luminance + lighteffect.rgb, \n                        textureColor.a*lighteffect.a);\n\n#endif\n\n#endif // TEXTURE_luminance_alpha\n    \n    fragColor = textureColor;\n\n#elif defined(IS_TEXT)\n    if (textureColor.a < 0.1)\n      discard;\n    else\n      fragColor = textureColor;\n#else\n    fragColor = lighteffect;\n#endif // HAS_TEXTURE\n    \n#ifdef HAS_FOG\n    // uFogParms elements: x = near, y = far, z = fogscale, w = (1-sin(FOV/2))/(1+sin(FOV/2))\n    // In Exp and Exp2: use density = density/far\n    // fogF will be the proportion of fog\n    // Initialize it to the linear value\n    float fogF;\n    if (uFogMode > 0) {\n      fogF = (uFogParms.y - vPosition.z/vPosition.w)/(uFogParms.y - uFogParms.x);\n      if (uFogMode > 1)\n        fogF = mix(uFogParms.w, 1.0, fogF);\n      fogF = fogF*uFogParms.z;\n      if (uFogMode == 2)\n        fogF = 1.0 - exp(-fogF);\n      // Docs are wrong: use (density*c)^2, not density*c^2\n      // https://gitlab.freedesktop.org/mesa/mesa/-/blob/master/src/mesa/swrast/s_fog.c#L58\n      else if (uFogMode == 3)\n        fogF = 1.0 - exp(-fogF*fogF);\n      fogF = clamp(fogF, 0.0, 1.0);\n      gl_FragColor = vec4(mix(fragColor.rgb, uFogColor, fogF), fragColor.a);\n    } else gl_FragColor = fragColor;\n#else\n    gl_FragColor = fragColor;\n#endif // HAS_FOG\n    \n}","players":[],"webGLoptions":{"preserveDrawingBuffer":true}},"evals":[],"jsHooks":[]}</script>
 </div>
 </div>
 <p>Grâce à la 3d, nous pouvons encore mieux constater les relations linéaires</p>
@@ -726,8 +757,9 @@ F-statistic: 16.51 on 5 and 32 DF,  p-value: 4.703e-08</code></pre>
 <p><span class="math inline">\(C_p = \frac{SSE_p}{\hat{\sigma}^2} - n + 2p\)</span></p>
 <p>Où - <span class="math inline">\(SSE_p\)</span> est la somme des carrés des résidus - <span class="math inline">\(\hat{\sigma}^2\)</span> est une estimation de la variance de l’erreur - <span class="math inline">\(n\)</span> est la taille de l’échantillon - <span class="math inline">\(p\)</span> est le nombre de paramètres du modèle</p>
 </section>
-<section id="f" class="level4">
-<h4 class="anchored" data-anchor-id="f">f)</h4>
+</section>
+<section id="f" class="level3">
+<h3 class="anchored" data-anchor-id="f">f)</h3>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb45"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1"></a>choix <span class="ot">&lt;-</span> <span class="fu">regsubsets</span>(Quality<span class="sc">~</span>., <span class="at">data=</span>wines, <span class="at">nbest=</span><span class="dv">1</span>, <span class="at">nvmax=</span><span class="dv">11</span>)</span>
 <span id="cb45-2"><a href="#cb45-2"></a></span>
@@ -803,7 +835,339 @@ Selection Algorithm: exhaustive
 5  ( 1 )  "*"     "*"   "*"  "*"    "*"     </code></pre>
 </div>
 </div>
+<p>Selon <span class="math inline">\(R^2_{adj}\)</span>, il faut garder juste le paramètre flavor.</p>
+<p>Selon BIC, il faut garder tous les paramètres.</p>
+<p>Selon le critère de Mallows, il faut garder Aroma, Flavor et Oakiness.</p>
+<p>On peut classer les critères en fonction du nombre de fois où ils ont été retenu par un des critères ci-dessus : 1. Flavor (3 fois) 2. Aroma et Oakiness (2 fois) 3. Clarity et Body (1 fois)</p>
+<p>Nous avons donc décidé de garder les 3 paramètres Flavor, Aroma et Oakiness.</p>
+<section id="création-du-modèle" class="level4">
+<h4 class="anchored" data-anchor-id="création-du-modèle">Création du modèle</h4>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb50"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb50-1"><a href="#cb50-1"></a>wines.new_lm <span class="ot">=</span> <span class="fu">lm</span>(Quality<span class="sc">~</span>Flavor<span class="sc">+</span>Aroma<span class="sc">+</span>Oakiness, <span class="at">data=</span>wines)</span>
+<span id="cb50-2"><a href="#cb50-2"></a><span class="fu">coef</span>(wines.new_lm)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>(Intercept)      Flavor       Aroma    Oakiness 
+  6.4671948   1.1996928   0.5801203  -0.6023247 </code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb52"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb52-1"><a href="#cb52-1"></a><span class="fu">summary</span>(wines.new_lm)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+lm(formula = Quality ~ Flavor + Aroma + Oakiness, data = wines)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-2.5707 -0.6256  0.1521  0.6467  1.7741 
+
+Coefficients:
+            Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept)   6.4672     1.3328   4.852 2.67e-05 ***
+Flavor        1.1997     0.2749   4.364 0.000113 ***
+Aroma         0.5801     0.2622   2.213 0.033740 *  
+Oakiness     -0.6023     0.2644  -2.278 0.029127 *  
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 1.161 on 34 degrees of freedom
+Multiple R-squared:  0.7038,    Adjusted R-squared:  0.6776 
+F-statistic: 26.92 on 3 and 34 DF,  p-value: 4.203e-09</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb54"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb54-1"><a href="#cb54-1"></a><span class="fu">resid_panel</span>(wines.new_lm, <span class="at">plots=</span><span class="st">"all"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="TP2_files/figure-html/unnamed-chunk-27-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>On peut voir que la relation est linéaire (graphique Response vs Predicted), que la moyenne des erreurs semble nulle et a une variance assez constante (Residual Plot) et que les résidus sont répartis selon une distribution normale (Histogram).</p>
 </section>
+<section id="comparaison-des-modèles" class="level4">
+<h4 class="anchored" data-anchor-id="comparaison-des-modèles">Comparaison des modèles</h4>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb55"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb55-1"><a href="#cb55-1"></a><span class="fu">compare_performance</span>(wines.lm, wines.new_lm)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># Comparison of Model Performance Indices
+
+Name         | Model | AIC (weights) | AICc (weights) | BIC (weights) |    R2 | R2 (adj.) |  RMSE | Sigma
+---------------------------------------------------------------------------------------------------------
+wines.lm     |    lm | 126.8 (0.291) |  130.5 (0.140) | 138.2 (0.074) | 0.721 |     0.677 | 1.067 | 1.163
+wines.new_lm |    lm | 125.0 (0.709) |  126.9 (0.860) | 133.2 (0.926) | 0.704 |     0.678 | 1.098 | 1.161</code></pre>
+</div>
+</div>
+<p>On peut voir que le deuxième modèle a un AIC et un BIC plus bas que le premier modèle mais que leur <span class="math inline">\(R^2\)</span> sont similaires, ce qui montre que le deuxième modèle est un excellent compromis entre la qualité d’ajustement et la quantité de paramètres.</p>
+<p>Les paramètres sélectionnés sont donc effectivement très bons.</p>
+</section>
+</section>
+<section id="g" class="level3">
+<h3 class="anchored" data-anchor-id="g">g)</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb57"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb57-1"><a href="#cb57-1"></a>xnew <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="fu">c</span>(<span class="fl">7.7</span>, <span class="fl">6.7</span>, <span class="fl">3.7</span>), <span class="at">nrow=</span><span class="dv">1</span>)</span>
+<span id="cb57-2"><a href="#cb57-2"></a><span class="fu">colnames</span>(xnew) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"Aroma"</span>, <span class="st">"Flavor"</span>, <span class="st">"Oakiness"</span>)</span>
+<span id="cb57-3"><a href="#cb57-3"></a>xnew <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(xnew)</span>
+<span id="cb57-4"><a href="#cb57-4"></a><span class="fu">predict</span>(wines.new_lm, xnew, <span class="at">interval=</span><span class="st">"pred"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>       fit      lwr      upr
+1 16.74346 14.09382 19.39311</code></pre>
+</div>
+</div>
+<p>Nous avons prédit une qualité de 16.74, ou entre 14.09 et 19.39.</p>
+</section>
+</section>
+<section id="exercice-5" class="level2">
+<h2 class="anchored" data-anchor-id="exercice-5">Exercice 5</h2>
+<p>Un arbre de régression est un arbre de décision construit en choisissant les divisions (conditions) les plus informatives à chaque étape.</p>
+<p>Un avantage des arbres de régression est qu’ils sont très faciles à comprendre (à l’inverse d’un réseau de neurones p.ex.).</p>
+<p>Cependant, les arbres de régression sont très sensibles au surapprentissage, il faut donc bien vérifier comment l’arbre est construit afin d’éviter ce problème.</p>
+</section>
+<section id="exercice-6" class="level2">
+<h2 class="anchored" data-anchor-id="exercice-6">Exercice 6</h2>
+<section id="a" class="level3">
+<h3 class="anchored" data-anchor-id="a">a)</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb59"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb59-1"><a href="#cb59-1"></a>discrete_pal <span class="ot">&lt;-</span> <span class="fu">pal_colour</span>(<span class="fu">c</span>(<span class="st">"#663171"</span>, <span class="st">"#EA7428"</span>, <span class="st">"#0C7156"</span>))</span>
+<span id="cb59-2"><a href="#cb59-2"></a><span class="fu">ggplot</span>(<span class="at">data=</span>penguins, <span class="fu">aes</span>(<span class="at">x=</span>flipper_length_mm, <span class="at">y=</span>body_mass_g)) <span class="sc">+</span></span>
+<span id="cb59-3"><a href="#cb59-3"></a><span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">color=</span>species,</span>
+<span id="cb59-4"><a href="#cb59-4"></a><span class="at">shape=</span>species),</span>
+<span id="cb59-5"><a href="#cb59-5"></a><span class="at">size=</span><span class="dv">3</span>,</span>
+<span id="cb59-6"><a href="#cb59-6"></a><span class="at">alpha=</span><span class="fl">0.8</span>) <span class="sc">+</span></span>
+<span id="cb59-7"><a href="#cb59-7"></a><span class="fu">scale_colour_palette_d</span>(discrete_pal) <span class="sc">+</span></span>
+<span id="cb59-8"><a href="#cb59-8"></a><span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Penguin size, Palmer Station LTER"</span>,</span>
+<span id="cb59-9"><a href="#cb59-9"></a><span class="at">subtitle =</span> <span class="st">"Flipper length and body mass for Adelie, Chinstrap and Gentoo Penguins"</span>,</span>
+<span id="cb59-10"><a href="#cb59-10"></a><span class="at">x =</span> <span class="st">"Flipper length (mm)"</span>,</span>
+<span id="cb59-11"><a href="#cb59-11"></a><span class="at">y =</span> <span class="st">"Body mass (g)"</span>,</span>
+<span id="cb59-12"><a href="#cb59-12"></a><span class="at">color =</span> <span class="st">"Penguin species"</span>,</span>
+<span id="cb59-13"><a href="#cb59-13"></a><span class="at">shape =</span> <span class="st">"Penguin species"</span>,</span>
+<span id="cb59-14"><a href="#cb59-14"></a><span class="at">caption =</span> <span class="st">"</span><span class="sc">\n</span><span class="st"> palette discrète personnelle"</span>) <span class="sc">+</span></span>
+<span id="cb59-15"><a href="#cb59-15"></a><span class="fu">theme_minimal</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="TP2_files/figure-html/unnamed-chunk-30-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<section id="palette-isfahan1-metbrewer" class="level4">
+<h4 class="anchored" data-anchor-id="palette-isfahan1-metbrewer">palette Isfahan1 (MetBrewer)</h4>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb60"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb60-1"><a href="#cb60-1"></a><span class="fu">ggplot</span>(<span class="at">data=</span>penguins, <span class="fu">aes</span>(<span class="at">x=</span>flipper_length_mm, <span class="at">y=</span>body_mass_g)) <span class="sc">+</span></span>
+<span id="cb60-2"><a href="#cb60-2"></a><span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">color=</span>species,</span>
+<span id="cb60-3"><a href="#cb60-3"></a><span class="at">shape=</span>species),</span>
+<span id="cb60-4"><a href="#cb60-4"></a><span class="at">size=</span><span class="dv">3</span>,</span>
+<span id="cb60-5"><a href="#cb60-5"></a><span class="at">alpha=</span><span class="fl">0.8</span>) <span class="sc">+</span></span>
+<span id="cb60-6"><a href="#cb60-6"></a><span class="fu">scale_colour_met_d</span>(<span class="st">"Isfahan1"</span>) <span class="sc">+</span></span>
+<span id="cb60-7"><a href="#cb60-7"></a><span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Penguin size, Palmer Station LTER"</span>,</span>
+<span id="cb60-8"><a href="#cb60-8"></a><span class="at">subtitle =</span> <span class="st">"Flipper length and body mass for Adelie, Chinstrap and Gentoo Penguins"</span>,</span>
+<span id="cb60-9"><a href="#cb60-9"></a><span class="at">x =</span> <span class="st">"Flipper length (mm)"</span>,</span>
+<span id="cb60-10"><a href="#cb60-10"></a><span class="at">y =</span> <span class="st">"Body mass (g)"</span>,</span>
+<span id="cb60-11"><a href="#cb60-11"></a><span class="at">color =</span> <span class="st">"Penguin species"</span>,</span>
+<span id="cb60-12"><a href="#cb60-12"></a><span class="at">shape =</span> <span class="st">"Penguin species"</span>,</span>
+<span id="cb60-13"><a href="#cb60-13"></a><span class="at">caption =</span> <span class="st">"</span><span class="sc">\n</span><span class="st"> librairie MetBrewer; palette discrète Isfahan1"</span>) <span class="sc">+</span></span>
+<span id="cb60-14"><a href="#cb60-14"></a><span class="fu">theme_minimal</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="TP2_files/figure-html/unnamed-chunk-31-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="palette-relax-prettycols" class="level4">
+<h4 class="anchored" data-anchor-id="palette-relax-prettycols">palette Relax (PrettyCols)</h4>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb61"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb61-1"><a href="#cb61-1"></a><span class="fu">ggplot</span>(<span class="at">data=</span>penguins, <span class="fu">aes</span>(<span class="at">x=</span>flipper_length_mm, <span class="at">y=</span>body_mass_g)) <span class="sc">+</span></span>
+<span id="cb61-2"><a href="#cb61-2"></a><span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">color=</span>species,</span>
+<span id="cb61-3"><a href="#cb61-3"></a><span class="at">shape=</span>species),</span>
+<span id="cb61-4"><a href="#cb61-4"></a><span class="at">size=</span><span class="dv">3</span>,</span>
+<span id="cb61-5"><a href="#cb61-5"></a><span class="at">alpha=</span><span class="fl">0.8</span>) <span class="sc">+</span></span>
+<span id="cb61-6"><a href="#cb61-6"></a><span class="fu">scale_colour_pretty_d</span>(<span class="at">name=</span><span class="st">"Relax"</span>) <span class="sc">+</span></span>
+<span id="cb61-7"><a href="#cb61-7"></a><span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Penguin size, Palmer Station LTER"</span>,</span>
+<span id="cb61-8"><a href="#cb61-8"></a><span class="at">subtitle =</span> <span class="st">"Flipper length and body mass for Adelie, Chinstrap and Gentoo Penguins"</span>,</span>
+<span id="cb61-9"><a href="#cb61-9"></a><span class="at">x =</span> <span class="st">"Flipper length (mm)"</span>,</span>
+<span id="cb61-10"><a href="#cb61-10"></a><span class="at">y =</span> <span class="st">"Body mass (g)"</span>,</span>
+<span id="cb61-11"><a href="#cb61-11"></a><span class="at">color =</span> <span class="st">"Penguin species"</span>,</span>
+<span id="cb61-12"><a href="#cb61-12"></a><span class="at">shape =</span> <span class="st">"Penguin species"</span>,</span>
+<span id="cb61-13"><a href="#cb61-13"></a><span class="at">caption =</span> <span class="st">"</span><span class="sc">\n</span><span class="st"> librairie PrettyCols; palette discrète Relax"</span>) <span class="sc">+</span></span>
+<span id="cb61-14"><a href="#cb61-14"></a><span class="fu">theme_minimal</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="TP2_files/figure-html/unnamed-chunk-32-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="palette-ronweasley2-harrypotter" class="level4">
+<h4 class="anchored" data-anchor-id="palette-ronweasley2-harrypotter">palette ronweasley2 (harrypotter)</h4>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb62"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb62-1"><a href="#cb62-1"></a><span class="fu">ggplot</span>(<span class="at">data=</span>penguins, <span class="fu">aes</span>(<span class="at">x=</span>flipper_length_mm, <span class="at">y=</span>body_mass_g)) <span class="sc">+</span></span>
+<span id="cb62-2"><a href="#cb62-2"></a><span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">color=</span>species,</span>
+<span id="cb62-3"><a href="#cb62-3"></a><span class="at">shape=</span>species),</span>
+<span id="cb62-4"><a href="#cb62-4"></a><span class="at">size=</span><span class="dv">3</span>,</span>
+<span id="cb62-5"><a href="#cb62-5"></a><span class="at">alpha=</span><span class="fl">0.8</span>) <span class="sc">+</span></span>
+<span id="cb62-6"><a href="#cb62-6"></a><span class="fu">scale_colour_hp_d</span>(<span class="at">option=</span><span class="st">"ronweasley2"</span>) <span class="sc">+</span></span>
+<span id="cb62-7"><a href="#cb62-7"></a><span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Penguin size, Palmer Station LTER"</span>,</span>
+<span id="cb62-8"><a href="#cb62-8"></a><span class="at">subtitle =</span> <span class="st">"Flipper length and body mass for Adelie, Chinstrap and Gentoo Penguins"</span>,</span>
+<span id="cb62-9"><a href="#cb62-9"></a><span class="at">x =</span> <span class="st">"Flipper length (mm)"</span>,</span>
+<span id="cb62-10"><a href="#cb62-10"></a><span class="at">y =</span> <span class="st">"Body mass (g)"</span>,</span>
+<span id="cb62-11"><a href="#cb62-11"></a><span class="at">color =</span> <span class="st">"Penguin species"</span>,</span>
+<span id="cb62-12"><a href="#cb62-12"></a><span class="at">shape =</span> <span class="st">"Penguin species"</span>,</span>
+<span id="cb62-13"><a href="#cb62-13"></a><span class="at">caption =</span> <span class="st">"</span><span class="sc">\n</span><span class="st"> librairie harrypotter; palette discrète ronweasley2"</span>) <span class="sc">+</span></span>
+<span id="cb62-14"><a href="#cb62-14"></a><span class="fu">theme_minimal</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="TP2_files/figure-html/unnamed-chunk-33-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="palette-frost-nord" class="level4">
+<h4 class="anchored" data-anchor-id="palette-frost-nord">palette frost (nord)</h4>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb63"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb63-1"><a href="#cb63-1"></a><span class="fu">ggplot</span>(<span class="at">data=</span>penguins, <span class="fu">aes</span>(<span class="at">x=</span>flipper_length_mm, <span class="at">y=</span>body_mass_g)) <span class="sc">+</span></span>
+<span id="cb63-2"><a href="#cb63-2"></a><span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">color=</span>species,</span>
+<span id="cb63-3"><a href="#cb63-3"></a><span class="at">shape=</span>species),</span>
+<span id="cb63-4"><a href="#cb63-4"></a><span class="at">size=</span><span class="dv">3</span>,</span>
+<span id="cb63-5"><a href="#cb63-5"></a><span class="at">alpha=</span><span class="fl">0.8</span>) <span class="sc">+</span></span>
+<span id="cb63-6"><a href="#cb63-6"></a><span class="fu">scale_colour_nord</span>(<span class="at">palette=</span><span class="st">"frost"</span>, <span class="at">discrete=</span><span class="cn">TRUE</span>) <span class="sc">+</span></span>
+<span id="cb63-7"><a href="#cb63-7"></a><span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Penguin size, Palmer Station LTER"</span>,</span>
+<span id="cb63-8"><a href="#cb63-8"></a><span class="at">subtitle =</span> <span class="st">"Flipper length and body mass for Adelie, Chinstrap and Gentoo Penguins"</span>,</span>
+<span id="cb63-9"><a href="#cb63-9"></a><span class="at">x =</span> <span class="st">"Flipper length (mm)"</span>,</span>
+<span id="cb63-10"><a href="#cb63-10"></a><span class="at">y =</span> <span class="st">"Body mass (g)"</span>,</span>
+<span id="cb63-11"><a href="#cb63-11"></a><span class="at">color =</span> <span class="st">"Penguin species"</span>,</span>
+<span id="cb63-12"><a href="#cb63-12"></a><span class="at">shape =</span> <span class="st">"Penguin species"</span>,</span>
+<span id="cb63-13"><a href="#cb63-13"></a><span class="at">caption =</span> <span class="st">"</span><span class="sc">\n</span><span class="st"> librairie paletteer; palette discrète frost de la librairie nord"</span>) <span class="sc">+</span></span>
+<span id="cb63-14"><a href="#cb63-14"></a><span class="fu">theme_minimal</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="TP2_files/figure-html/unnamed-chunk-34-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="c" class="level3">
+<h3 class="anchored" data-anchor-id="c">c)</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb64"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb64-1"><a href="#cb64-1"></a><span class="fu">library</span>(showtext)</span>
+<span id="cb64-2"><a href="#cb64-2"></a><span class="fu">font_add_google</span>(<span class="at">name =</span> <span class="st">"Prompt"</span>, <span class="at">family =</span> <span class="st">"prompt"</span>)</span>
+<span id="cb64-3"><a href="#cb64-3"></a><span class="fu">showtext_auto</span>()</span>
+<span id="cb64-4"><a href="#cb64-4"></a>penguin_palette <span class="ot">&lt;-</span> <span class="fu">list</span>(<span class="st">"Adelie"</span> <span class="ot">=</span> <span class="st">"#fd7901"</span>,</span>
+<span id="cb64-5"><a href="#cb64-5"></a><span class="st">"Chinstrap"</span> <span class="ot">=</span> <span class="st">"#c35bca"</span>,</span>
+<span id="cb64-6"><a href="#cb64-6"></a><span class="st">"Gentoo"</span> <span class="ot">=</span> <span class="st">"#0e7175"</span>,</span>
+<span id="cb64-7"><a href="#cb64-7"></a><span class="st">"dark_text"</span> <span class="ot">=</span> <span class="st">"#1A242F"</span>,</span>
+<span id="cb64-8"><a href="#cb64-8"></a><span class="st">"light_text"</span> <span class="ot">=</span> <span class="st">"#94989D"</span>)</span>
+<span id="cb64-9"><a href="#cb64-9"></a>penguins <span class="sc">%&gt;%</span></span>
+<span id="cb64-10"><a href="#cb64-10"></a><span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(flipper_length_mm), <span class="sc">!</span><span class="fu">is.na</span>(body_mass_g)) <span class="sc">%&gt;%</span></span>
+<span id="cb64-11"><a href="#cb64-11"></a><span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span>flipper_length_mm, <span class="at">y=</span>body_mass_g)) <span class="sc">+</span></span>
+<span id="cb64-12"><a href="#cb64-12"></a><span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">color=</span>species, <span class="at">shape=</span>species), <span class="at">size=</span><span class="dv">3</span>, <span class="at">alpha=</span><span class="fl">0.8</span>) <span class="sc">+</span></span>
+<span id="cb64-13"><a href="#cb64-13"></a><span class="fu">scale_colour_manual</span>(<span class="at">values=</span>penguin_palette) <span class="sc">+</span></span>
+<span id="cb64-14"><a href="#cb64-14"></a><span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Penguin size, Palmer Station LTER"</span>,</span>
+<span id="cb64-15"><a href="#cb64-15"></a><span class="at">subtitle =</span> <span class="st">"Flipper length and body mass for Adelie, Chinstrap and Gentoo Penguins"</span>,</span>
+<span id="cb64-16"><a href="#cb64-16"></a><span class="at">x =</span> <span class="st">"Flipper length (mm)"</span>,</span>
+<span id="cb64-17"><a href="#cb64-17"></a><span class="at">y =</span> <span class="st">"Body mass (g)"</span>,</span>
+<span id="cb64-18"><a href="#cb64-18"></a><span class="at">color =</span> <span class="st">"Penguin species"</span>,</span>
+<span id="cb64-19"><a href="#cb64-19"></a><span class="at">shape =</span> <span class="st">"Penguin species"</span>) <span class="sc">+</span></span>
+<span id="cb64-20"><a href="#cb64-20"></a><span class="fu">theme</span>(</span>
+<span id="cb64-21"><a href="#cb64-21"></a><span class="at">panel.grid =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb64-22"><a href="#cb64-22"></a><span class="at">panel.background =</span> <span class="fu">element_rect</span>(<span class="at">fill=</span><span class="st">"white"</span>),</span>
+<span id="cb64-23"><a href="#cb64-23"></a><span class="at">text =</span> <span class="fu">element_text</span>(<span class="at">family=</span><span class="st">"prompt"</span>, <span class="at">size=</span><span class="dv">8</span>),</span>
+<span id="cb64-24"><a href="#cb64-24"></a><span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">size=</span><span class="dv">14</span>, <span class="at">face=</span><span class="st">"bold"</span>, <span class="at">margin=</span><span class="fu">margin</span>(<span class="at">b=</span><span class="dv">10</span>), <span class="at">hjust=</span><span class="dv">0</span>),</span>
+<span id="cb64-25"><a href="#cb64-25"></a><span class="at">plot.subtitle =</span> <span class="fu">element_text</span>(<span class="at">size=</span><span class="dv">12</span>, <span class="at">colour =</span> penguin_palette<span class="sc">$</span>light_text),</span>
+<span id="cb64-26"><a href="#cb64-26"></a><span class="at">axis.title.y =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">10</span>),</span>
+<span id="cb64-27"><a href="#cb64-27"></a><span class="at">axis.text =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">8</span>),</span>
+<span id="cb64-28"><a href="#cb64-28"></a><span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">angle =</span> <span class="dv">45</span>, <span class="at">vjust =</span> <span class="fl">0.5</span>),</span>
+<span id="cb64-29"><a href="#cb64-29"></a><span class="at">axis.line.x =</span> <span class="fu">element_line</span>(<span class="at">colour =</span> penguin_palette<span class="sc">$</span>dark_text, <span class="at">linewidth =</span> <span class="fl">0.5</span>,</span>
+<span id="cb64-30"><a href="#cb64-30"></a><span class="at">linetype =</span> <span class="st">"solid"</span>),</span>
+<span id="cb64-31"><a href="#cb64-31"></a><span class="at">axis.line.y =</span> <span class="fu">element_line</span>(<span class="at">colour =</span> penguin_palette<span class="sc">$</span>dark_text, <span class="at">linewidth =</span> <span class="fl">0.5</span>,</span>
+<span id="cb64-32"><a href="#cb64-32"></a><span class="at">linetype =</span> <span class="st">"solid"</span>),</span>
+<span id="cb64-33"><a href="#cb64-33"></a><span class="at">panel.border =</span> <span class="fu">element_blank</span>()</span>
+<span id="cb64-34"><a href="#cb64-34"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="TP2_files/figure-html/unnamed-chunk-35-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="d" class="level3">
+<h3 class="anchored" data-anchor-id="d">d)</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb65"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb65-1"><a href="#cb65-1"></a><span class="fu">library</span>(showtext)</span>
+<span id="cb65-2"><a href="#cb65-2"></a><span class="fu">font_add_google</span>(<span class="at">name =</span> <span class="st">"Henny Penny"</span>, <span class="at">family =</span> <span class="st">"henny"</span>)</span>
+<span id="cb65-3"><a href="#cb65-3"></a><span class="fu">showtext_auto</span>()</span>
+<span id="cb65-4"><a href="#cb65-4"></a>penguin_palette <span class="ot">&lt;-</span> <span class="fu">list</span>(<span class="st">"Adelie"</span> <span class="ot">=</span> <span class="st">"#fd7901"</span>,</span>
+<span id="cb65-5"><a href="#cb65-5"></a><span class="st">"Chinstrap"</span> <span class="ot">=</span> <span class="st">"#c35bca"</span>,</span>
+<span id="cb65-6"><a href="#cb65-6"></a><span class="st">"Gentoo"</span> <span class="ot">=</span> <span class="st">"#0e7175"</span>,</span>
+<span id="cb65-7"><a href="#cb65-7"></a><span class="st">"dark_text"</span> <span class="ot">=</span> <span class="st">"#1A242F"</span>,</span>
+<span id="cb65-8"><a href="#cb65-8"></a><span class="st">"light_text"</span> <span class="ot">=</span> <span class="st">"#94989D"</span>)</span>
+<span id="cb65-9"><a href="#cb65-9"></a>penguins <span class="sc">%&gt;%</span></span>
+<span id="cb65-10"><a href="#cb65-10"></a><span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(flipper_length_mm), <span class="sc">!</span><span class="fu">is.na</span>(body_mass_g)) <span class="sc">%&gt;%</span></span>
+<span id="cb65-11"><a href="#cb65-11"></a><span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span>flipper_length_mm, <span class="at">y=</span>body_mass_g)) <span class="sc">+</span></span>
+<span id="cb65-12"><a href="#cb65-12"></a><span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">color=</span>species, <span class="at">shape=</span>species), <span class="at">size=</span><span class="dv">3</span>, <span class="at">alpha=</span><span class="fl">0.8</span>) <span class="sc">+</span></span>
+<span id="cb65-13"><a href="#cb65-13"></a><span class="fu">scale_colour_manual</span>(<span class="at">values=</span>penguin_palette) <span class="sc">+</span></span>
+<span id="cb65-14"><a href="#cb65-14"></a><span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Penguin size, Palmer Station LTER"</span>,</span>
+<span id="cb65-15"><a href="#cb65-15"></a><span class="at">subtitle =</span> <span class="st">"Flipper length and body mass for Adelie, Chinstrap and Gentoo Penguins"</span>,</span>
+<span id="cb65-16"><a href="#cb65-16"></a><span class="at">x =</span> <span class="st">"Flipper length (mm)"</span>,</span>
+<span id="cb65-17"><a href="#cb65-17"></a><span class="at">y =</span> <span class="st">"Body mass (g)"</span>,</span>
+<span id="cb65-18"><a href="#cb65-18"></a><span class="at">color =</span> <span class="st">"Penguin species"</span>,</span>
+<span id="cb65-19"><a href="#cb65-19"></a><span class="at">shape =</span> <span class="st">"Penguin species"</span>) <span class="sc">+</span></span>
+<span id="cb65-20"><a href="#cb65-20"></a><span class="fu">theme</span>(</span>
+<span id="cb65-21"><a href="#cb65-21"></a><span class="at">panel.grid =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb65-22"><a href="#cb65-22"></a><span class="at">panel.background =</span> <span class="fu">element_rect</span>(<span class="at">fill=</span><span class="st">"white"</span>),</span>
+<span id="cb65-23"><a href="#cb65-23"></a><span class="at">text =</span> <span class="fu">element_text</span>(<span class="at">family=</span><span class="st">"henny"</span>, <span class="at">size=</span><span class="dv">8</span>),</span>
+<span id="cb65-24"><a href="#cb65-24"></a><span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">size=</span><span class="dv">14</span>, <span class="at">face=</span><span class="st">"bold"</span>, <span class="at">margin=</span><span class="fu">margin</span>(<span class="at">b=</span><span class="dv">10</span>), <span class="at">hjust=</span><span class="dv">0</span>),</span>
+<span id="cb65-25"><a href="#cb65-25"></a><span class="at">plot.subtitle =</span> <span class="fu">element_text</span>(<span class="at">size=</span><span class="dv">12</span>, <span class="at">colour =</span> penguin_palette<span class="sc">$</span>light_text),</span>
+<span id="cb65-26"><a href="#cb65-26"></a><span class="at">axis.title.y =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">10</span>),</span>
+<span id="cb65-27"><a href="#cb65-27"></a><span class="at">axis.text =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">8</span>),</span>
+<span id="cb65-28"><a href="#cb65-28"></a><span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">angle =</span> <span class="dv">45</span>, <span class="at">vjust =</span> <span class="fl">0.5</span>),</span>
+<span id="cb65-29"><a href="#cb65-29"></a><span class="at">axis.line.x =</span> <span class="fu">element_line</span>(<span class="at">colour =</span> penguin_palette<span class="sc">$</span>dark_text, <span class="at">linewidth =</span> <span class="fl">0.5</span>,</span>
+<span id="cb65-30"><a href="#cb65-30"></a><span class="at">linetype =</span> <span class="st">"solid"</span>),</span>
+<span id="cb65-31"><a href="#cb65-31"></a><span class="at">axis.line.y =</span> <span class="fu">element_line</span>(<span class="at">colour =</span> penguin_palette<span class="sc">$</span>dark_text, <span class="at">linewidth =</span> <span class="fl">0.5</span>,</span>
+<span id="cb65-32"><a href="#cb65-32"></a><span class="at">linetype =</span> <span class="st">"solid"</span>),</span>
+<span id="cb65-33"><a href="#cb65-33"></a><span class="at">panel.border =</span> <span class="fu">element_blank</span>()</span>
+<span id="cb65-34"><a href="#cb65-34"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="TP2_files/figure-html/unnamed-chunk-36-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="e" class="level3">
+<h3 class="anchored" data-anchor-id="e">e)</h3>
+<p>Cette ligne filtre les entrées d’un jeu de données en éliminant celles où les valeurs des colonnes ‘flipper_length_mm’ et ‘body_mass_g’ sont manquantes.</p>
+</section>
+<section id="f-1" class="level3">
+<h3 class="anchored" data-anchor-id="f-1">f)</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb66"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb66-1"><a href="#cb66-1"></a>continuous_pal <span class="ot">&lt;-</span> <span class="fu">pal_colour</span>(<span class="fu">c</span>(<span class="st">"#3C0D03"</span>, <span class="st">"#E67424"</span>, <span class="st">"#F5C34D"</span>))</span>
+<span id="cb66-2"><a href="#cb66-2"></a><span class="fu">ggplot</span>(mtcars, <span class="fu">aes</span>(wt, mpg, <span class="at">colour =</span> mpg)) <span class="sc">+</span></span>
+<span id="cb66-3"><a href="#cb66-3"></a><span class="fu">geom_point</span>(<span class="at">size =</span> <span class="dv">3</span>) <span class="sc">+</span></span>
+<span id="cb66-4"><a href="#cb66-4"></a><span class="fu">scale_colour_palette_c</span>(continuous_pal) <span class="sc">+</span></span>
+<span id="cb66-5"><a href="#cb66-5"></a><span class="fu">labs</span>(</span>
+<span id="cb66-6"><a href="#cb66-6"></a><span class="at">caption =</span> <span class="st">"</span><span class="sc">\n</span><span class="st"> palette continue personnelle"</span></span>
+<span id="cb66-7"><a href="#cb66-7"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="TP2_files/figure-html/unnamed-chunk-37-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
 </section>
 </section>
 

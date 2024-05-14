@@ -33,7 +33,7 @@ Dans ce deuxième TP, nous allons nous préciser sur les modèles de régression
 ```{r}
 #| output: false
 
-download = TRUE
+download = FALSE
 
 r = getOption("repos")
 r["CRAN"] = "http://cran.us.r-project.org"
@@ -49,6 +49,15 @@ if(download) {
   install.packages("readxl")
   install.packages("leaps")
   install.packages("performance")
+  install.packages("palmerpenguins")
+  install.packages("palettes")
+
+  install.packages("MetBrewer")
+  install.packages("PrettyCols")
+  install.packages("harrypotter")
+  install.packages("paletteer")
+  install.packages("showtext")
+  install.packages("nord")
 }
 
 library("ggResidpanel")
@@ -60,6 +69,15 @@ library("scatterplot3d")
 library("readxl")
 library("leaps")
 library("performance")
+library("palmerpenguins")
+library("palettes")
+
+library("MetBrewer")
+library("PrettyCols")
+library("harrypotter")
+library("paletteer")
+library("showtext")
+library("nord")
 
 
 ```
@@ -386,7 +404,220 @@ On peut voir que la relation est linéaire (graphique Response vs Predicted), qu
 #### Comparaison des modèles
 
 ```{r}
-compare_performance()
+compare_performance(wines.lm, wines.new_lm)
+```
 
-# TODOOOOOOOOO
+On peut voir que le deuxième modèle a un AIC et un BIC plus bas que le premier modèle mais que leur $R^2$ sont similaires, ce qui montre que le deuxième modèle est un excellent compromis entre la qualité d'ajustement et la quantité de paramètres.
+
+Les paramètres sélectionnés sont donc effectivement très bons.
+
+### g)
+
+```{r}
+xnew <- matrix(c(7.7, 6.7, 3.7), nrow=1)
+colnames(xnew) <- c("Aroma", "Flavor", "Oakiness")
+xnew <- as.data.frame(xnew)
+predict(wines.new_lm, xnew, interval="pred")
+```
+
+Nous avons prédit une qualité de 16.74, ou entre 14.09 et 19.39.
+
+## Exercice 5
+
+Un arbre de régression est un arbre de décision construit en choisissant les divisions (conditions) les plus informatives à chaque étape.
+
+Un avantage des arbres de régression est qu'ils sont très faciles à comprendre (à l'inverse d'un réseau de neurones p.ex.).
+
+Cependant, les arbres de régression sont très sensibles au surapprentissage, il faut donc bien vérifier comment l'arbre est construit afin d'éviter ce problème.
+
+## Exercice 6
+
+### a)
+
+```{r}
+
+discrete_pal <- pal_colour(c("#663171", "#EA7428", "#0C7156"))
+ggplot(data=penguins, aes(x=flipper_length_mm, y=body_mass_g)) +
+geom_point(aes(color=species,
+shape=species),
+size=3,
+alpha=0.8) +
+scale_colour_palette_d(discrete_pal) +
+labs(title = "Penguin size, Palmer Station LTER",
+subtitle = "Flipper length and body mass for Adelie, Chinstrap and Gentoo Penguins",
+x = "Flipper length (mm)",
+y = "Body mass (g)",
+color = "Penguin species",
+shape = "Penguin species",
+caption = "\n palette discrète personnelle") +
+theme_minimal()
+```
+
+#### palette Isfahan1 (MetBrewer)
+
+```{r}
+ggplot(data=penguins, aes(x=flipper_length_mm, y=body_mass_g)) +
+geom_point(aes(color=species,
+shape=species),
+size=3,
+alpha=0.8) +
+scale_colour_met_d("Isfahan1") +
+labs(title = "Penguin size, Palmer Station LTER",
+subtitle = "Flipper length and body mass for Adelie, Chinstrap and Gentoo Penguins",
+x = "Flipper length (mm)",
+y = "Body mass (g)",
+color = "Penguin species",
+shape = "Penguin species",
+caption = "\n librairie MetBrewer; palette discrète Isfahan1") +
+theme_minimal()
+```
+
+#### palette Relax (PrettyCols)
+```{r}
+ggplot(data=penguins, aes(x=flipper_length_mm, y=body_mass_g)) +
+geom_point(aes(color=species,
+shape=species),
+size=3,
+alpha=0.8) +
+scale_colour_pretty_d(name="Relax") +
+labs(title = "Penguin size, Palmer Station LTER",
+subtitle = "Flipper length and body mass for Adelie, Chinstrap and Gentoo Penguins",
+x = "Flipper length (mm)",
+y = "Body mass (g)",
+color = "Penguin species",
+shape = "Penguin species",
+caption = "\n librairie PrettyCols; palette discrète Relax") +
+theme_minimal()
+```
+
+#### palette ronweasley2 (harrypotter)
+
+```{r}
+ggplot(data=penguins, aes(x=flipper_length_mm, y=body_mass_g)) +
+geom_point(aes(color=species,
+shape=species),
+size=3,
+alpha=0.8) +
+scale_colour_hp_d(option="ronweasley2") +
+labs(title = "Penguin size, Palmer Station LTER",
+subtitle = "Flipper length and body mass for Adelie, Chinstrap and Gentoo Penguins",
+x = "Flipper length (mm)",
+y = "Body mass (g)",
+color = "Penguin species",
+shape = "Penguin species",
+caption = "\n librairie harrypotter; palette discrète ronweasley2") +
+theme_minimal()
+```
+
+#### palette frost (nord)
+
+```{r}
+ggplot(data=penguins, aes(x=flipper_length_mm, y=body_mass_g)) +
+geom_point(aes(color=species,
+shape=species),
+size=3,
+alpha=0.8) +
+scale_colour_nord(palette="frost", discrete=TRUE) +
+labs(title = "Penguin size, Palmer Station LTER",
+subtitle = "Flipper length and body mass for Adelie, Chinstrap and Gentoo Penguins",
+x = "Flipper length (mm)",
+y = "Body mass (g)",
+color = "Penguin species",
+shape = "Penguin species",
+caption = "\n librairie paletteer; palette discrète frost de la librairie nord") +
+theme_minimal()
+```
+
+### c)
+
+```{r}
+library(showtext)
+font_add_google(name = "Prompt", family = "prompt")
+showtext_auto()
+penguin_palette <- list("Adelie" = "#fd7901",
+"Chinstrap" = "#c35bca",
+"Gentoo" = "#0e7175",
+"dark_text" = "#1A242F",
+"light_text" = "#94989D")
+penguins %>%
+filter(!is.na(flipper_length_mm), !is.na(body_mass_g)) %>%
+ggplot(aes(x=flipper_length_mm, y=body_mass_g)) +
+geom_point(aes(color=species, shape=species), size=3, alpha=0.8) +
+scale_colour_manual(values=penguin_palette) +
+labs(title = "Penguin size, Palmer Station LTER",
+subtitle = "Flipper length and body mass for Adelie, Chinstrap and Gentoo Penguins",
+x = "Flipper length (mm)",
+y = "Body mass (g)",
+color = "Penguin species",
+shape = "Penguin species") +
+theme(
+panel.grid = element_blank(),
+panel.background = element_rect(fill="white"),
+text = element_text(family="prompt", size=8),
+plot.title = element_text(size=14, face="bold", margin=margin(b=10), hjust=0),
+plot.subtitle = element_text(size=12, colour = penguin_palette$light_text),
+axis.title.y = element_text(size = 10),
+axis.text = element_text(size = 8),
+axis.text.x = element_text(angle = 45, vjust = 0.5),
+axis.line.x = element_line(colour = penguin_palette$dark_text, linewidth = 0.5,
+linetype = "solid"),
+axis.line.y = element_line(colour = penguin_palette$dark_text, linewidth = 0.5,
+linetype = "solid"),
+panel.border = element_blank()
+)
+```
+
+### d)
+
+```{r}
+library(showtext)
+font_add_google(name = "Henny Penny", family = "henny")
+showtext_auto()
+penguin_palette <- list("Adelie" = "#fd7901",
+"Chinstrap" = "#c35bca",
+"Gentoo" = "#0e7175",
+"dark_text" = "#1A242F",
+"light_text" = "#94989D")
+penguins %>%
+filter(!is.na(flipper_length_mm), !is.na(body_mass_g)) %>%
+ggplot(aes(x=flipper_length_mm, y=body_mass_g)) +
+geom_point(aes(color=species, shape=species), size=3, alpha=0.8) +
+scale_colour_manual(values=penguin_palette) +
+labs(title = "Penguin size, Palmer Station LTER",
+subtitle = "Flipper length and body mass for Adelie, Chinstrap and Gentoo Penguins",
+x = "Flipper length (mm)",
+y = "Body mass (g)",
+color = "Penguin species",
+shape = "Penguin species") +
+theme(
+panel.grid = element_blank(),
+panel.background = element_rect(fill="white"),
+text = element_text(family="henny", size=8),
+plot.title = element_text(size=14, face="bold", margin=margin(b=10), hjust=0),
+plot.subtitle = element_text(size=12, colour = penguin_palette$light_text),
+axis.title.y = element_text(size = 10),
+axis.text = element_text(size = 8),
+axis.text.x = element_text(angle = 45, vjust = 0.5),
+axis.line.x = element_line(colour = penguin_palette$dark_text, linewidth = 0.5,
+linetype = "solid"),
+axis.line.y = element_line(colour = penguin_palette$dark_text, linewidth = 0.5,
+linetype = "solid"),
+panel.border = element_blank()
+)
+```
+
+### e)
+
+Cette ligne filtre les entrées d'un jeu de données en éliminant celles où les valeurs des colonnes 'flipper_length_mm' et 'body_mass_g' sont manquantes.
+
+### f)
+
+```{r}
+continuous_pal <- pal_colour(c("#3C0D03", "#E67424", "#F5C34D"))
+ggplot(mtcars, aes(wt, mpg, colour = mpg)) +
+geom_point(size = 3) +
+scale_colour_palette_c(continuous_pal) +
+labs(
+caption = "\n palette continue personnelle"
+)
 ```
