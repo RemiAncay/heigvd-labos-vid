@@ -1,0 +1,92 @@
+---
+title: "VID"
+subtitle: "German Credit Data"
+author:
+  - name: Rémi Ançay & Lucas Charbonnier
+highlight-style: github
+format:
+  html:
+    theme: cosmo
+    monobackgroundcolor: rgb(255,250,240)
+    toc: true
+    toc-location: left
+    #reference-location: margin
+    reference-location: document
+    code-line-numbers: true
+date: 'last-modified'
+date-format: '[This version:] MMMM D, YYYY'
+number-sections: false
+editor: 
+  visual
+execute:
+  echo: true
+  message: true
+  warning: false
+  output: true
+---
+
+## Introduction
+
+todo
+
+### Gestion des librairies
+```{r}
+#| output: false
+
+download = FALSE
+
+r = getOption("repos")
+r["CRAN"] = "http://cran.us.r-project.org"
+options(repos = r)
+
+if(download) {
+  install.packages("ggResidpanel")
+  install.packages("tidyverse")
+  install.packages("ggrepel")
+  install.packages("GGally")
+  install.packages("rgl")
+  install.packages("scatterplot3d")
+  install.packages("readxl")
+  install.packages("leaps")
+  install.packages("performance")
+  install.packages("palmerpenguins")
+  install.packages("palettes")
+
+  install.packages("MetBrewer")
+  install.packages("PrettyCols")
+  install.packages("harrypotter")
+  install.packages("paletteer")
+  install.packages("showtext")
+  install.packages("nord")
+}
+
+library("ggResidpanel")
+library("tidyverse")
+library("ggrepel")
+library("GGally")
+library("rgl")
+library("scatterplot3d")
+library("readxl")
+library("leaps")
+library("performance")
+library("palmerpenguins")
+library("palettes")
+
+library("MetBrewer")
+library("PrettyCols")
+library("harrypotter")
+library("paletteer")
+library("showtext")
+library("nord")
+
+
+```
+
+## Chargement des données
+```{r}
+# Chargement des données
+kalama <- read.table("data/GermanCredit.csv", header=TRUE)
+kalama
+```
+
+
