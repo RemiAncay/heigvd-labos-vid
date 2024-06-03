@@ -98,8 +98,6 @@ coef(GermanCredit.lm)
 summary(GermanCredit.lm)
 ```
 
-```{r}
-```
 
 ```{r}
 #Trouver les meilleurs var
@@ -194,6 +192,19 @@ ggroc(roc_curve) +
   theme_minimal()
 ```
 
+```{r}
+# Predict probabilities
+prob <- predict(GermanCredit.glmReduced, type = "response")
+
+# Create ROC curve
+roc_curve <- roc(GermanCredit$RESPONSE, prob)
+
+# Plot ROC curve
+ggroc(roc_curve) +
+  labs(title = "ROC Curve", x = "False Positive Rate", y = "True Positive Rate") +
+  theme_minimal()
+```
+
 
 ### Age 
 ```{r}
@@ -225,3 +236,70 @@ ggplot(GermanCredit, aes(x = CHK_ACCT, y = predicted_prob)) +
   theme_minimal()
 ```
 
+### Boxplots
+```{r}
+# Create a boxplot for each level of CHK_ACCT
+ggplot(GermanCredit.glm, aes(x = as.factor(CHK_ACCT), y = RESPONSE)) +
+  geom_boxplot() +
+  labs(title = "Boxplot of RESPONSE by CHK_ACCT Levels",
+       x = "CHK_ACCT",
+       y = "RESPONSE") +
+  theme_minimal()
+```
+```{r}
+# Boxplot for DURATION
+ggplot(GermanCredit.glm, aes(x = as.factor(RESPONSE), y = DURATION)) +
+  geom_boxplot() +
+  labs(title = "Boxplot of DURATION by RESPONSE",
+       x = "RESPONSE",
+       y = "DURATION") +
+  theme_minimal()
+
+# Boxplot for MALE_SINGLE
+ggplot(GermanCredit.glm, aes(x = as.factor(RESPONSE), y = MALE_SINGLE)) +
+  geom_boxplot() +
+  labs(title = "Boxplot of MALE_SINGLE by RESPONSE",
+       x = "RESPONSE",
+       y = "MALE_SINGLE") +
+  theme_minimal()
+
+# Boxplot for AMOUNT
+ggplot(GermanCredit.glm, aes(x = as.factor(RESPONSE), y = AMOUNT)) +
+  geom_boxplot() +
+  labs(title = "Boxplot of AMOUNT by RESPONSE",
+       x = "RESPONSE",
+       y = "AMOUNT") +
+  theme_minimal()
+
+# Boxplot for AGE
+ggplot(GermanCredit.glm, aes(x = as.factor(RESPONSE), y = AGE)) +
+  geom_boxplot() +
+  labs(title = "Boxplot of AGE by RESPONSE",
+       x = "RESPONSE",
+       y = "AGE") +
+  theme_minimal()
+```
+
+### Histogram
+```{r}
+# Create histograms for each level of CHK_ACCT
+ggplot(GermanCredit.glm, aes(x = as.factor(RESPONSE))) +
+  geom_histogram(stat = "count", fill = "steelblue", color = "black") +
+  facet_wrap(~ CHK_ACCT) +
+  labs(title = "Histogram of RESPONSE by CHK_ACCT Levels",
+       x = "RESPONSE",
+       y = "Count") +
+  theme_minimal()
+```
+
+```{r}
+# Create a stacked bar plot of the proportion of RESPONSE for each CHK_ACCT level
+ggplot(GermanCredit.glm, aes(x = as.factor(CHK_ACCT), fill = as.factor(RESPONSE))) +
+  geom_bar(position = "fill") +
+  scale_y_continuous(labels = scales::percent_format()) +
+  labs(title = "Proportion of RESPONSE by CHK_ACCT Levels",
+       x = "CHK_ACCT",
+       y = "Proportion",
+       fill = "RESPONSE") +
+  theme_minimal()
+```
