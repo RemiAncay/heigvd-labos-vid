@@ -27,9 +27,13 @@ execute:
 
 ## Introduction
 
-todo
+Dans ce projet, il est question de données bancaires.
+Nous devons déterminer quelles variables explicatives sont représentatives pour déterminer si un prêt bancaire est attribué ou non.
 
 ### Gestion des librairies
+
+Voici la liste des librairies utilisées pour ce projet.
+
 ```{r}
 #| output: false
 
@@ -69,38 +73,40 @@ library("pROC")
 ```{r}
 # Chargement des données
 GermanCredit <- read.csv("data/GermanCredit.csv", sep = ";")
-```
-
-Après analyse, il existe en fait des valeurs "NA", nous avons choisis de les supprimer, car elle semble aléatoire
-
-Il existe aussi plusieurs erreurs dans les données que nous avons rectifier:
-- dans DURATION il existait une valeur de -6 (mise à 6)
-- dans MALE_SINGLE il existait une valeur de 2 (mise à 1)
-- dans GUARANTOR il existait une valeur de -1 (mise à 1)
-- PRESENT_RESIDENT est noté de 0 à 3 mais dans les valeurs elles sont de 1 à 4
-- dans AGE il existe une valeur à 151 (mise à 51)
-
-
-```{r}
 
 GermanCredit = na.omit(GermanCredit)
+```
 
+Après analyse, il existe en fait des valeurs "NA", nous avons choisi de les supprimer, car elles semblent aléatoires.
 
+Il existe aussi plusieurs erreurs dans les données que nous avons rectifiées :
+
+- Dans `DURATION` il existait une valeur de -6 (mise à 6)
+- Dans `MALE_SINGLE` il existait une valeur de 2 (mise à 1)
+- Dans `GUARANTOR` il existait une valeur de -1 (mise à 1)
+- `PRESENT_RESIDENT` est noté de 0 à 3, mais dans les valeurs, elles sont de 1 à 4
+- Dans `AGE` il existe une valeur à 151 (mise à 51)
+
+### Résumé
+```{r}
 describe(GermanCredit)
 ```
 
-## Linear regression
+## Regression linéaire
+Nous avons créé un modèle linéaire de régression utilisant toutes nos variables explicatives afin d'avoir une première idée de l'importance de celles-ci. Voici le résumé donné par le modèle.
 
 ```{r}
-#LM avec tout
+# LM utilisant toutes les variables explicative
 GermanCredit.lm = lm(RESPONSE~., data=GermanCredit)
-coef(GermanCredit.lm)
+#coef(GermanCredit.lm)
 summary(GermanCredit.lm)
 ```
 
+Afin de trouvé les meilleurs de façons automatique nous avons utilisé les méthodes `adjr2`, `bic` et `Cp`.
+Cela a fait ressortir des variables importante comme `CHK_ACCT`, `DURATION` et `HISTORY`.
 
 ```{r}
-#Trouver les meilleurs var
+#Trouver les meilleurs variables
 choix <- regsubsets(RESPONSE~., data=GermanCredit, nbest=1, nvmax=11)
 
 plot(choix, scale="adjr2", col="midnightblue")
@@ -108,21 +114,28 @@ plot(choix, scale="bic", col="midnightblue")
 plot(choix, scale="Cp", col="midnightblue")
 
 
-leaps <- regsubsets(RESPONSE~., data=GermanCredit, nbest=10)
-summary(leaps)
+#leaps <- regsubsets(RESPONSE~., data=GermanCredit, nbest=10)
+#summary(leaps)
 ```
 
+Nous avons ensuite créé un nouveau modèle utilisant seulement les 3 meilleurs variables explicative.
+
 ```{r}
-#LM avec les meilleurs
+#LM avec les 3 meilleurs variables
 GermanCredit.lmReduced = lm(RESPONSE~CHK_ACCT+DURATION+HISTORY, data=GermanCredit)
-coef(GermanCredit.lmReduced)
-```
-
-```{r}
+#coef(GermanCredit.lmReduced)
 summary(GermanCredit.lmReduced)
 ```
 
-## Logistic regression
+Malheureusement les résultats sont moins bon qu'avec le modèle précédent.
+Cela veut donc dire que utiliser seulement 3 variables n'est pas une très bonne chose pour un modèle si complexe.
+
+## Regression logistique
+
+En regardant plus attentivement nos variables, nous en avons plusieurs de type `Catégorielle`.
+Cela signifie que nous devons spéparer ces catégories pour que le modèle puisse distinguer celles qui sont représentatives des autres.
+
+Nous utilisons aussi un modèle de régression logistique, qui est capable de gèrer au mieux ces variables catégorielles.
 
 ```{r}
 # Séparation des variables catégorielles
@@ -135,20 +148,25 @@ GermanCredit$JOB = factor(GermanCredit$JOB)
 ```
 
 ```{r}
-
+# GLM avec toutes nos variables
 GermanCredit.glm = glm(RESPONSE~., data=GermanCredit, family = binomial)
 #coef(GermanCredit.glm)
 summary(GermanCredit.glm)
 ```
 
-```{r}
+Après analyse du résumé ci-dessus, nous avons reconstruit un modèle, mais cette fois avec toutes les variables qui ont un niveau de signification de 5%.
 
+```{r}
+# GLM avec les variables représentatives
 GermanCredit.glmReduced = glm(RESPONSE~CHK_ACCT+DURATION+HISTORY+NEW_CAR+EDUCATION+AMOUNT+SAV_ACCT+INSTALL_RATE+MALE_SINGLE+GUARANTOR+PRESENT_RESIDENT+OTHER_INSTALL+TELEPHONE+FOREIGN, data=GermanCredit, family = binomial)
 summary(GermanCredit.glmReduced)
 ```
 
-## Plots
+Nous voyons cette fois-ci que notre dernier modèle (bien qu'avec encore un score très haut de 955) est le meilleur actuel.
 
+## Graphiques
+
+Voici quelques graphiques prenant comme base les données elles même ainsi que le modèle de régression logistique utilisant toutes les variables.
 
 ### Residual
 ```{r}
@@ -188,7 +206,7 @@ roc_curve <- roc(GermanCredit$RESPONSE, prob)
 
 # Plot ROC curve
 ggroc(roc_curve) +
-  labs(title = "ROC Curve", x = "False Positive Rate", y = "True Positive Rate") +
+  labs(title = "ROC Curve glm", x = "False Positive Rate", y = "True Positive Rate") +
   theme_minimal()
 ```
 
@@ -201,12 +219,12 @@ roc_curve <- roc(GermanCredit$RESPONSE, prob)
 
 # Plot ROC curve
 ggroc(roc_curve) +
-  labs(title = "ROC Curve", x = "False Positive Rate", y = "True Positive Rate") +
+  labs(title = "ROC Curve glmReduced", x = "False Positive Rate", y = "True Positive Rate") +
   theme_minimal()
 ```
 
 
-### Age 
+### AGE
 ```{r}
 # Add a new column for predicted probabilities
 GermanCredit$predicted_prob <- predict(GermanCredit.glm, type = "response")
@@ -303,3 +321,22 @@ ggplot(GermanCredit.glm, aes(x = as.factor(CHK_ACCT), fill = as.factor(RESPONSE)
        fill = "RESPONSE") +
   theme_minimal()
 ```
+
+## Conclusion
+
+Avec tout ces modèles, nous pouvons déduire certaines hypothèse :
+- Le modèle de régression logistique est plus adapté lorsque nous utilisons plusieurs type de variables.
+- Un modèle utilisant en entrée seulement les variables explicatives significatives est meilleur qu'un model utilisant simplement toutes les variables.
+
+Nous pouvons aussi déduire grâce a nos résultats et aux différents graphique l'importance des différentes variables.
+Nous pouvons citer :
+
+- `CHK_ACCT`
+- `AMOUNT`
+- Ou encore `DURATION`
+
+Néanmoins il y a quelques variables qui semblaient être importantes, mais qui le sont pas du tout ou très peu.
+Nous avons : 
+
+- `AGE`
+- Ou encore `EMPLOYMENT`
