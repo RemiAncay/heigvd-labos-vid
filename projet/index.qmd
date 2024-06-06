@@ -1,0 +1,69 @@
+---
+title: "Projet VID"
+author:
+  - Charbonnier Lucas & Ançay Rémi
+format: 
+  revealjs:
+    multiplex: true
+    slide-number: c/t
+    incremental: true
+    title-slide-attributes:
+      data-background-image: img/Background.jpg
+      data-background-size: cover  
+editor: visual
+---
+
+```{r setup}
+
+```
+
+
+
+## Test
+
+::: columns
+::: column
+-   An aaaaaaaaaaaaaaa
+-   Anaaaaaa
+
+:::
+
+::: column
+```{r}
+#Plot
+
+```
+:::
+:::
+
+::: notes
+Lucas Charbonnier, Rémi Ançay
+:::
+
+## TEst 2
+
+```{r}
+
+```
+
+::: columns
+::: {.column width="80%"}
+```{r cran-trend}
+
+```
+
+-   aaaamaaaa
+-   bBBbb
+:::
+::: {.column width="20%"}
+-   wwwwwwwwwwwwwww
+:::
+:::
+
+::: notes
+Lucas Charbonnier, Rémi Ançay
+:::
+
+## Merci !
+
+Avez vous des questions ?
