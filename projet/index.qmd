@@ -2,37 +2,67 @@
 title: "Projet VID"
 author:
   - Charbonnier Lucas & Ançay Rémi
-format: 
+format:
   revealjs:
     multiplex: true
     slide-number: c/t
     incremental: true
     title-slide-attributes:
       data-background-image: img/Background.jpg
-      data-background-size: cover  
+      data-background-size: cover
 editor: visual
 ---
 
 ```{r setup}
+#| output: false
+
+download = FALSE
+
+r = getOption("repos")
+r["CRAN"] = "http://cran.us.r-project.org"
+options(repos = r)
+
+if(download) {
+  install.packages("ggResidpanel")
+  install.packages("tidyverse")
+  install.packages("ggrepel")
+  install.packages("GGally")
+  install.packages("rgl")
+  install.packages("scatterplot3d")
+  install.packages("readxl")
+  install.packages("psych") 
+  install.packages("leaps")
+  install.packages("pROC")
+}
+
+library("ggResidpanel")
+library("tidyverse")
+library("ggrepel")
+library("GGally")
+library("rgl")
+library("scatterplot3d")
+library("readxl")
+library("psych")
+library("leaps")
+library("pROC")
+
+# Chargement des données
+GermanCredit <- read.csv("data/GermanCredit.csv", sep = ";")
+GermanCredit = na.omit(GermanCredit)
 
 ```
 
 
 
-## Test
+## Information sur les données
 
 ::: columns
-::: column
--   An aaaaaaaaaaaaaaa
--   Anaaaaaa
+::: {.column width="100%"}
 
-:::
+-   le dataset `GermanCredit` est composé de `r nrow(GermanCredit)` lignes.
 
-::: column
-```{r}
-#Plot
+-   aaaaaaaaa
 
-```
 :::
 :::
 
@@ -40,23 +70,78 @@ editor: visual
 Lucas Charbonnier, Rémi Ançay
 :::
 
-## TEst 2
-
-```{r}
-
-```
+## Problèmes avec les données
 
 ::: columns
-::: {.column width="80%"}
-```{r cran-trend}
+::: {.column width="100%"}
 
-```
+- la variable age semble importante atdtattatta
+
+- dadada
 
 -   aaaamaaaa
 -   bBBbb
 :::
-::: {.column width="20%"}
--   wwwwwwwwwwwwwww
+:::
+
+::: notes
+Lucas Charbonnier, Rémi Ançay
+:::
+
+## Aproche pour trouver les bonnes variables
+
+::: columns
+::: {.column width="100%"}
+
+-   reg log toout ça tout ça
+
+-   tau de signification de 5%
+
+-   xo graph
+
+:::
+:::
+
+::: notes
+Lucas Charbonnier, Rémi Ançay
+:::
+
+## Vérification du modèle
+
+::: columns
+::: {.column width="100%"}
+
+-   plot
+
+-   more plot
+
+:::
+:::
+
+::: notes
+Lucas Charbonnier, Rémi Ançay
+:::
+
+##  {background-image="img/penguins.png"}
+
+### How the penguins came to be {.r-fit-text}
+
+
+## Résultat intéressants
+
+::: columns
+::: {.column width="100%"}
+
+
+
+-   check account
+
+-   Amount, duration, ...
+
+-   Age plot
+
+-   more more plot you know
+
 :::
 :::
 
@@ -66,4 +151,6 @@ Lucas Charbonnier, Rémi Ançay
 
 ## Merci !
 
-Avez vous des questions ?
+-   Merci de nous avoir écouté
+
+-   Avez vous des questions ?
