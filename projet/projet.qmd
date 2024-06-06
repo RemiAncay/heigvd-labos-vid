@@ -75,6 +75,7 @@ library("pROC")
 GermanCredit <- read.csv("data/GermanCredit.csv", sep = ";")
 
 GermanCredit = na.omit(GermanCredit)
+
 ```
 
 Après une brève analyse exploratoire des données, nous avons remarqué qu'il existait des valeurs "NA" dans le fichier. Ces valeurs semblent survenir de manière aléatoire, nous avons donc choisi de les supprimer.
@@ -168,20 +169,23 @@ summary(GermanCredit.glm)
 Après analyse du résumé ci-dessus, nous avons reconstruit un modèle, mais cette fois avec toutes les variables qui ont un niveau de signification de 5%.
 
 ```{r}
+
 # GLM avec les variables représentatives
 GermanCredit.glmReduced = glm(RESPONSE~CHK_ACCT+DURATION+HISTORY+NEW_CAR+EDUCATION+AMOUNT+SAV_ACCT+INSTALL_RATE+MALE_SINGLE+GUARANTOR+PRESENT_RESIDENT+OTHER_INSTALL+TELEPHONE+FOREIGN, data=GermanCredit, family = binomial)
+
 summary(GermanCredit.glmReduced)
 ```
 
 On peut utiliser le critère AIC pour comparer ces deux modèles. Le second obtient un AIC de `963.39` contre un AIC de `975.37` pour le premier.
 
-## Graphiques
+## Vérification du modèle
 
-Voici quelques graphiques prenant comme base les données elles même ainsi que le modèle de régression logistique utilisant toutes les variables.
+Maintenant la régression logistique effectuée, nous allons tracer quelques graphes qui nous permettront de vérifier si le modèle est adéquat et qu'il est bien ajusté.
 
-### Residus de la régression
+### Résidus de la régression
+On commence par affichés l'histogramme des résidus :
 ```{r}
-residuals <- residuals(GermanCredit.glm, type="deviance")
+residuals <- residuals(GermanCredit.glmReduced, type="deviance")
 
 ggplot(data.frame(residuals), aes(x = residuals)) +
   geom_histogram(binwidth = 0.5, fill = "blue", color = "black", alpha = 0.7) +
@@ -189,10 +193,17 @@ ggplot(data.frame(residuals), aes(x = residuals)) +
   theme_minimal()
 ```
 
-### Coefficients and confidence intervals
+Dans l'idéal, on devrait obtenir une distribution normale, unimodale, symétrique et centrée proche de zéro. Notre distribution est bimodale, pas symétrique et pas centré sur zéro.
+
+Les causes possibles de ce problème peuvent être :
+- Il existe des dépendances entre certaines de nos variables non-détectées par le modèle. Étant donné qu'il s'agit de données bancaires, cela est très probable car il y a sûrement une corrélation entre la richesse d'une personne et la quantité de crédit de demandé (par exemple)
+- La forte présence de valeurs atypiques
+- Une hétéroscédasticité, soit une variance inégale des résidus.
+
+### Coefficients et intervalles de confiance
 ```{r}
 # Extract coefficients and confidence intervals
-coef_df <- as.data.frame(summary(GermanCredit.glm)$coefficients)
+coef_df <- as.data.frame(summary(GermanCredit.glmReduced)$coefficients)
 coef_df$variable <- rownames(coef_df)
 colnames(coef_df) <- c("Estimate", "Std.Error", "z.value", "p.value", "variable")
 
@@ -205,10 +216,20 @@ ggplot(coef_df, aes(x = reorder(variable, Estimate), y = Estimate)) +
   theme_minimal()
 ```
 
-### ROC Curve
+Dans l'idéal, on ne devrait avoir que des variables dont la variance ne comprend pas zéro. Dans notre cas, il y a plusieurs variables qui ne respectent pas cette rêgle :
+- `SAV_ACCT2`
+- `SAV_ACCT1`
+- `HISTORY1`
+- `PRESENT_RESIDENT4`
+- `PRESENT_RESIDENT3`
+Malheureusement, nous ne pouvons pas enever ces variables car elles sont des facteurs de leur variable originale (comme l'indique le numéro à la fin du nom).
+
+Il y aussi `DURATION` et `AMOUNT` qui sont très proches de zéro mais on obtient un AIC moins grand lorsque on retire ces deux variables de la régression logistique.
+
+### Courbe ROC (Receiver Operating Characteristic)
 ```{r}
 # Predict probabilities
-prob <- predict(GermanCredit.glm, type = "response")
+prob <- predict(GermanCredit.glmReduced, type = "response")
 
 # Create ROC curve
 roc_curve <- roc(GermanCredit$RESPONSE, prob)
@@ -219,19 +240,9 @@ ggroc(roc_curve) +
   theme_minimal()
 ```
 
-```{r}
-# Predict probabilities
-prob <- predict(GermanCredit.glmReduced, type = "response")
+TODO
 
-# Create ROC curve
-roc_curve <- roc(GermanCredit$RESPONSE, prob)
-
-# Plot ROC curve
-ggroc(roc_curve) +
-  labs(title = "ROC Curve glmReduced", x = "False Positive Rate", y = "True Positive Rate") +
-  theme_minimal()
-```
-
+## Analyse des résultats
 
 ### AGE
 ```{r}
