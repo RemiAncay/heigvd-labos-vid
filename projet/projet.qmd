@@ -325,6 +325,7 @@ ggplot(GermanCredit.glm, aes(x = as.factor(CHK_ACCT), fill = as.factor(RESPONSE)
 ## Conclusion
 
 Avec tout ces modèles, nous pouvons déduire certaines hypothèse :
+
 - Le modèle de régression logistique est plus adapté lorsque nous utilisons plusieurs type de variables.
 - Un modèle utilisant en entrée seulement les variables explicatives significatives est meilleur qu'un model utilisant simplement toutes les variables.
 
