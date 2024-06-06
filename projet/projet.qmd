@@ -30,9 +30,9 @@ execute:
 Dans ce projet, il est question de données bancaires.
 Nous devons déterminer quelles variables explicatives sont représentatives pour déterminer si un prêt bancaire est attribué ou non.
 
-### Gestion des librairies
+### Gestion des bibliothèques
 
-Voici la liste des librairies utilisées pour ce projet.
+Voici la liste des bibliothèques utilisées pour ce projet.
 
 ```{r}
 #| output: false
@@ -77,15 +77,15 @@ GermanCredit <- read.csv("data/GermanCredit.csv", sep = ";")
 GermanCredit = na.omit(GermanCredit)
 ```
 
-Après analyse, il existe en fait des valeurs "NA", nous avons choisi de les supprimer, car elles semblent aléatoires.
+Après une brève analyse exploratoire des données, nous avons remarqué qu'il existait des valeurs "NA" dans le fichier. Ces valeurs semblent survenir de manière aléatoire, nous avons donc choisi de les supprimer.
 
 Il existe aussi plusieurs erreurs dans les données que nous avons rectifiées :
 
 - Dans `DURATION` il existait une valeur de -6 (mise à 6)
 - Dans `MALE_SINGLE` il existait une valeur de 2 (mise à 1)
 - Dans `GUARANTOR` il existait une valeur de -1 (mise à 1)
-- `PRESENT_RESIDENT` est noté de 0 à 3, mais dans les valeurs, elles sont de 1 à 4
 - Dans `AGE` il existe une valeur à 151 (mise à 51)
+- Selon la documentation du dataset, `PRESENT_RESIDENT` est une variable catégorielle censé prendre des valeurs entre 0 et 3 (compris) mais dans les faits, ces valeurs vont de 1 à 4. Nous avons décidé de ne pas rectifier cette "erreur" car en pratique ça ne fait aucune différence.
 
 ### Résumé
 ```{r}
@@ -102,8 +102,7 @@ GermanCredit.lm = lm(RESPONSE~., data=GermanCredit)
 summary(GermanCredit.lm)
 ```
 
-Afin de trouvé les meilleurs de façons automatique nous avons utilisé les méthodes `adjr2`, `bic` et `Cp`.
-Cela a fait ressortir des variables importante comme `CHK_ACCT`, `DURATION` et `HISTORY`.
+Nous avons décidé d'utiliser les critère d'information `BIC`, `Cp` ainsi que le coefficient de détermination ajusté ${R_adj}^2$. Ci-dessous, les graphes des ensemble de variables explicatives retenus par la fonction `regsubsets`:
 
 ```{r}
 #Trouver les meilleurs variables
@@ -118,25 +117,36 @@ plot(choix, scale="Cp", col="midnightblue")
 #summary(leaps)
 ```
 
-Nous avons ensuite créé un nouveau modèle utilisant seulement les 3 meilleurs variables explicative.
+On peut constater que la plupart des colonnes ne sont jamais prises en compte et également que les 3 colonnes `CHK_ACCT`, `DURATION` et `HISTORY` sont souvent retenues, peu importe le critère d'information utilisé.
+
+Nous avons ensuite créé un nouveau modèle utilisant seulement ces 3 meilleurs variables explicatives :
 
 ```{r}
 #LM avec les 3 meilleurs variables
 GermanCredit.lmReduced = lm(RESPONSE~CHK_ACCT+DURATION+HISTORY, data=GermanCredit)
-#coef(GermanCredit.lmReduced)
 summary(GermanCredit.lmReduced)
 ```
 
-Malheureusement les résultats sont moins bon qu'avec le modèle précédent.
-Cela veut donc dire que utiliser seulement 3 variables n'est pas une très bonne chose pour un modèle si complexe.
+Malheureusement, avec un coefficient de détermination $R^2$ de `0.1805`, les résultats sont moins bon qu'avec le modèle précédent ($R^2 = 0.2712$).
+
+Nous avons également essayé de prendre plus de variables (parmis celles qui ont été retenues dans les graphiques ci-dessus) :
+
+```{r}
+GermanCredit.lmReduced2 = lm(RESPONSE~CHK_ACCT+DURATION+HISTORY+NEW_CAR+EDUCATION+SAV_ACCT+INSTALL_RATE+MALE_SINGLE+GUARANTOR+OTHER_INSTALL, data=GermanCredit)
+summary(GermanCredit.lmReduced2)
+```
+
+Avec un coefficient de détermination de `0.2396`, ce nouveau modèle se rapproche du modèle initial qui comportait toutes les variables explicatives.
+
+On peut donc en conclure que la mauvaise performance de notre modèle n'est pas dû à la forte présence de bruit mais que c'est plutôt le modèle en question qui n'est pas adapté.
+
+Nous avons donc décidé de changer de modèle et d'utiliser une regression logistique.
 
 ## Regression logistique
 
-En regardant plus attentivement nos variables, nous en avons plusieurs de type `Catégorielle`.
-Cela signifie que nous devons spéparer ces catégories pour que le modèle puisse distinguer celles qui sont représentatives des autres.
+Une bonne partie des variables sont catégorielles. Afin que la regression logistique les traite correctement, nous devons diviser les colonnes catégorielles en plusieurs sous-colonnes pour que le modèle puisse distinguer celles qui sont représentatives des autres.
 
-Nous utilisons aussi un modèle de régression logistique, qui est capable de gèrer au mieux ces variables catégorielles.
-
+En R, cela se fait avec la fonction `factor()` :
 ```{r}
 # Séparation des variables catégorielles
 GermanCredit$CHK_ACCT = factor(GermanCredit$CHK_ACCT)
@@ -147,6 +157,7 @@ GermanCredit$PRESENT_RESIDENT = factor(GermanCredit$PRESENT_RESIDENT)
 GermanCredit$JOB = factor(GermanCredit$JOB)
 ```
 
+Création du modèle de regression logistique avec toutes les variables disponibles :
 ```{r}
 # GLM avec toutes nos variables
 GermanCredit.glm = glm(RESPONSE~., data=GermanCredit, family = binomial)
@@ -162,21 +173,19 @@ GermanCredit.glmReduced = glm(RESPONSE~CHK_ACCT+DURATION+HISTORY+NEW_CAR+EDUCATI
 summary(GermanCredit.glmReduced)
 ```
 
-Nous voyons cette fois-ci que notre dernier modèle (bien qu'avec encore un score très haut de 955) est le meilleur actuel.
+On peut utiliser le critère AIC pour comparer ces deux modèles. Le second obtient un AIC de `963.39` contre un AIC de `975.37` pour le premier.
 
 ## Graphiques
 
 Voici quelques graphiques prenant comme base les données elles même ainsi que le modèle de régression logistique utilisant toutes les variables.
 
-### Residual
+### Residus de la régression
 ```{r}
-# Calculate residuals
-residuals <- residuals(GermanCredit.glm, type = "deviance")
+residuals <- residuals(GermanCredit.glm, type="deviance")
 
-# Create residuals plot
 ggplot(data.frame(residuals), aes(x = residuals)) +
   geom_histogram(binwidth = 0.5, fill = "blue", color = "black", alpha = 0.7) +
-  labs(title = "Residuals Plot", x = "Deviance Residuals", y = "Frequency") +
+  labs(title = "Histogramme des résidus", x = "Résidus de déviance", y = "Fréquence") +
   theme_minimal()
 ```
 
