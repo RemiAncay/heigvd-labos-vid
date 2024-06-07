@@ -10,6 +10,9 @@ format:
     title-slide-attributes:
       data-background-image: img/Background.jpg
       data-background-size: cover
+    footer: "Projet VID - Charbonnier Lucas & Ançay Rémi"
+    transition: slide
+    background-transition: fade
 editor: visual
 ---
 
@@ -50,8 +53,20 @@ library("pROC")
 GermanCredit <- read.csv("data/GermanCredit.csv", sep = ";")
 GermanCredit = na.omit(GermanCredit)
 
-```
+# Séparation des variables catégorielles
+GermanCredit$CHK_ACCT = factor(GermanCredit$CHK_ACCT)
+GermanCredit$HISTORY = factor(GermanCredit$HISTORY)
+GermanCredit$SAV_ACCT = factor(GermanCredit$SAV_ACCT)
+GermanCredit$EMPLOYMENT = factor(GermanCredit$EMPLOYMENT)
+GermanCredit$PRESENT_RESIDENT = factor(GermanCredit$PRESENT_RESIDENT)
+GermanCredit$JOB = factor(GermanCredit$JOB)
 
+# GLM avec toutes nos variables
+GermanCredit.glm = glm(RESPONSE~., data=GermanCredit, family = binomial)
+
+# GLM avec les variables représentatives
+GermanCredit.glmReduced = glm(RESPONSE~CHK_ACCT+DURATION+HISTORY+NEW_CAR+EDUCATION+AMOUNT+SAV_ACCT+INSTALL_RATE+MALE_SINGLE+GUARANTOR+PRESENT_RESIDENT+OTHER_INSTALL+TELEPHONE+FOREIGN, data=GermanCredit, family = binomial)
+```
 
 
 ## Information sur les données
@@ -59,28 +74,33 @@ GermanCredit = na.omit(GermanCredit)
 ::: columns
 ::: {.column width="100%"}
 
--   le dataset `GermanCredit` est composé de `r nrow(GermanCredit)` lignes.
+-   Le dataset `GermanCredit` est composé de `r nrow(GermanCredit)` lignes.
 
--   aaaaaaaaa
+-   Dont `r sum(GermanCredit$RESPONSE == 1)` crédits accordés (contre `r sum(GermanCredit$RESPONSE == 0)`)
 
+-   Il contient plusieurs types de données
+    -   `Categorical` comme `CHK_ACCT`
+    -   `Binary` comme `USED_CAR`
+    -   `Numerical` comme `AGE`
+   
 :::
 :::
 
-::: notes
-Lucas Charbonnier, Rémi Ançay
-:::
 
 ## Problèmes avec les données
 
 ::: columns
 ::: {.column width="100%"}
 
-- la variable age semble importante atdtattatta
+Après une brève analyse exploratoire des données, nous avons remarqué quelques soucis.
 
-- dadada
+- Valeurs `NA` aléatoires
+- Dans `DURATION` il existait une valeur de -6 (mise à 6)
+- Dans `MALE_SINGLE` il existait une valeur de 2 (mise à 1)
+- Dans `GUARANTOR` il existait une valeur de -1 (mise à 1)
+- Dans `AGE` il existe une valeur à 151 (mise à 51)
+- `PRESENT_RESIDENT` de [1 à 4] au lieu de [0 à 3]
 
--   aaaamaaaa
--   bBBbb
 :::
 :::
 
@@ -88,66 +108,134 @@ Lucas Charbonnier, Rémi Ançay
 Lucas Charbonnier, Rémi Ançay
 :::
 
-## Aproche pour trouver les bonnes variables
+## Notre aproche
 
 ::: columns
 ::: {.column width="100%"}
 
--   reg log toout ça tout ça
+-   Utilisation d'une Regression Linéaire
 
--   tau de signification de 5%
+-   Puis d'une Régression Logistique
 
--   xo graph
+-   Utilisation des variables avec un niveau de signification de 5%
+
 
 :::
 :::
 
-::: notes
-Lucas Charbonnier, Rémi Ançay
-:::
+## Les variables représentatives
+
+```{r}
+# Extract coefficients and confidence intervals
+coef_df <- as.data.frame(summary(GermanCredit.glmReduced)$coefficients)
+coef_df$variable <- rownames(coef_df)
+colnames(coef_df) <- c("Estimate", "Std.Error", "z.value", "p.value", "variable")
+
+# Create the plot
+ggplot(coef_df, aes(x = reorder(variable, Estimate), y = Estimate)) +
+  geom_point() +
+  geom_errorbar(aes(ymin = Estimate - 1.96 * Std.Error, ymax = Estimate + 1.96 * Std.Error), width = 0.2) +
+  coord_flip() +  
+  labs(title = "Coefficient Plot", x = "Variables", y = "Estimates")
+```
+
 
 ## Vérification du modèle
 
 ::: columns
 ::: {.column width="100%"}
 
--   plot
-
--   more plot
+TODO
 
 :::
 :::
 
-::: notes
-Lucas Charbonnier, Rémi Ançay
+##  {background-image="img/charts.avif"}
+
+### Résultats intéressants  {.r-fit-text}
+
+## CHK_ACCT
+
+::: columns
+::: {.column width="70%"}
+
+```{r}
+# Create a stacked bar plot of the proportion of RESPONSE for each CHK_ACCT level
+ggplot(GermanCredit.glm, aes(x = as.factor(CHK_ACCT), fill = as.factor(RESPONSE))) +
+  geom_bar(position = "fill") +
+  scale_y_continuous(labels = scales::percent_format()) +
+  labs(title = "Proportion of RESPONSE by CHK_ACCT Levels",
+       x = "CHK_ACCT",
+       y = "Proportion",
+       fill = "RESPONSE")
+```
+
 :::
 
-##  {background-image="img/penguins.png"}
+::: {.column width="30%"}
 
-### How the penguins came to be {.r-fit-text}
+0 : < 0 DM
+
+1 : 0 < x < 200 DM
+
+2 : ≥ 200 DM
+
+3 : no checking account
 
 
-## Résultat intéressants
+:::
+:::
+
+## Duration
 
 ::: columns
 ::: {.column width="100%"}
 
-
-
--   check account
-
--   Amount, duration, ...
-
--   Age plot
-
--   more more plot you know
+```{r}
+ggplot(GermanCredit.glm, aes(x = as.factor(RESPONSE), y = DURATION)) +
+  geom_boxplot() +
+  labs(title = "Boxplot of DURATION by RESPONSE",
+       x = "RESPONSE",
+       y = "DURATION")
+```
 
 :::
 :::
 
-::: notes
-Lucas Charbonnier, Rémi Ançay
+## Amount
+
+::: columns
+::: {.column width="100%"}
+
+```{r}
+# Boxplot for AMOUNT
+ggplot(GermanCredit.glm, aes(x = as.factor(RESPONSE), y = AMOUNT)) +
+  geom_boxplot() +
+  labs(title = "Boxplot of AMOUNT by RESPONSE",
+       x = "RESPONSE",
+       y = "AMOUNT")
+```
+
 :::
+:::
+
+## Age
+
+::: columns
+::: {.column width="100%"}
+
+```{r}
+# Boxplot for AGE
+ggplot(GermanCredit.glm, aes(x = as.factor(RESPONSE), y = AGE)) +
+  geom_boxplot() +
+  labs(title = "Boxplot of AGE by RESPONSE",
+       x = "RESPONSE",
+       y = "AGE")
+```
+
+:::
+:::
+
 
 ## Merci !
 
