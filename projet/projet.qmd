@@ -68,20 +68,23 @@ for (lib in libraries) {
 ```{r}
 # Chargement des données
 GermanCredit <- read.csv("data/GermanCredit.csv", sep = ";")
-
-GermanCredit = na.omit(GermanCredit)
-
 ```
 
 Après une brève analyse exploratoire des données, nous avons remarqué qu'il existait des valeurs "NA" dans le fichier. Ces valeurs semblent survenir de manière aléatoire, nous avons donc choisi de les supprimer.
 
-Il existe aussi plusieurs erreurs dans les données que nous avons rectifiées :
+```{r}
+GermanCredit = na.omit(GermanCredit)
+```
+
+Il existe aussi plusieurs erreurs dans les données :
 
 - Dans `DURATION` il existait une valeur de -6 (mise à 6)
 - Dans `MALE_SINGLE` il existait une valeur de 2 (mise à 1)
 - Dans `GUARANTOR` il existait une valeur de -1 (mise à 1)
 - Dans `AGE` il existe une valeur à 151 (mise à 51)
-- Selon la documentation du dataset, `PRESENT_RESIDENT` est une variable catégorielle censé prendre des valeurs entre 0 et 3 (compris) mais dans les faits, ces valeurs vont de 1 à 4. Nous avons décidé de ne pas rectifier cette "erreur" car en pratique ça ne fait aucune différence.
+- Selon la documentation du dataset, `PRESENT_RESIDENT` est une variable catégorielle censé prendre des valeurs entre 0 et 3 (compris) mais dans les faits, ces valeurs vont de 1 à 4. Nous avons décidé de ne pas rectifier cette "erreur" car en pratique ça ne fait aucune différence pour l'entraînement du modèle.
+
+Nous avons effectué ces modifications manuellement dans le fichier CSV.
 
 ### Résumé
 ```{r}
@@ -89,7 +92,7 @@ describe(GermanCredit)
 ```
 
 ## Regression linéaire
-Nous avons créé un modèle linéaire de régression utilisant toutes nos variables explicatives afin d'avoir une première idée de l'importance de celles-ci. Voici le résumé donné par le modèle.
+Nous avons d'abord créé un modèle linéaire de régression utilisant toutes nos variables explicatives afin d'avoir une première idée de l'importance de celles-ci. Voici le résumé donné par le modèle.
 
 ```{r}
 # LM utilisant toutes les variables explicative
@@ -98,19 +101,15 @@ GermanCredit.lm = lm(RESPONSE~., data=GermanCredit)
 summary(GermanCredit.lm)
 ```
 
-Nous avons décidé d'utiliser les critère d'information `BIC`, `Cp` ainsi que le coefficient de détermination ajusté ${R_adj}^2$. Ci-dessous, les graphes des ensemble de variables explicatives retenus par la fonction `regsubsets`:
+Nous avons décidé d'utiliser les critère d'information `BIC`, `Cp` ainsi que le coefficient de détermination ajusté ${R_{adj}}^2$. Ci-dessous, les graphes des ensemble de variables explicatives retenus par la fonction `regsubsets`:
 
 ```{r}
-#Trouver les meilleurs variables
+# Trouver les meilleurs variables
 choix <- regsubsets(RESPONSE~., data=GermanCredit, nbest=1, nvmax=11)
 
 plot(choix, scale="adjr2", col="midnightblue")
 plot(choix, scale="bic", col="midnightblue")
 plot(choix, scale="Cp", col="midnightblue")
-
-
-#leaps <- regsubsets(RESPONSE~., data=GermanCredit, nbest=10)
-#summary(leaps)
 ```
 
 On peut constater que la plupart des colonnes ne sont jamais prises en compte et également que les 3 colonnes `CHK_ACCT`, `DURATION` et `HISTORY` sont souvent retenues, peu importe le critère d'information utilisé.
@@ -140,45 +139,32 @@ Nous avons donc décidé de changer de modèle et d'utiliser une regression logi
 
 ## Regression logistique
 
-Une bonne partie des variables sont catégorielles. Afin que la regression logistique les traite correctement, nous devons diviser les colonnes catégorielles en plusieurs sous-colonnes pour que le modèle puisse distinguer celles qui sont représentatives des autres.
-
-En R, cela se fait avec la fonction `factor()` :
-```{r}
-# Séparation des variables catégorielles
-GermanCredit$CHK_ACCT = factor(GermanCredit$CHK_ACCT)
-GermanCredit$HISTORY = factor(GermanCredit$HISTORY)
-GermanCredit$SAV_ACCT = factor(GermanCredit$SAV_ACCT)
-GermanCredit$EMPLOYMENT = factor(GermanCredit$EMPLOYMENT)
-GermanCredit$PRESENT_RESIDENT = factor(GermanCredit$PRESENT_RESIDENT)
-GermanCredit$JOB = factor(GermanCredit$JOB)
-```
+Après quelques recherches, nous avons appris que la regression logistique est particulièrement adaptées lorsque la variable de réponse est catégorielle, ce qui est notre cas.
 
 Création du modèle de regression logistique avec toutes les variables disponibles :
 ```{r}
 # GLM avec toutes nos variables
 GermanCredit.glm = glm(RESPONSE~., data=GermanCredit, family = binomial)
-#coef(GermanCredit.glm)
 summary(GermanCredit.glm)
 ```
 
-Après analyse du résumé ci-dessus, nous avons reconstruit un modèle, mais cette fois avec toutes les variables qui ont un niveau de signification de 5%.
+Après analyse du résumé ci-dessus, nous avons reconstruit un modèle, mais cette fois avec toutes les variables qui ont un code de signification inférieur à 5%.
 
 ```{r}
+# GLM avec les meilleures variables 
+GermanCredit.glmReduced = glm(RESPONSE~CHK_ACCT+DURATION+HISTORY+NEW_CAR+AMOUNT+SAV_ACCT+INSTALL_RATE+MALE_SINGLE+GUARANTOR+OTHER_INSTALL+FOREIGN, data=GermanCredit, family = binomial)
 
-# GLM avec les variables représentatives
-GermanCredit.glmReduced = glm(RESPONSE~CHK_ACCT+DURATION+HISTORY+NEW_CAR+EDUCATION+AMOUNT+SAV_ACCT+INSTALL_RATE+MALE_SINGLE+GUARANTOR+PRESENT_RESIDENT+OTHER_INSTALL+TELEPHONE+FOREIGN, data=GermanCredit, family = binomial)
-
-summary(GermanCredit.glmReduced)
+AIC(GermanCredit.glmReduced)
 ```
 
-On peut utiliser le critère AIC pour comparer ces deux modèles. Le second obtient un AIC de `963.39` contre un AIC de `975.37` pour le premier.
+On peut utiliser le critère AIC pour comparer ces deux modèles. Le second avec un ensemble de variables réduit obtient un AIC de `962.1353` contre un AIC de `975.37` pour le premier. Le second est donc meilleur.
 
 ## Vérification du modèle
 
 Maintenant la régression logistique effectuée, nous allons tracer quelques graphes qui nous permettront de vérifier si le modèle est adéquat et qu'il est bien ajusté.
 
 ### Résidus de la régression
-On commence par affichés l'histogramme des résidus :
+On commence par l'histogramme des résidus :
 ```{r}
 residuals <- residuals(GermanCredit.glmReduced, type="deviance")
 
@@ -188,11 +174,14 @@ ggplot(data.frame(residuals), aes(x = residuals)) +
   theme_minimal()
 ```
 
-Dans l'idéal, on devrait obtenir une distribution normale, unimodale, symétrique et centrée proche de zéro. Notre distribution est bimodale, pas symétrique et pas centré sur zéro.
+Dans l'idéal, on devrait obtenir une distribution normale, unimodale, symétrique et centrée autour de zéro. 
 
-Les causes possibles de ce problème peuvent être :
-- Il existe des dépendances entre certaines de nos variables non-détectées par le modèle. Étant donné qu'il s'agit de données bancaires, cela est très probable car il y a sûrement une corrélation entre la richesse d'une personne et la quantité de crédit de demandé (par exemple)
-- La forte présence de valeurs atypiques
+Malheureusement, notre modèle ne passe pas vraiment le test. Notre distribution est bimodale, pas symétrique et pas centrée sur zéro.
+
+Il peut y avoir plusieurs raisons possibles à cela :
+
+- Il existe des dépendances entre certaines de nos variables non-détectées par le modèle. Étant donné qu'il s'agit de données bancaires, cela est très probable
+- Un grand nombre de valeurs atypiques pourrait aussi empêcher un bon ajustement du modèle.
 - Une hétéroscédasticité, soit une variance inégale des résidus.
 
 ### Coefficients et intervalles de confiance
@@ -211,15 +200,10 @@ ggplot(coef_df, aes(x = reorder(variable, Estimate), y = Estimate)) +
   theme_minimal()
 ```
 
-Dans l'idéal, on ne devrait avoir que des variables dont la variance ne comprend pas zéro. Dans notre cas, il y a plusieurs variables qui ne respectent pas cette rêgle :
-- `SAV_ACCT2`
-- `SAV_ACCT1`
-- `HISTORY1`
-- `PRESENT_RESIDENT4`
-- `PRESENT_RESIDENT3`
-Malheureusement, nous ne pouvons pas enever ces variables car elles sont des facteurs de leur variable originale (comme l'indique le numéro à la fin du nom).
+Dans le meilleur des cas, on ne devrait avoir que des variables dont la variance ne comprend pas zéro. Notre modèle est en accord avec cela.
+Il y a juste `AMOUNT` qui est très proche de zéro, ce qui semble indiquer que le montant du crédit n'est pas un si bon indicateur de son risque, c'est un résultat intéressant. `DURATION` est similaire.
 
-Il y aussi `DURATION` et `AMOUNT` qui sont très proches de zéro mais on obtient un AIC moins grand lorsque on retire ces deux variables de la régression logistique.
+Pourtant, si on retire ces deux variables de la régression logistique, on obtient un AIC plus grand, ce qui indique un modèle moins performant.
 
 ### Courbe ROC (Receiver Operating Characteristic)
 ```{r}
@@ -235,11 +219,11 @@ ggroc(roc_curve) +
   theme_minimal()
 ```
 
-TODO
+Un mauvais modèle aurait une courbe ROC linéaire (aléatoire). Dans notre cas, elle tend vers le coin en haut à gauche du graphe, ce qui est bon signe.
 
 ## Analyse des résultats
 
-### AGE
+### Impact de l'âge sur la variable de réponse
 ```{r}
 # Add a new column for predicted probabilities
 GermanCredit$predicted_prob <- predict(GermanCredit.glm, type = "response")
