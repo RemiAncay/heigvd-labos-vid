@@ -223,6 +223,93 @@ Un mauvais modèle aurait une courbe ROC linéaire (aléatoire). Dans notre cas,
 
 ## Analyse des résultats
 
+### Boxplots des variables explicatives en fonction de la variable de réponse
+
+#### Variables numériques : Montant et durée du crédit
+
+```{r}
+ggplot(GermanCredit.glm, aes(x = as.factor(RESPONSE), y=AMOUNT)) +
+geom_boxplot() + 
+labs(title = "Boxplot du montant du credit",x = "Crédit accordé",y ="AMOUNT") +
+theme_minimal()
+
+ggplot(GermanCredit.glm, aes(x = as.factor(RESPONSE), y=DURATION)) +
+geom_boxplot() + 
+labs(title = "Boxplot de la durée du crédit",x = "Crédit accordé",y = "DURATION") +
+theme_minimal()
+```
+
+#### Variables catégorielles
+
+```{r}
+
+variables_chosen = list(
+  "",
+  "",
+  "",
+  "",
+  "",
+  "",
+  "",
+  ""
+)
+
+ggplot(GermanCredit.glm, aes(x = as.factor(CHK_ACCT), fill = as.factor(RESPONSE))) +
+geom_bar(position = "fill") +
+scale_y_continuous(labels = scales::percent_format()) +
+labs(title = "Proportion des crédits accordés en fonction de CHK_ACCT",x = "CHK_ACCT",y = "Proportion",fill = "RESPONSE") +
+theme_minimal()
+
+ggplot(GermanCredit.glm, aes(x = as.factor(HISTORY), fill = as.factor(RESPONSE))) +
+geom_bar(position = "fill") +
+scale_y_continuous(labels = scales::percent_format()) +
+labs(title = "Proportion des crédits accordés en fonction de HISTORY",x = "HISTORY",y = "Proportion",fill = "RESPONSE") +
+theme_minimal()
+
+ggplot(GermanCredit.glm, aes(x = as.factor(NEW_CAR), fill = as.factor(RESPONSE))) +
+geom_bar(position = "fill") +
+scale_y_continuous(labels = scales::percent_format()) +
+labs(title = "Proportion des crédits accordés en fonction de NEW_CAR",x = "NEW_CAR",y = "Proportion",fill = "RESPONSE") +
+theme_minimal()
+
+ggplot(GermanCredit.glm, aes(x = as.factor(SAV_ACCT), fill = as.factor(RESPONSE))) +
+geom_bar(position = "fill") +
+scale_y_continuous(labels = scales::percent_format()) +
+labs(title = "Proportion des crédits accordés en fonction de SAV_ACCT",x = "SAV_ACCT",y = "Proportion",fill = "RESPONSE") +
+theme_minimal()
+
+ggplot(GermanCredit.glm, aes(x = as.factor(INSTALL_RATE), fill = as.factor(RESPONSE))) +
+geom_bar(position = "fill") +
+scale_y_continuous(labels = scales::percent_format()) +
+labs(title = "Proportion des crédits accordés en fonction de INSTALL_RATE",x = "INSTALL_RATE",y = "Proportion",fill = "RESPONSE") +
+theme_minimal()
+
+ggplot(GermanCredit.glm, aes(x = as.factor(MALE_SINGLE), fill = as.factor(RESPONSE))) +
+geom_bar(position = "fill") +
+scale_y_continuous(labels = scales::percent_format()) +
+labs(title = "Proportion des crédits accordés en fonction de MALE_SINGLE",x = "MALE_SINGLE",y = "Proportion",fill = "RESPONSE") +
+theme_minimal()
+
+ggplot(GermanCredit.glm, aes(x = as.factor(GUARANTOR), fill = as.factor(RESPONSE))) +
+geom_bar(position = "fill") +
+scale_y_continuous(labels = scales::percent_format()) +
+labs(title = "Proportion des crédits accordés en fonction de GUARANTOR",x = "GUARANTOR",y = "Proportion",fill = "RESPONSE") +
+theme_minimal()
+
+ggplot(GermanCredit.glm, aes(x = as.factor(OTHER_INSTALL), fill = as.factor(RESPONSE))) +
+geom_bar(position = "fill") +
+scale_y_continuous(labels = scales::percent_format()) +
+labs(title = "Proportion des crédits accordés en fonction de OTHER_INSTALL",x = "OTHER_INSTALL",y = "Proportion",fill = "RESPONSE") +
+theme_minimal()
+
+ggplot(GermanCredit.glm, aes(x = as.factor(FOREIGN), fill = as.factor(RESPONSE))) +
+geom_bar(position = "fill") +
+scale_y_continuous(labels = scales::percent_format()) +
+labs(title = "Proportion des crédits accordés en fonction de FOREIGN",x = "FOREIGN",y = "Proportion",fill = "RESPONSE") +
+theme_minimal()
+```
+
+
 ### Impact de l'âge sur la variable de réponse
 ```{r}
 # Add a new column for predicted probabilities
