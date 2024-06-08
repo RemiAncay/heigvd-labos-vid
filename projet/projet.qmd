@@ -233,13 +233,34 @@ geom_boxplot() +
 scale_x_discrete(labels = c("0"="Non", "1"="Oui")) +
 labs(title = "Boxplot du montant du credit",x = "Crédit accordé",y ="Montant (Deutsche Marks)") +
 theme_minimal()
+```
 
+Sans surprise, les crédits d'un montant élevé sont moins souvents acceptés que les crédits d'un montant plus bas. Cependant, la médiane est quasiment identiques donc il ne s'agit pas non plus du meilleur indicateur.
+
+```{r}
 ggplot(GermanCredit.glm, aes(x = as.factor(RESPONSE), y=DURATION)) +
 geom_boxplot() +
 scale_x_discrete(labels = c("0"="Non", "1"="Oui")) + 
 labs(title = "Boxplot de la durée du crédit",x = "Crédit accordé",y = "Durée (Mois)") +
 theme_minimal()
 ```
+
+Pour ce graphe-ci, nous avons deux hypothèses :
+1. La durée d'un crédit est corrélée à son montant, ce qui explique qu'on obtienne un résultat similaire au graphique précédent.
+2. Plus la durée est longue, plus il est possible que le demandeur de crédit change de situation financière et se trouve dans une "mauvaise période". En d'autres termes, on ne peut pas prédire l'avenir.
+
+#### Vérification de l'hypothèse de corrélation
+```{r}
+correlation = cor(GermanCredit$DURATION, GermanCredit$AMOUNT)
+
+# Création d'un nuage de points avec ggplot
+ggplot(GermanCredit, aes(x = DURATION, y = AMOUNT)) +
+  geom_point() +
+  labs(title = paste("Corrélation entre x et y:", round(correlation, 2)),
+       x = "Variable x", y = "Variable y")
+```
+
+Avec un coefficient de corrélation de `0.63`, on peut dire que `DURATION` et `AMOUNT` sont légèrement corrélées mais en regardant le graphique on peut voir qu'il y a de nombreuses exceptions et surtout une grande variance.
 
 ### Proportions des crédits accordés ou refusés, en fonction des variables explicatives catégorielles
 
