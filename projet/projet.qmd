@@ -27,12 +27,12 @@ execute:
 
 ## Introduction
 
-Dans ce projet, il est question de données bancaires.
-Nous devons déterminer quelles variables explicatives sont représentatives pour déterminer si un prêt bancaire est attribué ou non.
+Ce projet consiste en la recherche et l'analyse des meilleures variables explicatives d'un dataset concernant le risque associé à des crédits bancaires. Le but est donc de trouver les meilleurs indicateurs permettant d'estimer le risque associé à un crédit.
+Il s'agit d'un exercice, nos résultats ne sortiront pas du cadre de ce travail et ne seront pas appliqués à un cadre réel.
 
 ### Gestion des bibliothèques
 
-Voici la liste des bibliothèques utilisées pour ce projet.
+Nous avons commencé par établir la liste des bibliothèques nécessaire à l'exécution de notre code.
 
 ```{r}
 #| output: false
@@ -43,29 +43,24 @@ download = FALSE
 #r["CRAN"] = "http://cran.us.r-project.org"
 #options(repos = r)
 
-if(download) {
-  install.packages("ggResidpanel")
-  install.packages("tidyverse")
-  install.packages("ggrepel")
-  install.packages("GGally")
-  install.packages("rgl")
-  install.packages("scatterplot3d")
-  install.packages("readxl")
-  install.packages("psych") 
-  install.packages("leaps")
-  install.packages("pROC")
-}
+libraries = list(
+  "ggResidpanel",
+  "tidyverse",
+  "ggrepel",
+  "GGally",
+  "rgl",
+  "scatterplot3d",
+  "readxl",
+  "psych",
+  "leaps",
+  "pROC"
+)
 
-library("ggResidpanel")
-library("tidyverse")
-library("ggrepel")
-library("GGally")
-library("rgl")
-library("scatterplot3d")
-library("readxl")
-library("psych")
-library("leaps")
-library("pROC")
+for (lib in libraries) {
+  if(download)
+    install.packages(lib)
+  library(lib, character.only = TRUE)
+}
 
 ```
 
