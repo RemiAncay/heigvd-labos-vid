@@ -241,7 +241,7 @@ labs(title = "Boxplot de la durée du crédit",x = "Crédit accordé",y = "Duré
 theme_minimal()
 ```
 
-### Graphes de la proportion des crédits risqués, en fonction des variables explicatives
+### Proportions des crédits accordés ou refusés, en fonction des variables explicatives catégorielles
 
 ```{r}
 ggplot(GermanCredit.glm, aes(x = as.factor(CHK_ACCT), fill = as.factor(RESPONSE))) +
@@ -255,6 +255,11 @@ labs(title = "Proportion des crédits accordés en fonction de CHK_ACCT",x = "Co
 scale_fill_discrete(name = "Crédit accordé ?", labels = c("Non", "Oui")) +
 theme_minimal()
 ```
+
+`CHK_ACCT` est un des meilleurs predicteurs du risque d'un crédit. C'est un résultat intéressant car cette variable correspond au montant présent dans le compte courant du demandeur de crédit, une valeur qui est susceptible de changer au cours du mois donc pas forcément stable. Pourtant, on voit bien une tendance.
+
+Nous n'arrivons pas à expliquer en quoi le fait de ne pas avoir de compte courant (diagramme de droite) mène à un crédit accordé. En quoi l'absence d'un compte courant réduit le risque du crédit ?
+
 ```{r}
 ggplot(GermanCredit.glm, aes(x = as.factor(HISTORY), fill = as.factor(RESPONSE))) +
 geom_bar(position = "fill") +
@@ -266,6 +271,13 @@ labs(title = "Proportion des crédits accordés en fonction de HISTORY",x = "His
 scale_fill_discrete(name = "Crédit accordé ?", labels = c("Non", "Oui")) +
 theme_minimal()
 ```
+
+Les résultats obtenus ici sont très étonnants. On constate que les personnes ayant un historique de retard sur le paiement des crédits voient souvent leurs nouveaux crédits acceptés. Pareil pour les "critical account", mais pour ce deuxième cas, il y a peut-être une subtilité au niveau du terme "compte critique" que nous ne connaissons pas.
+
+Un résultat tellement étonnant que nous avons du vérifier si nous n'avions pas inversé l'accord du crédit dans l'affichage du graphique.
+
+Notre hypothèse, est que les banques donnent effectivement des crédits à ces personnes car cela a de grandes chances de mener à une autre demande de crédit (si la personne n'arrive pas à rembourser dans les temps). En revanche, c'est un peu controversé et difficile à vérifier.
+
 ```{r}
 ggplot(GermanCredit.glm, aes(x = as.factor(NEW_CAR), fill = as.factor(RESPONSE))) +
 geom_bar(position = "fill") +
@@ -277,6 +289,9 @@ labs(title = "Proportion des crédits accordés en fonction de NEW_CAR",x = "Le 
 scale_fill_discrete(name = "Crédit accordé ?", labels = c("Non", "Oui")) +
 theme_minimal()
 ```
+
+Il semble que les personnes demandant un crédit pour l'achat d'une nouvelle voiture présentent risque légèrement plus élevé que si ce n'est pas le cas.
+
 ```{r}
 ggplot(GermanCredit.glm, aes(x = as.factor(SAV_ACCT), fill = as.factor(RESPONSE))) +
 geom_bar(position = "fill") +
@@ -288,6 +303,9 @@ labs(title = "Proportion des crédits accordés en fonction de SAV_ACCT",x = "Mo
 scale_fill_discrete(name = "Crédit accordé ?", labels = c("Non", "Oui")) +
 theme_minimal()
 ```
+
+Assez logiquement, plus les personnes disposent de réserve dans leur compte épargne, moins il est risqué de leur accorder un crédit. Il y a toutefois cette classe "pas de compte épargne" qui est difficile à interpréter et nous n'avons pas plus d'informations dessus.
+
 ```{r}
 ggplot(GermanCredit.glm, aes(x = as.factor(INSTALL_RATE), fill = as.factor(RESPONSE))) +
 geom_bar(position = "fill") +
@@ -296,6 +314,14 @@ labs(title = "Proportion des crédits accordés en fonction de INSTALL_RATE",x =
 scale_fill_discrete(name = "Crédit accordé ?", labels = c("Non", "Oui")) +
 theme_minimal()
 ```
+
+Selon les spécifications, c'est censé être une colonne numérique indiquant un pourcentage, mais en pratique il n'y a que 4 valeurs : 1,2,3,4.
+
+De plus, nous ne sommes pas sûr de l'interprétation de la variable `INSTALL_RATE` mais selon nos recherches ("installment rate" sur Google), il devrait s'agir d'un débit d'argent exprimé en pourcentage du revenu.
+Cependant, nous ne voyons pas le rapport que cela a avec le crédit.
+
+Notre hypothèse est qu'il s'agit de la quantité d'argent que la personne devra fournir chaque mois pour payer le crédit et, le cas échéant, cela explique en quoi un taux d'installation élevé mène à un crédit plus risqué car la personne devra sortir plus d'argent par mois.
+
 ```{r}
 ggplot(GermanCredit.glm, aes(x = as.factor(OTHER_INSTALL), fill = as.factor(RESPONSE))) +
 geom_bar(position = "fill") +
@@ -305,6 +331,9 @@ labs(title = "Proportion des crédits accordés en fonction de OTHER_INSTALL",x 
 scale_fill_discrete(name = "Crédit accordé ?", labels = c("Non", "Oui")) +
 theme_minimal()
 ```
+
+Si la personne a déjà un autre crédit à rembourser, il est logique que l'allocation du crédit soit plus risquée.
+
 ```{r}
 ggplot(GermanCredit.glm, aes(x = as.factor(MALE_SINGLE), fill = as.factor(RESPONSE))) +
 geom_bar(position = "fill") +
@@ -314,42 +343,43 @@ labs(title = "Proportion des crédits accordés en fonction de MALE_SINGLE",x = 
 scale_fill_discrete(name = "Crédit accordé ?", labels = c("Non", "Oui")) +
 theme_minimal()
 ```
+
+La variable `MALE_SINGLE` est intéressante. D'une part car elle est étonnamment spécifique (les hommes célibataire) et d'autre part car il semble qu'il soit légèrement moins risqué d'allouer un crédit à un homme célibataire. Cela s'explique par le fait qu'un homme célibataire n'a pas de famille et donc pas de coûts associés.
+
+Il est étonnant que la variable équivalente n'existe pas pour les femmes (`FEMALE_SINGLE` ?). Il y a peut-être moins de femmes qui demandent des crédits ?
+
 ```{r}
 ggplot(GermanCredit.glm, aes(x = as.factor(GUARANTOR), fill = as.factor(RESPONSE))) +
 geom_bar(position = "fill") +
 scale_y_continuous(labels = scales::percent_format()) +
 scale_x_discrete(labels = c("0" = "Non", "1"="Oui")) +
-labs(title = "Proportion des crédits accordés en fonction de GUARANTOR",x = "Le bénéficiaire a-t-il un garant ?,y = "Proportion",fill = "RESPONSE") +
+labs(title = "Proportion des crédits accordés en fonction de GUARANTOR",x = "Le bénéficiaire a-t-il un garant ?", y = "Proportion",fill = "RESPONSE") +
 scale_fill_discrete(name = "Crédit accordé ?", labels = c("Non", "Oui")) +
 theme_minimal()
 ```
+
+Un garant est une personne qui s'engage à rembourser le crédit si le demandeur ne peut pas le faire lui. Ici, on peut voir que les crédits où il y a un garant ont légèrement plus de chances d'être acceptés.
 
 ```{r}
 ggplot(GermanCredit.glm, aes(x = as.factor(FOREIGN), fill = as.factor(RESPONSE))) +
 geom_bar(position = "fill") +
 scale_y_continuous(labels = scales::percent_format()) +
 scale_x_discrete(labels = c("0" = "Non", "1"="Oui")) +
-labs(title = "Proportion des crédits accordés en fonction de FOREIGN",x = "Le bénéficiaire est-il étranger ?",y = "Proportion",fill = "RESPONSE") +
+labs(title = "Proportion des crédits accordés en fonction de FOREIGN",x = "Le bénéficiaire est-il un travailleur étranger ?",y = "Proportion",fill = "RESPONSE") +
 scale_fill_discrete(name = "Crédit accordé ?", labels = c("Non", "Oui")) +
 theme_minimal()
 ```
 
+Les crédits sont apparemment plus souvent accordés aux travailleurs étrangers. 
+
 ## Conclusion
 
-Avec tout ces modèles, nous pouvons déduire certaines hypothèse :
+Nous ne nous attendions pas à trouver des données manquantes car la donnée (point 'f') indiquait spécifiquement qu'il n'y aurait pas d'attributs manquants.
 
-- Le modèle de régression logistique est plus adapté lorsque nous utilisons plusieurs type de variables.
-- Un modèle utilisant en entrée seulement les variables explicatives significatives est meilleur qu'un model utilisant simplement toutes les variables.
+Nous ne nous attendions pas aux résultats que nous avons obtenus. Par exemple, nous pensions que des variables explicatives telles que `AGE` ou `EMPLOYMENT` seraient importantes dans la prédiction du risque mais notre modèle logistique ne les a pas retenues.
+De plus, l'analyse des graphiques s'est montrée surprenante à plusieurs reprises.
 
-Nous pouvons aussi déduire grâce a nos résultats et aux différents graphique l'importance des différentes variables.
-Nous pouvons citer :
+Nous avons retenu les variables explicatives suivantes : CHK_ACCT, DURATION, HISTORY, NEW_CAR, AMOUNT, SAV_ACCT, INSTALL_RATE, MALE_SINGLE, GUARANTOR, OTHER_INSTALL,FOREIGN. Principalement car c'est celles que notre modèle a jugé comme significatives.
 
-- `CHK_ACCT`
-- `AMOUNT`
-- Ou encore `DURATION`
+Cependant, nous n'affirmons pas qu'il s'agit forcément des meilleures variables pour prédire le risque d'un crédit. Il serait intéressant de refaire ce projet avec un autre type de modèle (un réseau de neurones, par exemple).
 
-Néanmoins il y a quelques variables qui semblaient être importantes, mais qui le sont pas du tout ou très peu.
-Nous avons : 
-
-- `AGE`
-- Ou encore `EMPLOYMENT`
