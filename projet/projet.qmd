@@ -223,189 +223,115 @@ Un mauvais modèle aurait une courbe ROC linéaire (aléatoire). Dans notre cas,
 
 ## Analyse des résultats
 
-### Boxplots des variables explicatives en fonction de la variable de réponse
+Dans cette section, nous avons systématiquement représenté graphiquement toutes les variables explicatives en fonction de la variable de réponse. Nous analysons ces graphiques afin d'amener des informations concernant la prédiction du risque d'un crédit bancaire.
 
-#### Variables numériques : Montant et durée du crédit
+### Boxplots des variables explicatives numériques : Montant et durée du crédit
 
 ```{r}
 ggplot(GermanCredit.glm, aes(x = as.factor(RESPONSE), y=AMOUNT)) +
 geom_boxplot() + 
-labs(title = "Boxplot du montant du credit",x = "Crédit accordé",y ="AMOUNT") +
+scale_x_discrete(labels = c("0"="Non", "1"="Oui")) +
+labs(title = "Boxplot du montant du credit",x = "Crédit accordé",y ="Montant (Deutsche Marks)") +
 theme_minimal()
 
 ggplot(GermanCredit.glm, aes(x = as.factor(RESPONSE), y=DURATION)) +
-geom_boxplot() + 
-labs(title = "Boxplot de la durée du crédit",x = "Crédit accordé",y = "DURATION") +
+geom_boxplot() +
+scale_x_discrete(labels = c("0"="Non", "1"="Oui")) + 
+labs(title = "Boxplot de la durée du crédit",x = "Crédit accordé",y = "Durée (Mois)") +
 theme_minimal()
 ```
 
-#### Variables catégorielles
+### Graphes de la proportion des crédits risqués, en fonction des variables explicatives
 
 ```{r}
-
-variables_chosen = list(
-  "",
-  "",
-  "",
-  "",
-  "",
-  "",
-  "",
-  ""
-)
-
 ggplot(GermanCredit.glm, aes(x = as.factor(CHK_ACCT), fill = as.factor(RESPONSE))) +
 geom_bar(position = "fill") +
-scale_y_continuous(labels = scales::percent_format()) +
-labs(title = "Proportion des crédits accordés en fonction de CHK_ACCT",x = "CHK_ACCT",y = "Proportion",fill = "RESPONSE") +
+scale_x_discrete(labels = c("0"="Non", "1"="Oui")) +
+scale_y_continuous(labels =scales::percent_format()) +
+scale_x_discrete(labels = c(
+"0" = "< 0", "1" = "Entre 0 et 200", "2" = "> 200", "3"="Pas de compte courant"
+)) +
+labs(title = "Proportion des crédits accordés en fonction de CHK_ACCT",x = "Compte courant (Deutsche Marks)",y = "Proportion",fill = "RESPONSE") +
+scale_fill_discrete(name = "Crédit accordé ?", labels = c("Non", "Oui")) +
 theme_minimal()
-
+```
+```{r}
 ggplot(GermanCredit.glm, aes(x = as.factor(HISTORY), fill = as.factor(RESPONSE))) +
 geom_bar(position = "fill") +
 scale_y_continuous(labels = scales::percent_format()) +
-labs(title = "Proportion des crédits accordés en fonction de HISTORY",x = "HISTORY",y = "Proportion",fill = "RESPONSE") +
+scale_x_discrete(labels = c(
+"0" = "Pas d'historique", "1" = "\nTous les crédits payés", "2" = "\n\nTous les crédits payés, sauf ceux en cours", "3"="\n\n\nHistorique de délais des paiements", "4"="\n\n\n\nCompte critique"
+)) +
+labs(title = "Proportion des crédits accordés en fonction de HISTORY",x = "Historique des crédits",y = "Proportion",fill = "RESPONSE") +
+scale_fill_discrete(name = "Crédit accordé ?", labels = c("Non", "Oui")) +
 theme_minimal()
-
+```
+```{r}
 ggplot(GermanCredit.glm, aes(x = as.factor(NEW_CAR), fill = as.factor(RESPONSE))) +
 geom_bar(position = "fill") +
 scale_y_continuous(labels = scales::percent_format()) +
-labs(title = "Proportion des crédits accordés en fonction de NEW_CAR",x = "NEW_CAR",y = "Proportion",fill = "RESPONSE") +
+scale_x_discrete(labels = c(
+"0" = "Non", "1"="Oui"
+)) +
+labs(title = "Proportion des crédits accordés en fonction de NEW_CAR",x = "Le crédit est-il pour l'achat d'une nouvelle voiture ?",y = "Proportion",fill = "RESPONSE") +
+scale_fill_discrete(name = "Crédit accordé ?", labels = c("Non", "Oui")) +
 theme_minimal()
-
+```
+```{r}
 ggplot(GermanCredit.glm, aes(x = as.factor(SAV_ACCT), fill = as.factor(RESPONSE))) +
 geom_bar(position = "fill") +
 scale_y_continuous(labels = scales::percent_format()) +
-labs(title = "Proportion des crédits accordés en fonction de SAV_ACCT",x = "SAV_ACCT",y = "Proportion",fill = "RESPONSE") +
+scale_x_discrete(labels = c(
+"0" = "< 100", "1"="Entre 100 et 500", "2"="500-1000", "3"=">1000","4"="Inconnu/Pas de compte"
+)) +
+labs(title = "Proportion des crédits accordés en fonction de SAV_ACCT",x = "Montant moyen sur le compte épargne (Deutsche Marks)",y = "Proportion",fill = "RESPONSE") +
+scale_fill_discrete(name = "Crédit accordé ?", labels = c("Non", "Oui")) +
 theme_minimal()
-
+```
+```{r}
 ggplot(GermanCredit.glm, aes(x = as.factor(INSTALL_RATE), fill = as.factor(RESPONSE))) +
 geom_bar(position = "fill") +
 scale_y_continuous(labels = scales::percent_format()) +
-labs(title = "Proportion des crédits accordés en fonction de INSTALL_RATE",x = "INSTALL_RATE",y = "Proportion",fill = "RESPONSE") +
+labs(title = "Proportion des crédits accordés en fonction de INSTALL_RATE",x = "Taux d'installation (%)\n(proportion du crédit à payer périodiquement)",y = "Proportion",fill = "RESPONSE") +
+scale_fill_discrete(name = "Crédit accordé ?", labels = c("Non", "Oui")) +
 theme_minimal()
-
-ggplot(GermanCredit.glm, aes(x = as.factor(MALE_SINGLE), fill = as.factor(RESPONSE))) +
-geom_bar(position = "fill") +
-scale_y_continuous(labels = scales::percent_format()) +
-labs(title = "Proportion des crédits accordés en fonction de MALE_SINGLE",x = "MALE_SINGLE",y = "Proportion",fill = "RESPONSE") +
-theme_minimal()
-
-ggplot(GermanCredit.glm, aes(x = as.factor(GUARANTOR), fill = as.factor(RESPONSE))) +
-geom_bar(position = "fill") +
-scale_y_continuous(labels = scales::percent_format()) +
-labs(title = "Proportion des crédits accordés en fonction de GUARANTOR",x = "GUARANTOR",y = "Proportion",fill = "RESPONSE") +
-theme_minimal()
-
+```
+```{r}
 ggplot(GermanCredit.glm, aes(x = as.factor(OTHER_INSTALL), fill = as.factor(RESPONSE))) +
 geom_bar(position = "fill") +
 scale_y_continuous(labels = scales::percent_format()) +
-labs(title = "Proportion des crédits accordés en fonction de OTHER_INSTALL",x = "OTHER_INSTALL",y = "Proportion",fill = "RESPONSE") +
+scale_x_discrete(labels = c("0" = "Non", "1"="Oui")) +
+labs(title = "Proportion des crédits accordés en fonction de OTHER_INSTALL",x = "Le bénéficiaire a-t-il un autre crédit ?",y = "Proportion",fill = "RESPONSE") +
+scale_fill_discrete(name = "Crédit accordé ?", labels = c("Non", "Oui")) +
 theme_minimal()
+```
+```{r}
+ggplot(GermanCredit.glm, aes(x = as.factor(MALE_SINGLE), fill = as.factor(RESPONSE))) +
+geom_bar(position = "fill") +
+scale_y_continuous(labels = scales::percent_format()) +
+scale_x_discrete(labels = c("0" = "Non", "1"="Oui")) +
+labs(title = "Proportion des crédits accordés en fonction de MALE_SINGLE",x = "Le bénéficiaire est-il un homme célibataire ?",y = "Proportion",fill = "RESPONSE") +
+scale_fill_discrete(name = "Crédit accordé ?", labels = c("Non", "Oui")) +
+theme_minimal()
+```
+```{r}
+ggplot(GermanCredit.glm, aes(x = as.factor(GUARANTOR), fill = as.factor(RESPONSE))) +
+geom_bar(position = "fill") +
+scale_y_continuous(labels = scales::percent_format()) +
+scale_x_discrete(labels = c("0" = "Non", "1"="Oui")) +
+labs(title = "Proportion des crédits accordés en fonction de GUARANTOR",x = "Le bénéficiaire a-t-il un garant ?,y = "Proportion",fill = "RESPONSE") +
+scale_fill_discrete(name = "Crédit accordé ?", labels = c("Non", "Oui")) +
+theme_minimal()
+```
 
+```{r}
 ggplot(GermanCredit.glm, aes(x = as.factor(FOREIGN), fill = as.factor(RESPONSE))) +
 geom_bar(position = "fill") +
 scale_y_continuous(labels = scales::percent_format()) +
-labs(title = "Proportion des crédits accordés en fonction de FOREIGN",x = "FOREIGN",y = "Proportion",fill = "RESPONSE") +
+scale_x_discrete(labels = c("0" = "Non", "1"="Oui")) +
+labs(title = "Proportion des crédits accordés en fonction de FOREIGN",x = "Le bénéficiaire est-il étranger ?",y = "Proportion",fill = "RESPONSE") +
+scale_fill_discrete(name = "Crédit accordé ?", labels = c("Non", "Oui")) +
 theme_minimal()
-```
-
-
-### Impact de l'âge sur la variable de réponse
-```{r}
-# Add a new column for predicted probabilities
-GermanCredit$predicted_prob <- predict(GermanCredit.glm, type = "response")
-
-# Create the plot
-ggplot(GermanCredit, aes(x = AGE, y = predicted_prob)) +
-  geom_point(alpha = 0.5) +  # Scatter plot of predicted probabilities
-  geom_smooth(method = "loess", color = "blue") +  # Smoothed line
-  labs(title = "Predicted Probabilities vs Age",
-       x = "Age",
-       y = "Predicted Probability") +
-  theme_minimal()
-```
-
-### CHK_ACCT
-```{r}
-# Add a new column for predicted probabilities
-GermanCredit$predicted_prob <- predict(GermanCredit.glm, type = "response")
-
-# Create the plot
-ggplot(GermanCredit, aes(x = CHK_ACCT, y = predicted_prob)) +
-  geom_point(alpha = 0.5) +  # Scatter plot of predicted probabilities
-  geom_smooth(method = "loess", color = "blue") +  # Smoothed line
-  labs(title = "Predicted Probabilities vs CHK_ACCT",
-       x = "CHK_ACCT",
-       y = "Predicted Probability") +
-  theme_minimal()
-```
-
-### Boxplots
-```{r}
-# Create a boxplot for each level of CHK_ACCT
-ggplot(GermanCredit.glm, aes(x = as.factor(CHK_ACCT), y = RESPONSE)) +
-  geom_boxplot() +
-  labs(title = "Boxplot of RESPONSE by CHK_ACCT Levels",
-       x = "CHK_ACCT",
-       y = "RESPONSE") +
-  theme_minimal()
-```
-```{r}
-# Boxplot for DURATION
-ggplot(GermanCredit.glm, aes(x = as.factor(RESPONSE), y = DURATION)) +
-  geom_boxplot() +
-  labs(title = "Boxplot of DURATION by RESPONSE",
-       x = "RESPONSE",
-       y = "DURATION") +
-  theme_minimal()
-
-# Boxplot for MALE_SINGLE
-ggplot(GermanCredit.glm, aes(x = as.factor(RESPONSE), y = MALE_SINGLE)) +
-  geom_boxplot() +
-  labs(title = "Boxplot of MALE_SINGLE by RESPONSE",
-       x = "RESPONSE",
-       y = "MALE_SINGLE") +
-  theme_minimal()
-
-# Boxplot for AMOUNT
-ggplot(GermanCredit.glm, aes(x = as.factor(RESPONSE), y = AMOUNT)) +
-  geom_boxplot() +
-  labs(title = "Boxplot of AMOUNT by RESPONSE",
-       x = "RESPONSE",
-       y = "AMOUNT") +
-  theme_minimal()
-
-# Boxplot for AGE
-ggplot(GermanCredit.glm, aes(x = as.factor(RESPONSE), y = AGE)) +
-  geom_boxplot() +
-  labs(title = "Boxplot of AGE by RESPONSE",
-       x = "RESPONSE",
-       y = "AGE") +
-  theme_minimal()
-```
-
-### Histogram
-```{r}
-# Create histograms for each level of CHK_ACCT
-ggplot(GermanCredit.glm, aes(x = as.factor(RESPONSE))) +
-  geom_histogram(stat = "count", fill = "steelblue", color = "black") +
-  facet_wrap(~ CHK_ACCT) +
-  labs(title = "Histogram of RESPONSE by CHK_ACCT Levels",
-       x = "RESPONSE",
-       y = "Count") +
-  theme_minimal()
-```
-
-```{r}
-# Create a stacked bar plot of the proportion of RESPONSE for each CHK_ACCT level
-ggplot(GermanCredit.glm, aes(x = as.factor(CHK_ACCT), fill = as.factor(RESPONSE))) +
-  geom_bar(position = "fill") +
-  scale_y_continuous(labels = scales::percent_format()) +
-  labs(title = "Proportion of RESPONSE by CHK_ACCT Levels",
-       x = "CHK_ACCT",
-       y = "Proportion",
-       fill = "RESPONSE") +
-  theme_minimal()
 ```
 
 ## Conclusion
