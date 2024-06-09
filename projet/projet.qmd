@@ -256,8 +256,8 @@ correlation = cor(GermanCredit$DURATION, GermanCredit$AMOUNT)
 # Création d'un nuage de points avec ggplot
 ggplot(GermanCredit, aes(x = DURATION, y = AMOUNT)) +
   geom_point() +
-  labs(title = paste("Corrélation entre x et y:", round(correlation, 2)),
-       x = "Variable x", y = "Variable y")
+  labs(title = paste("Corrélation entre DURATION et AMOUNT:", round(correlation, 2)),
+       x = "Durée du crédit", y = "Montant du crédit")
 ```
 
 Avec un coefficient de corrélation de `0.63`, on peut dire que `DURATION` et `AMOUNT` sont légèrement corrélées mais en regardant le graphique on peut voir qu'il y a de nombreuses exceptions et surtout une grande variance.
