@@ -169,7 +169,7 @@ ggroc(roc_curve) +
 
 ##  {background-image="img/charts.avif"}
 
-### Analyse des variables explicatives intéressantes  {.r-fit-text}
+### Analyse de quelques variables intéressantes {.r-fit-text}
 
 ## AMOUNT
 
@@ -212,11 +212,13 @@ scale_x_discrete(labels = c(
 "0" = "< 100", "1"="Entre 100 et 500", "2"="500-1000", "3"=">1000","4"="Inconnu/Pas de compte"
 )) +
 labs(title = "Proportion des crédits accordés en fonction de SAV_ACCT",x = "Montant moyen sur le compte épargne (Deutsche Marks)",y = "Proportion",fill = "RESPONSE") +
-scale_fill_discrete(name = "Crédit accordé ?", labels = c("Non", "Oui")) +
-theme_minimal()
+scale_fill_discrete(name = "Crédit accordé ?", labels = c("Non", "Oui"))
 ```
 
 ## HISTORY
+
+Résultat très étonnant...
+
 ```{r}
 ggplot(GermanCredit.glm, aes(x = as.factor(HISTORY), fill = as.factor(RESPONSE))) +
 geom_bar(position = "fill") +
@@ -225,11 +227,19 @@ scale_x_discrete(labels = c(
 "0" = "Pas d'historique", "1" = "\nTous les crédits payés", "2" = "\n\nTous les crédits payés, sauf ceux en cours", "3"="\n\n\nHistorique de délais des paiements", "4"="\n\n\n\nCompte critique"
 )) +
 labs(title = "Proportion des crédits accordés en fonction de HISTORY",x = "Historique des crédits",y = "Proportion",fill = "RESPONSE") +
-scale_fill_discrete(name = "Crédit accordé ?", labels = c("Non", "Oui")) +
-theme_minimal()
+scale_fill_discrete(name = "Crédit accordé ?", labels = c("Non", "Oui"))
 ```
 
-Résultat très étonnant...
+## OTHER_INSTALL
+
+```{r}
+ggplot(GermanCredit.glm, aes(x = as.factor(OTHER_INSTALL), fill = as.factor(RESPONSE))) +
+geom_bar(position = "fill") +
+scale_y_continuous(labels = scales::percent_format()) +
+scale_x_discrete(labels = c("0" = "Non", "1"="Oui")) +
+labs(title = "Proportion des crédits accordés en fonction de OTHER_INSTALL",x = "Le bénéficiaire a-t-il un autre crédit ?",y = "Proportion",fill = "RESPONSE") +
+scale_fill_discrete(name = "Crédit accordé ?", labels = c("Non", "Oui"))
+```
 
 ## NEW_CAR
 
@@ -241,20 +251,7 @@ scale_x_discrete(labels = c(
 "0" = "Non", "1"="Oui"
 )) +
 labs(title = "Proportion des crédits accordés en fonction de NEW_CAR",x = "Le crédit est-il pour l'achat d'une nouvelle voiture ?",y = "Proportion",fill = "RESPONSE") +
-scale_fill_discrete(name = "Crédit accordé ?", labels = c("Non", "Oui")) +
-theme_minimal()
-```
-
-## OTHER_INSTALL
-
-```{r}
-ggplot(GermanCredit.glm, aes(x = as.factor(OTHER_INSTALL), fill = as.factor(RESPONSE))) +
-geom_bar(position = "fill") +
-scale_y_continuous(labels = scales::percent_format()) +
-scale_x_discrete(labels = c("0" = "Non", "1"="Oui")) +
-labs(title = "Proportion des crédits accordés en fonction de OTHER_INSTALL",x = "Le bénéficiaire a-t-il un autre crédit ?",y = "Proportion",fill = "RESPONSE") +
-scale_fill_discrete(name = "Crédit accordé ?", labels = c("Non", "Oui")) +
-theme_minimal()
+scale_fill_discrete(name = "Crédit accordé ?", labels = c("Non", "Oui"))
 ```
 
 ## MALE_SINGLE
@@ -265,32 +262,7 @@ geom_bar(position = "fill") +
 scale_y_continuous(labels = scales::percent_format()) +
 scale_x_discrete(labels = c("0" = "Non", "1"="Oui")) +
 labs(title = "Proportion des crédits accordés en fonction de MALE_SINGLE",x = "Le bénéficiaire est-il un homme célibataire ?",y = "Proportion",fill = "RESPONSE") +
-scale_fill_discrete(name = "Crédit accordé ?", labels = c("Non", "Oui")) +
-theme_minimal()
-```
-
-## GUARANTOR
-
-```{r}
-ggplot(GermanCredit.glm, aes(x = as.factor(GUARANTOR), fill = as.factor(RESPONSE))) +
-geom_bar(position = "fill") +
-scale_y_continuous(labels = scales::percent_format()) +
-scale_x_discrete(labels = c("0" = "Non", "1"="Oui")) +
-labs(title = "Proportion des crédits accordés en fonction de GUARANTOR",x = "Le bénéficiaire a-t-il un garant ?", y = "Proportion",fill = "RESPONSE") +
-scale_fill_discrete(name = "Crédit accordé ?", labels = c("Non", "Oui")) +
-theme_minimal()
-```
-
-## FOREIGN
-
-```{r}
-ggplot(GermanCredit.glm, aes(x = as.factor(FOREIGN), fill = as.factor(RESPONSE))) +
-geom_bar(position = "fill") +
-scale_y_continuous(labels = scales::percent_format()) +
-scale_x_discrete(labels = c("0" = "Non", "1"="Oui")) +
-labs(title = "Proportion des crédits accordés en fonction de FOREIGN",x = "Le bénéficiaire est-il un travailleur étranger ?",y = "Proportion",fill = "RESPONSE") +
-scale_fill_discrete(name = "Crédit accordé ?", labels = c("Non", "Oui")) +
-theme_minimal()
+scale_fill_discrete(name = "Crédit accordé ?", labels = c("Non", "Oui"))
 ```
 
 ## Conclusion
